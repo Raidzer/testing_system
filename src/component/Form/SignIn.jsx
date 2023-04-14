@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,14 +14,19 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../Copyright';
 import { login, getProcessAuthStatus } from '../../store/users';
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
 
 const theme = createTheme();
 
 export function SignIn() {
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const processAuthStatus = useSelector(getProcessAuthStatus())
-    const navigate = useNavigate();
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -35,7 +41,12 @@ export function SignIn() {
                 'password': userPassword
             }
         }))
+    };
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
     };
 
     return (
@@ -74,10 +85,24 @@ export function SignIn() {
                             fullWidth
                             name="password"
                             label="Пароль"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             id="password"
                             autoComplete="current-password"
                             disabled={processAuthStatus}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
                         />
                         <Button
                             type="submit"
