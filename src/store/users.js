@@ -6,10 +6,12 @@ const initialState = localStorageService.getAcessToken()
     ? {
         auth: localStorageService.getUserId(),
         authInProcess: false,
+        registerInProcess: false,
         error: null,
     } : {
         auth: null,
         authInProcess: false,
+        registerInProcess: false,
         error: null,
     }
 
@@ -28,19 +30,28 @@ const userSlice = createSlice({
         authRequestInProcess: (state) => {
             state.authInProcess = true;
         },
+        registerRequestInProcess: (state) => {
+            state.registerInProcess = true;
+        },
+        registerRequestOutProcess: (state) => {
+            state.registerInProcess = false;
+        },
     }
 })
 
 const { reducer: usersReducer, actions } = userSlice;
-const { setAuth, resetAuth, authRequestInProcess } = actions;
+const { setAuth, resetAuth, authRequestInProcess, registerRequestInProcess, registerRequestOutProcess } = actions;
 
 export const login =
     ({ payload }) =>
         async (dispatch) => {
-            const { login, password } = payload;
+            const { username, password } = payload;
             dispatch(authRequestInProcess())
             try {
-                const data = await authService.login({ login, password })
+                const data = await authService.login({ 
+                    username, 
+                    password 
+                })
                 if (data.status === 401) {
                     throw new Error(data.error);
                 }
@@ -49,6 +60,22 @@ export const login =
             } catch (error) {
                 console.log(error)
                 dispatch(resetAuth())
+            }
+        }
+
+export const register =
+    ({ payload }) =>
+        async (dispatch) => {
+            const { userFullName, username, password } = payload;
+            dispatch(registerRequestInProcess())
+            try {
+                await authService.register({
+                    userFullName,
+                    username,
+                    password,
+                })
+            } catch (error) {
+                console.log(error);
             }
         }
 

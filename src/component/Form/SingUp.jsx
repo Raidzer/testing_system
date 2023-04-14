@@ -11,25 +11,36 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../Copyright';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';;
+import IconButton from '@mui/material/IconButton';
+import { useDispatch } from 'react-redux';
+import { register } from '../../store/users';
 
 const theme = createTheme();
 
 export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const userFullName = data.get('userName');
-        const login = data.get('login');
+        const username = data.get('username');
         const password = data.get('password');
 
-        console.log({ userFullName, login, password });
+            dispatch(register({
+                payload: {
+                    userFullName,
+                    username,
+                    password,
+                }
+            }))
+            //navigate('/login');
     };
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -72,9 +83,9 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="login"
+                                    id="username"
                                     label="Имя пользователя"
-                                    name="login"
+                                    name="username"
                                     autoComplete="login"
                                 />
                             </Grid>

@@ -7,10 +7,10 @@ const httpAuth = axios.create({
 })
 
 const authService = {
-    login: async ({ login, password }) => {
+    login: async ({ username, password }) => {
         const { data } = await httpAuth.post('signin', {
-            'username': login,
-            'password': password,
+            username,
+            password,
         });
         return data;
     },
@@ -30,6 +30,14 @@ const authService = {
         }
         const { data } = await httpAuth.post('signout', null, config)
         localStorageService.removeTokens();
+        return data;
+    },
+    register: async ({ fullName, username, password, role=["user"]}) => {
+        const { data } = await httpAuth.post('signup', {
+            username,
+            password,
+            role,
+        })
         return data;
     }
 }

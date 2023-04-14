@@ -25,7 +25,7 @@ const theme = createTheme();
 export function SignIn() {
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
-    const processAuthStatus = useSelector(getProcessAuthStatus())
+    const authInProcess = useSelector(getProcessAuthStatus())
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -76,7 +76,7 @@ export function SignIn() {
                             name="login"
                             autoComplete="login"
                             autoFocus
-                            disabled={processAuthStatus}
+                            disabled={authInProcess}
                         />
                         <TextField
                             margin="normal"
@@ -87,7 +87,7 @@ export function SignIn() {
                             type={showPassword ? 'text' : 'password'}
                             id="password"
                             autoComplete="current-password"
-                            disabled={processAuthStatus}
+                            disabled={authInProcess}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -96,6 +96,7 @@ export function SignIn() {
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"
+                                            disabled={authInProcess}
                                         >
                                             {showPassword ? <VisibilityOff /> : <Visibility />}
                                         </IconButton>
@@ -108,7 +109,7 @@ export function SignIn() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            disabled={processAuthStatus}
+                            disabled={authInProcess}
                         >
                             Войти
                         </Button>
