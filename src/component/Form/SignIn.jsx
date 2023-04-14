@@ -18,7 +18,7 @@ import { NavLink } from "react-router-dom";
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';;
 
 const theme = createTheme();
 
@@ -27,18 +27,17 @@ export function SignIn() {
     const dispatch = useDispatch();
     const processAuthStatus = useSelector(getProcessAuthStatus())
 
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const userLogin = data.get('login');
-        const userPassword = data.get('password')
+        const username = data.get('login');
+        const password = data.get('password')
 
         dispatch(login({
             payload:
             {
-                'login': userLogin,
-                'password': userPassword
+                username,
+                password,
             }
         }))
     };
@@ -113,12 +112,7 @@ export function SignIn() {
                         >
                             Войти
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Забыли пароль?
-                                </Link>
-                            </Grid>
+                        <Grid container justifyContent="center">
                             <Grid item>
                                 <NavLink to="/register" variant="body2">
                                     {"Зарегистрироваться"}

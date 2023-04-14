@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,17 +12,30 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../Copyright';
 import { NavLink } from 'react-router-dom';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';;
 
 const theme = createTheme();
 
 export default function SignUp() {
+    const [showPassword, setShowPassword] = useState(false);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('login'),
-            password: data.get('password'),
-        });
+        const userFullName = data.get('userName');
+        const login = data.get('login');
+        const password = data.get('password');
+
+        console.log({ userFullName, login, password });
+    };
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
     };
 
     return (
@@ -44,24 +58,13 @@ export default function SignUp() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="Имя"
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
-                                    id="lastName"
-                                    label="Фамилия"
-                                    name="lastName"
+                                    id="userName"
+                                    label="ФИО"
+                                    name="userName"
                                     autoComplete="family-name"
                                 />
                             </Grid>
@@ -81,9 +84,23 @@ export default function SignUp() {
                                     fullWidth
                                     name="password"
                                     label="Пароль"
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     id="password"
                                     autoComplete="new-password"
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
                                 />
                             </Grid>
                         </Grid>
