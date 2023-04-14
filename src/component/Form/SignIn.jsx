@@ -13,13 +13,14 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../Copyright';
 import { login, getProcessAuthStatus } from '../../store/users';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export function SignIn() {
     const dispatch = useDispatch();
     const processAuthStatus = useSelector(getProcessAuthStatus())
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -34,6 +35,7 @@ export function SignIn() {
                 'password': userPassword
             }
         }))
+
     };
 
     return (

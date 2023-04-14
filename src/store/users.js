@@ -52,6 +52,7 @@ export const login =
             }
         }
 
+export const logout = () => (dispatch) => dispatch(resetAuth());
 
 export const getAuthStatus = () => (state) => state.session.auth;
 export const getProcessAuthStatus = () => (state) => state.session.authInProcess;

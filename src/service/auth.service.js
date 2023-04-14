@@ -16,10 +16,22 @@ const authService = {
     },
     refresh: async () => {
         const { data } = await httpAuth.post("refreshtoken", {
-            'refresh_token': localStorageService.getRefreshKey()
+            'refresh_token': localStorageService.getRefreshKey(),
         });
         return data;
     },
+    logout: async () => {
+        const typeToken = localStorageService.getTypeKey();
+        const accessToken = localStorageService.getAcessToken();
+        const config = {
+            headers: {
+                'x-token': `${typeToken} ${accessToken}`,
+            }
+        }
+        const { data } = await httpAuth.post('signout', null, config)
+        localStorageService.removeTokens();
+        return data;
+    }
 }
 
 export default authService;
