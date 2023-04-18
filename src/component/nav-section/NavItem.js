@@ -20,7 +20,7 @@ export default function NavItem({ item }) {
         <List>
             <ListItemButton onClick={handleClick}>
                 <ListItemText disableTypography primary={title} sx={{
-                    whiteSpace: 'nowrap',
+                    whiteSpace: 'wrap',
                     overflow: 'hidden',
                     wordWrap: 'break-word',
                     display: 'inline-block'

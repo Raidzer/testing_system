@@ -1,5 +1,6 @@
+import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Menu, MenuItem, Typography } from '@mui/material';
+import { Box, ClickAwayListener, Menu, MenuItem, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
@@ -43,14 +44,14 @@ export default function Nav() {
         }
     }
 
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = (event) => {
         setAnchorEl(null);
     };
 
@@ -79,6 +80,8 @@ export default function Nav() {
                             onClick={handleClick}
                         >
                             <Face />
+                        </AnimatedIcon>
+                        <ClickAwayListener mouseEvent="onMouseDown" touchEvent="onTouchStart" onClickAway={handleClose}>
                             <Menu
                                 id="basic-menu"
                                 anchorEl={anchorEl}
@@ -90,7 +93,7 @@ export default function Nav() {
                             >
                                 <MenuItem onClick={handleLogout}>Выйти</MenuItem>
                             </Menu>
-                        </AnimatedIcon>
+                        </ClickAwayListener>
                     </Box>
                 </StyledAccount>
             </Box>
