@@ -1,19 +1,32 @@
-import PropTypes from 'prop-types';
-import { Box, List } from '@mui/material';
-import NavItem from './NavItem';
+import { NavLink as RouterLink } from 'react-router-dom';
+import { Collapse, List, ListItemButton, ListItemText } from '@mui/material';
+import { useState } from 'react';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import NavArticles from './NavArticle';
 
-NavTheme.propTypes = {
-    data: PropTypes.array,
-};
 
-export default function NavTheme({ data = [], ...other }) {
+export default function NavTheme({ theme }) {
+    const { id, subject } = theme;
+
+    const [open, setOpen] = useState(false);
+    const handleClick = () => {
+        setOpen(!open);
+    }
+
     return (
-        <Box {...other}>
-            <List disablePadding sx={{ p: 1 }}>
-                {data.map((item) => (
-                    <NavItem key={item.title} item={item} />
-                ))}
-            </List>
-        </Box>
+        <List>
+            <ListItemButton onClick={handleClick}>
+                <ListItemText disableTypography primary={subject} sx={{
+                    whiteSpace: 'wrap',
+                    overflow: 'hidden',
+                    wordWrap: 'break-word',
+                    display: 'inline-block'
+                }} />
+                {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <NavArticles id={id} />
+            </Collapse>
+        </List>
     );
 }

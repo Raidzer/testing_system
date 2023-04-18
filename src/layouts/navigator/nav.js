@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import { Box, ClickAwayListener, Menu, MenuItem, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,8 +5,7 @@ import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
 import { getFirstName, getInfoUser, getLastName, getStatusLoading } from '../../store/user';
 import { useEffect, useState } from 'react';
-import NavTheme from '../../component/nav-section/NavTheme';
-import navConfig from './config';
+import NavThemes from '../../component/nav-section/NavThemes';
 import { AnimatedIcon } from './styles';
 import { Face } from '@mui/icons-material';
 
@@ -100,7 +98,7 @@ export default function Nav() {
             <Typography variant="h6" fontWeight="bold" sx={{ color: 'text.primary', textAlign: 'center' }}>
                 Темы для изучения:
             </Typography>
-            <NavTheme data={navConfig} />
+            <NavThemes/>
         </Box>
     );
 
