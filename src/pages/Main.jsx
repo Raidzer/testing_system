@@ -1,33 +1,46 @@
 import React from "react";
-import Button from '@mui/material/Button';
-import authService from "../service/auth.service";
-import { useDispatch } from "react-redux";
-import { logout } from "../store/users";
+import { styled } from '@mui/material/styles';
+import Nav from "../layouts/navigator/nav";
+import { Box } from '@mui/material';
+
+
+const StyledRoot = styled('div')({
+    display: 'flex',
+    minHeight: '100%',
+    overflow: 'hidden',
+});
+
+const StyledContent = styled(Box)(({ theme }) => ({
+    flexGrow: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: theme.spacing(2),
+    marginLeft: 400,
+}));
+
+const StyledNav = styled(Box)(({ theme }) => ({
+    position: 'fixed',
+    width: '350px',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    overflowY: 'scroll',
+    padding: theme.spacing(2),
+}));
 
 export default function Main() {
-    const dispatch = useDispatch();
-
-    async function handleLogout() {
-        try {
-            await authService.logout();
-            dispatch(logout());
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     return (
-        <div>
-            Привет
-            <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={() => handleLogout()}
-            >
-                Выйти
-            </Button>
-        </div>
-    )
-}
+        <StyledRoot>
+            <Box sx={{ flexShrink: 0 }}>
+                <StyledNav>
+                    <Nav />
+                </StyledNav>
+            </Box>
+            <StyledContent>
+                
+            </StyledContent>
+        </StyledRoot>
+    );
+};

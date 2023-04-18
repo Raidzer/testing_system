@@ -32,8 +32,10 @@ const authService = {
         localStorageService.removeTokens();
         return data;
     },
-    register: async ({ fullName, username, password, role=["user"]}) => {
+    register: async ({ firstName, lastName, username, password, role=["user"]}) => {
         const { data } = await httpAuth.post('signup', {
+            "first_name": firstName,
+            "last_name": lastName,
             username,
             password,
             role,

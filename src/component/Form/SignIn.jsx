@@ -5,7 +5,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -13,12 +12,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../Copyright';
-import { login, getProcessAuthStatus } from '../../store/users';
+import { login, getProcessAuthStatus } from '../../store/session';
 import { NavLink } from "react-router-dom";
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';;
+import IconButton from '@mui/material/IconButton';
+import { resetSuccessfull } from '../../store/register';
+import { useEffect } from 'react';
 
 const theme = createTheme();
 
@@ -41,6 +42,10 @@ export function SignIn() {
             }
         }))
     };
+
+    useEffect(() => {
+        dispatch(resetSuccessfull());
+    }, [dispatch])
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 

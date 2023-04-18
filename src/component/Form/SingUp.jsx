@@ -16,8 +16,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
-import { useDispatch } from 'react-redux';
-import { register } from '../../store/users';
+import { useDispatch, useSelector } from 'react-redux';
+import { register, getStatusRegistration } from '../../store/register';
+import { useEffect } from 'react';
 
 const theme = createTheme();
 
@@ -25,23 +26,31 @@ export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const registerIsSuccessful = useSelector(getStatusRegistration())
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const userFullName = data.get('userName');
+        const firstName = data.get('firstName');
+        const lastName = data.get('lastName')
         const username = data.get('username');
         const password = data.get('password');
 
-            dispatch(register({
-                payload: {
-                    userFullName,
-                    username,
-                    password,
-                }
-            }))
-            //navigate('/login');
+        dispatch(register({
+            payload: {
+                firstName,
+                lastName,
+                username,
+                password,
+            }
+        }))
     };
+
+    useEffect(() => {
+        if (registerIsSuccessful) {
+            navigate('/login');
+        }
+    }, [registerIsSuccessful, navigate]);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -69,13 +78,24 @@ export default function SignUp() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="firstName"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="Имя"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
                                     required
                                     fullWidth
-                                    id="userName"
-                                    label="ФИО"
-                                    name="userName"
+                                    id="lastName"
+                                    label="Фамилия"
+                                    name="lastName"
                                     autoComplete="family-name"
                                 />
                             </Grid>
