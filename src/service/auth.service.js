@@ -1,21 +1,23 @@
-import axios from "axios";
-import config from "../config.json";
 import localStorageService from "./localStorage.service";
+import httpService from "./http.service";
+import axios from "axios";
+import configFile from "../config.json";
 
-const httpAuth = axios.create({
-    baseURL: config.apiEndpoint + '/auth/',
+const http = axios.create({
+    baseURL: configFile.apiEndpoint
 })
+
 
 const authService = {
     login: async ({ username, password }) => {
-        const { data } = await httpAuth.post('signin', {
+        const { data } = await httpService.post('/auth/signin', {
             username,
             password,
         });
         return data;
     },
     refresh: async () => {
-        const { data } = await httpAuth.post("refreshtoken", {
+        const { data } = await http.post("/auth/refreshtoken", {
             'refresh_token': localStorageService.getRefreshKey(),
         });
         return data;
@@ -28,12 +30,12 @@ const authService = {
                 'x-token': `${typeToken} ${accessToken}`,
             }
         }
-        const { data } = await httpAuth.post('signout', null, config)
+        const { data } = await httpService.post('/auth/signout', null, config)
         localStorageService.removeTokens();
         return data;
     },
-    register: async ({ firstName, lastName, username, password, role=["user"]}) => {
-        const { data } = await httpAuth.post('signup', {
+    register: async ({ firstName, lastName, username, password, role = ["user"] }) => {
+        const { data } = await httpService.post('/auth/signup', {
             "first_name": firstName,
             "last_name": lastName,
             username,

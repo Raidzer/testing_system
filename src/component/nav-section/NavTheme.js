@@ -9,6 +9,7 @@ export default function NavTheme({ theme }) {
     const { id, subject } = theme;
 
     const [open, setOpen] = useState(false);
+    
     const handleClick = () => {
         setOpen(!open);
     }

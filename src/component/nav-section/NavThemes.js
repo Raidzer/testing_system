@@ -2,24 +2,13 @@ import { Box, List } from '@mui/material';
 import { useEffect, useState } from 'react';
 import httpService from '../../service/http.service';
 import NavTheme from './NavTheme';
+import { useSelector } from 'react-redux';
+import { getDataThemes } from '../../store/themes';
 
 
 
 export default function NavThemes({ ...other }) {
-    const [themes, setThemes] = useState([]);
-
-    const getThemes = async () => {
-        try {
-            const { data } = await httpService.get('themes')
-            setThemes(data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        getThemes();
-    }, [])
+    const themes = useSelector(getDataThemes());
 
     return (
         <Box {...other}>

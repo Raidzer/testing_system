@@ -2,6 +2,9 @@ import React from "react";
 import { styled } from '@mui/material/styles';
 import Nav from "../layouts/navigator/nav";
 import { Box } from '@mui/material';
+import { useSelector } from "react-redux";
+import { getDataLesson } from "../store/lesson";
+import AppLoader from "../component/Apploader";
 
 
 const StyledRoot = styled('div')({
@@ -30,17 +33,23 @@ const StyledNav = styled(Box)(({ theme }) => ({
 }));
 
 export default function Main() {
+    const dataLesson = useSelector(getDataLesson());
+    const { description } = dataLesson;
 
     return (
-        <StyledRoot>
-            <Box sx={{ flexShrink: 0 }}>
-                <StyledNav>
-                    <Nav />
-                </StyledNav>
-            </Box>
-            <StyledContent>
-                
-            </StyledContent>
-        </StyledRoot>
+        <AppLoader>
+            <StyledRoot>
+                <Box sx={{ flexShrink: 0 }}>
+                    <StyledNav>
+                        <Nav />
+                    </StyledNav>
+                </Box>
+                <StyledContent>
+                    {description ?
+                        <div dangerouslySetInnerHTML={{ __html: description }} /> :
+                        <div>Добро пожаловать в систему обучения!</div>}
+                </StyledContent>
+            </StyledRoot>
+        </AppLoader>
     );
 };

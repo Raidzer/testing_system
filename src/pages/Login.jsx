@@ -4,6 +4,6 @@ const Login = () => (
     <div className="text-center">
         <SignIn />
     </div>
-  );
-  
-  export default Login;
+);
+
+export default Login;

@@ -3,7 +3,7 @@ import { Box, ClickAwayListener, Menu, MenuItem, Typography } from '@mui/materia
 import { useDispatch, useSelector } from 'react-redux';
 import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
-import { getFirstName, getInfoUser, getLastName, getStatusLoading } from '../../store/user';
+import { getFirstName, getInfoUser, getLastName, getStatusLoadingUser } from '../../store/user';
 import { useEffect, useState } from 'react';
 import NavThemes from '../../component/nav-section/NavThemes';
 import { AnimatedIcon } from './styles';
@@ -24,12 +24,7 @@ export default function Nav() {
     const dispatch = useDispatch();
     const firstName = useSelector(getFirstName());
     const lastName = useSelector(getLastName());
-    const isLoadingUserInfo = useSelector(getStatusLoading());
-
-
-    useEffect(() => {
-        dispatch(getInfoUser())
-    }, [dispatch])
+    const isLoadingUserInfo = useSelector(getStatusLoadingUser());
 
     async function handleLogout() {
         try {

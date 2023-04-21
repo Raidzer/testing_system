@@ -6,7 +6,7 @@ const initialState = {
     lastName: null,
     roles: null,
     error: null,
-    loading: false,
+    loading: true,
 }
 
 const userSlice = createSlice({
@@ -41,7 +41,7 @@ export const getInfoUser =
             dispatch(setLoading());
             try {
                 const { data } = await httpService.get('auth/signinfo')
-                const { first_name, last_name, roles } = data
+                const { first_name, last_name, roles } = data;
                 dispatch(setInfoUser({ first_name, last_name, roles }))
             } catch (error) {
                 console.log(error)
@@ -51,6 +51,6 @@ export const getInfoUser =
 
 export const getFirstName = () => (state) => state.user.firstName;
 export const getLastName = () => (state) => state.user.lastName;
-export const getStatusLoading = () => (state) => state.user.loading;
+export const getStatusLoadingUser = () => (state) => state.user.loading;
 
 export default userReduser;
