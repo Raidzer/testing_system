@@ -47,7 +47,7 @@ export default function Main() {
                 <StyledContent>
                     {description ?
                         <div dangerouslySetInnerHTML={{ __html: description }} /> :
-                        <div>Добро пожаловать в систему обучения!</div>}
+                        <div>Добро пожаловать в систему обучения персонала эксплуатации АСУ ИС!</div>}
                 </StyledContent>
             </StyledRoot>
         </AppLoader>

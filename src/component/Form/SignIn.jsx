@@ -69,7 +69,7 @@ export function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Войти в систему обучения
+                        Войти в систему обучения персонала эксплуатации АСУ ИС
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField

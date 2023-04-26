@@ -1,5 +1,5 @@
 import { styled, alpha } from '@mui/material/styles';
-import { Box, ClickAwayListener, Menu, MenuItem, Typography } from '@mui/material';
+import { Box, Button, ClickAwayListener, Menu, MenuItem, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import NavThemes from '../../component/nav-section/NavThemes';
 import { AnimatedIcon } from './styles';
 import { Face } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const NAV_WIDTH = 350;
 
@@ -93,7 +94,12 @@ export default function Nav() {
             <Typography variant="h6" fontWeight="bold" sx={{ color: 'text.primary', textAlign: 'center' }}>
                 Темы для изучения:
             </Typography>
-            <NavThemes/>
+            <NavThemes />
+            <Box>
+                <Link to='/finaltest'>
+                    <Button>Тест</Button>
+                </Link>
+            </Box>
         </Box>
     );
 

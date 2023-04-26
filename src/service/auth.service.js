@@ -17,10 +17,17 @@ const authService = {
         return data;
     },
     refresh: async () => {
-        const { data } = await http.post("/auth/refreshtoken", {
-            'refresh_token': localStorageService.getRefreshKey(),
-        });
-        return data;
+        try {
+            const { data } = await http.post("/auth/refreshtoken", {
+                'refresh_token': localStorageService.getRefreshKey(),
+            });
+            return data;
+        } catch (error) {
+            console.log("Ошибка обновления токена, сессия закрыта")
+            localStorageService.removeTokens();
+            window.location.reload();
+        }
+
     },
     logout: async () => {
         const typeToken = localStorageService.getTypeKey();

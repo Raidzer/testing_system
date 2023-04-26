@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { getInfoUser, getStatusLoadingUser } from "../store/user";
 import { Circles } from "react-loader-spinner";
 import { getStatusLoadingThemes, loadingDataThemes } from "../store/themes";
+import { CircularProgress } from "@mui/material";
 
 
 const AppLoader = ({ children }) => {
@@ -43,15 +44,7 @@ const AppLoader = ({ children }) => {
                     }}
                 >
                     <div>
-                        <Circles
-                            height="50"
-                            width="50"
-                            color="rgb(0, 0, 0)"
-                            ariaLabel="circles-loading"
-                            wrapperStyle={{}}
-                            wrapperClass=""
-                            visible={true}
-                        />
+                        <CircularProgress color="inherit" />
                     </div>
                 </div>
             }

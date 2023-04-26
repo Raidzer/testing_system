@@ -11,7 +11,7 @@ import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 import { useSelector } from "react-redux";
 import { getAuthStatus } from './store/session';
-import AppLoader from './component/Apploader';
+import FinalTest from './pages/FinalTest';
 
 export function App() {
   const isAuthenticated = useSelector(getAuthStatus());
@@ -32,6 +32,10 @@ export function App() {
           <Route
             path="/register"
             element={isAuthenticated ? <Navigate to='/' /> : <Register />}
+          />
+          <Route
+            path="/finaltest"
+            element={<FinalTest />}
           />
           <Route
             path="*"
