@@ -1,10 +1,7 @@
 import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataQuestion, getIdQuestion, getMultiAnswer, getQuestionIsOver, sendAnswers } from "../../store/question";
+import { getDataQuestion, getMultiAnswer, sendAnswers } from "../../store/question";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import localStorageService from "../../service/localStorage.service";
-import httpService from "../../service/http.service";
 
 
 export default function FormAnswers() {
@@ -13,8 +10,7 @@ export default function FormAnswers() {
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [disableSendForm, setDisableSendForm] = useState(true);
     const dispatch = useDispatch();
-    const questionIsOver = useSelector(getQuestionIsOver());
-
+  
     useEffect(() => {
         setDisableSendForm(selectedAnswers.length === 0);
     }, [selectedAnswers])
@@ -38,10 +34,6 @@ export default function FormAnswers() {
                 'answers_id': selectedAnswers,
             },
         }))
-    }
-
-    const hundleClick = () => {
-        localStorageService.removeSessionQuestionId();
     }
 
     const answersForm = () => {

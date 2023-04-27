@@ -11,6 +11,7 @@ const initialState = {
     multiAnswer: false,
     jsessionId: localStorageService.getSessionQuestionId(),
     questionIsOver: false,
+    statisticComplitedTest: {},
 }
 
 const userSlice = createSlice({
@@ -39,6 +40,10 @@ const userSlice = createSlice({
             const { ticket_over } = action.payload;
             state.questionIsOver = ticket_over;
         },
+        setStatisticsComplitedTest: (state, action) => {
+            const { data } = action.payload;
+            state.statisticComplitedTest = data;
+        },
     },
 })
 
@@ -49,6 +54,7 @@ const {
     setJSessionId,
     setDataQuestion,
     setQuestionIsOver,
+    setStatisticsComplitedTest,
 } = actions;
 
 export const getInitJSessionId = () =>
@@ -76,8 +82,13 @@ export const loadingDataQuestion =
                 dispatch(setQuestionIsOver({ ticket_over }))
                 if (jsessionId !== responseJSessionId) {
                     alert("Сессия устарела! Пройдите экзамен заново.");
-                    dispatch(getInitJSessionId());
+                    await dispatch(getInitJSessionId());
                     localStorageService.setSessionQuestionId(responseJSessionId);
+                    await dispatch(loadingDataQuestion({
+                        payload: {
+                            'jsessionId': responseJSessionId,
+                        }
+                    }));
                     dispatch(setJSessionId(responseJSessionId))
                 }
                 dispatch(setDataQuestion({ data }));
@@ -120,6 +131,20 @@ export const sendAnswers =
             }
         }
 
+export const loadingStatisticPassedTest =
+    ({ payload }) =>
+        async (dispatch) => {
+            const { jsessionId } = payload;
+            if (jsessionId) {
+                try {
+                    const { data } = await httpService.get(`exam/statistics;jsessionid=${jsessionId}`);
+                    dispatch(setStatisticsComplitedTest({ data }))
+                } catch (error) {
+                    console.log(error)
+                }
+
+            }
+        }
 
 export const getJsessionId = () => (state) => state.question.jsessionId;
 export const getDataQuestion = () => (state) => state.question.dataQuestion;
@@ -127,5 +152,7 @@ export const getStatusLoadigQuestion = () => (state) => state.question.isLoading
 export const getIdQuestion = () => (state) => state.question.idQuestion;
 export const getMultiAnswer = () => (state) => state.question.multiAnswer;
 export const getQuestionIsOver = () => (state) => state.question.questionIsOver;
+export const getStatisticsComplitedTest = () => (state) => state.question.statisticComplitedTest;
+
 
 export default questionReducer;

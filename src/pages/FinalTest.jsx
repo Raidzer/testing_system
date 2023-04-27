@@ -6,6 +6,7 @@ import { loadingDataQuestion, getInitJSessionId, getDataQuestion, getQuestionIsO
 import localStorageService from "../service/localStorage.service";
 import QuestionLoader from "../component/Questionloader";
 import FormAnswers from "../component/question/FormAnswers";
+import ComplitedTest from "../component/question/ComplitedTest";
 
 
 function FinalTest() {
@@ -38,7 +39,7 @@ function FinalTest() {
         localStorageService.removeSessionQuestionId();
 
     }
-    
+
     return (
         <div>
             <div>
@@ -49,12 +50,9 @@ function FinalTest() {
             <div>
                 <QuestionLoader>
                     {testIsComplited ?
-                        <div>
-                            <h1>Вы прошли тест </h1>
-                            <Link to="/">
-                                <Button onClick={hundleClick}>На главную</Button>
-                            </Link>
-                        </div>
+                        <>
+                            <ComplitedTest />
+                        </>
                         :
                         <>
                             <h1>Вопрос теста:</h1>
