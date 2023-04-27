@@ -72,7 +72,7 @@ export default function ComplitedTest() {
     return (
         <div style={containerStyle}>
             <h1 style={textCenter}>
-                Тест завершен!
+                Экзамен завершен!
             </h1>
             <h4 style={textCenter}>
                 Вы ответили правильно на {count_correct_ticket} из {count_ticket} вопросов
