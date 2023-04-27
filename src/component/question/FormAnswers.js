@@ -67,12 +67,7 @@ export default function FormAnswers() {
 
     return (
         <FormGroup id={id}>
-            {questionIsOver ?
-                <Link to="/">
-                    <Button onClick={hundleClick}>Перейти на главную</Button>
-                </Link>
-                : answersForm()
-            }
+            {answersForm()}
         </FormGroup>
     );
 }

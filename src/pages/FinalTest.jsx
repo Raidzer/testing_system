@@ -1,8 +1,8 @@
-import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { loadingDataQuestion, getInitJSessionId, getDataQuestion, getStatusLoadigQuestion } from "../store/question";
+import { loadingDataQuestion, getInitJSessionId, getDataQuestion, getQuestionIsOver } from "../store/question";
 import localStorageService from "../service/localStorage.service";
 import QuestionLoader from "../component/Questionloader";
 import FormAnswers from "../component/question/FormAnswers";
@@ -11,7 +11,8 @@ import FormAnswers from "../component/question/FormAnswers";
 function FinalTest() {
     const dispatch = useDispatch();
     const dataTest = useSelector(getDataQuestion());
-    const { answers, quest } = dataTest;
+    const { quest } = dataTest;
+    const testIsComplited = useSelector(getQuestionIsOver());
 
     useEffect(() => {
         let jsessionId = localStorageService.getSessionQuestionId();
@@ -35,12 +36,11 @@ function FinalTest() {
 
     const hundleClick = () => {
         localStorageService.removeSessionQuestionId();
-        
-    }
 
+    }
+    
     return (
         <div>
-
             <div>
                 <Link to="/">
                     <Button onClick={hundleClick}>На главную</Button>
@@ -48,9 +48,20 @@ function FinalTest() {
             </div>
             <div>
                 <QuestionLoader>
-                    <h1>Вопрос теста:</h1>
-                    <h5>{quest}</h5>
-                    <FormAnswers/>
+                    {testIsComplited ?
+                        <div>
+                            <h1>Вы прошли тест </h1>
+                            <Link to="/">
+                                <Button onClick={hundleClick}>На главную</Button>
+                            </Link>
+                        </div>
+                        :
+                        <>
+                            <h1>Вопрос теста:</h1>
+                            <h5>{quest}</h5>
+                            <FormAnswers />
+                        </>
+                    }
                 </QuestionLoader>
             </div>
         </div>
