@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataQuestion, getMultiAnswer, sendAnswers } from "../../store/question";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ export default function FormAnswers() {
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [disableSendForm, setDisableSendForm] = useState(true);
     const dispatch = useDispatch();
-  
+
     useEffect(() => {
         setDisableSendForm(selectedAnswers.length === 0);
     }, [selectedAnswers])
@@ -52,7 +52,21 @@ export default function FormAnswers() {
                         label={answer.answer}
                     />
                 ))}
-                <Button onClick={handleSubmit} disabled={disableSendForm}>Отправить ответ</Button>
+                <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Button
+                        onClick={handleSubmit}
+                        disabled={disableSendForm}
+                    >
+                        Следующий вопрос
+                    </Button>
+                </div>
             </>
         )
     }

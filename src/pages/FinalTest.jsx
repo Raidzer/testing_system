@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import localStorageService from "../service/localStorage.service";
 import QuestionLoader from "../component/Questionloader";
 import FormAnswers from "../component/question/FormAnswers";
 import ComplitedTest from "../component/question/ComplitedTest";
+import { Delete, Home } from "@mui/icons-material";
 
 
 function FinalTest() {
@@ -44,23 +45,45 @@ function FinalTest() {
         <div>
             <div>
                 <Link to="/">
-                    <Button onClick={hundleClick}>На главную</Button>
+                    <IconButton onClick={hundleClick}>
+                        <Home fontSize="large"/>
+                    </IconButton>
                 </Link>
             </div>
-            <div>
-                <QuestionLoader>
-                    {testIsComplited ?
-                        <>
-                            <ComplitedTest />
-                        </>
-                        :
-                        <>
-                            <h1>Вопрос теста:</h1>
-                            <h5>{quest}</h5>
-                            <FormAnswers />
-                        </>
-                    }
-                </QuestionLoader>
+            <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                }}>
+                <Box sx={{
+                    width: 900,
+                    minHeight: 550,
+                    height: '100%',
+                    backgroundColor: 'silver',
+                    paddingLeft: 3,
+                    paddingRight: 3,
+                    borderRadius: 10,
+                    position: 'relative',
+                }}>
+                    <QuestionLoader>
+                        {testIsComplited ?
+                            <>
+                                <ComplitedTest />
+                            </>
+                            :
+                            <>
+                                <h1 style={{
+                                    textAlign:'center'
+                                }}>Вопрос теста:</h1>
+                                <h4 style={{
+                                    minHeight: 100,
+                                    height: '100%',
+                                }}>{quest}</h4>
+                                <FormAnswers />
+                            </>
+                        }
+                    </QuestionLoader>
+                </Box>
             </div>
         </div>
 
