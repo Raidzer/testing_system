@@ -8,6 +8,7 @@ import {
     loadingStatisticPassedTest,
 } from "../../store/question";
 import { useEffect } from "react";
+import { containerStyle, nextQuestionButton, textCenter } from "./styles";
 
 export default function ComplitedTest() {
     const dispatch = useDispatch();
@@ -36,39 +37,52 @@ export default function ComplitedTest() {
             case 0:
                 return (
                     <>
-                        <h3>Все правильно молодец!</h3>
+                        <h3 style={textCenter}>
+                            Все правильно молодец!
+                        </h3>
                     </>
                 )
             case 1:
                 return (
                     <>
-                        <h3>Всего один неправильный ответ, неплохо!</h3>
+                        <h3 style={textCenter}>
+                            Всего один неправильный ответ, неплохо!
+                        </h3>
                     </>
                 )
             case 2:
                 return (
                     <>
-                        <h3>2 ошибки! Нужно стараться лучше!</h3>
+                        <h3 style={textCenter}>
+                            2 ошибки! Нужно стараться лучше!
+                        </h3>
                     </>
                 )
             default:
                 return (
                     <>
-                        <h1>Ебаный творог иди учи теорию!</h1>
+                        <h1 style={textCenter}>
+                            Ебаный творог иди учи теорию!
+                        </h1>
                     </>
                 )
         }
     }
 
-
     return (
-        <div>
-            <h1>Вы прошли тест </h1>
-            <h5>Вы ответили правильно на {count_correct_ticket} из {count_ticket} вопросов</h5>
+        <div style={containerStyle}>
+            <h1 style={textCenter}>
+                Тест завершен!
+            </h1>
+            <h4 style={textCenter}>
+                Вы ответили правильно на {count_correct_ticket} из {count_ticket} вопросов
+            </h4>
             {resultTest()}
-            <Link to="/">
-                <Button onClick={hundleClick}>На главную</Button>
-            </Link>
+            <div style={nextQuestionButton}>
+                <Link to="/">
+                    <Button onClick={hundleClick}>На главную</Button>
+                </Link>
+            </div>
         </div>
     )
 }

@@ -34,7 +34,7 @@ export function App() {
             element={isAuthenticated ? <Navigate to='/' /> : <Register />}
           />
           <Route
-            path="/finaltest"
+            path="/exam"
             element={<FinalTest />}
           />
           <Route

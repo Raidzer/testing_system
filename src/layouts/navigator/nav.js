@@ -96,8 +96,8 @@ export default function Nav() {
             </Typography>
             <NavThemes />
             <Box>
-                <Link to='/finaltest'>
-                    <Button>Тест</Button>
+                <Link to='/exam'>
+                    <Button>Экзамен</Button>
                 </Link>
             </Box>
         </Box>

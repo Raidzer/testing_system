@@ -2,6 +2,7 @@ import { Box, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/materia
 import { useDispatch, useSelector } from "react-redux";
 import { getDataQuestion, getMultiAnswer, sendAnswers } from "../../store/question";
 import { useEffect, useState } from "react";
+import { nextQuestionButton } from "./styles";
 
 
 export default function FormAnswers() {
@@ -52,14 +53,7 @@ export default function FormAnswers() {
                         label={answer.answer}
                     />
                 ))}
-                <div style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
+                <div style={nextQuestionButton}>
                     <Button
                         onClick={handleSubmit}
                         disabled={disableSendForm}

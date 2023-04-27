@@ -1,4 +1,4 @@
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import localStorageService from "../service/localStorage.service";
 import QuestionLoader from "../component/Questionloader";
 import FormAnswers from "../component/question/FormAnswers";
 import ComplitedTest from "../component/question/ComplitedTest";
-import { Delete, Home } from "@mui/icons-material";
+import { Home } from "@mui/icons-material";
 
 
 function FinalTest() {
@@ -74,7 +74,7 @@ function FinalTest() {
                             <>
                                 <h1 style={{
                                     textAlign:'center'
-                                }}>Вопрос теста:</h1>
+                                }}>Вопрос экзамена:</h1>
                                 <h4 style={{
                                     minHeight: 100,
                                     height: '100%',
