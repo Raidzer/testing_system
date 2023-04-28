@@ -10,7 +10,7 @@ import ComplitedTest from "../component/question/ComplitedTest";
 import { Home } from "@mui/icons-material";
 
 
-function FinalTest() {
+function Exam() {
     const dispatch = useDispatch();
     const dataTest = useSelector(getDataQuestion());
     const { quest } = dataTest;
@@ -90,4 +90,4 @@ function FinalTest() {
     )
 }
 
-export default FinalTest;
+export default Exam;

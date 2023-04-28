@@ -3,8 +3,8 @@ import { Box, Button, ClickAwayListener, Menu, MenuItem, Typography } from '@mui
 import { useDispatch, useSelector } from 'react-redux';
 import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
-import { getFirstName, getInfoUser, getLastName, getStatusLoadingUser } from '../../store/user';
-import { useEffect, useState } from 'react';
+import { getFirstName, getLastName, getStatusLoadingUser } from '../../store/user';
+import { useState } from 'react';
 import NavThemes from '../../component/nav-section/NavThemes';
 import { AnimatedIcon } from './styles';
 import { Face } from '@mui/icons-material';

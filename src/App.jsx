@@ -11,7 +11,8 @@ import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 import { useSelector } from "react-redux";
 import { getAuthStatus } from './store/session';
-import FinalTest from './pages/FinalTest';
+import Exam from './pages/Exam';
+import Test from './pages/Test';
 
 export function App() {
   const isAuthenticated = useSelector(getAuthStatus());
@@ -35,7 +36,11 @@ export function App() {
           />
           <Route
             path="/exam"
-            element={<FinalTest />}
+            element={<Exam />}
+          />
+          <Route
+            path="/test"
+            element={<Test />}
           />
           <Route
             path="*"

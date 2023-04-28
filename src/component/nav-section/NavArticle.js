@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import httpService from '../../service/http.service';
-import { NavLink as RouterLink } from 'react-router-dom';
-import { List, ListItemButton, ListItemText } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { Link, NavLink as RouterLink } from 'react-router-dom';
+import { List, ListItemButton, ListItemText, Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { getDataArticle } from "../../store/lesson";
+import { getSelectThemeId, setThemeId } from "../../store/themes";
 
 export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
     const dispatch = useDispatch();
+    const test = useSelector(getSelectThemeId());
 
     const getArticles = async () => {
         try {
@@ -30,6 +32,15 @@ export default function NavArticles({ id }) {
         getArticles();
     }, [])
 
+
+    const handleClickPassTest = (selectThemeId) => {
+        dispatch(setThemeId({
+            payload: {
+                selectThemeId,
+            }
+        }))
+    }
+
     return (
         <List>
             {
@@ -47,6 +58,9 @@ export default function NavArticles({ id }) {
                     )
                 })
             }
+            <Link to='/test'>
+                <Button onClick={() => handleClickPassTest(id)}>Пройти тест по выбраной теме</Button>
+            </Link>
         </List>
     )
 }

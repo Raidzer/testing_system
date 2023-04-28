@@ -1,4 +1,3 @@
-import { NavLink as RouterLink } from 'react-router-dom';
 import { Collapse, List, ListItemButton, ListItemText } from '@mui/material';
 import { useState } from 'react';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';

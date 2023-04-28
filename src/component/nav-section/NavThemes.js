@@ -1,6 +1,4 @@
 import { Box, List } from '@mui/material';
-import { useEffect, useState } from 'react';
-import httpService from '../../service/http.service';
 import NavTheme from './NavTheme';
 import { useSelector } from 'react-redux';
 import { getDataThemes } from '../../store/themes';
