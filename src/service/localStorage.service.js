@@ -3,7 +3,7 @@ const REFRESH_KEY = "jwt-refresh-token";
 const EXPIRES_KEY = "jwt-expires";
 const USERID_KEY = "user-local-id";
 const TYPE_KEY = "type-key";
-const JSESSION_ID = "jsession-id"
+const JSESSION_ID = "jsession-id";
 
 export function setTokens({
     token,

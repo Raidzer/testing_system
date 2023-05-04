@@ -1,8 +1,9 @@
 import { Box, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataQuestion, getMultiAnswer, sendAnswers } from "../../store/question";
+import { getCommentMistake, getDataQuestion, getMultiAnswer, getStatusMistakeAnswer, sendAnswers, sendAnswersFromTest } from "../../store/question";
 import { useEffect, useState } from "react";
 import { nextQuestionButton } from "./styles";
+import { useParams } from "react-router";
 
 
 export default function FormAnswers() {
@@ -11,6 +12,9 @@ export default function FormAnswers() {
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [disableSendForm, setDisableSendForm] = useState(true);
     const dispatch = useDispatch();
+    const { idTheme } = useParams();
+    const commentMistake = useSelector(getCommentMistake());
+    const isMistake = useSelector(getStatusMistakeAnswer());
 
     useEffect(() => {
         setDisableSendForm(selectedAnswers.length === 0);
@@ -29,12 +33,22 @@ export default function FormAnswers() {
     }
 
     const handleSubmit = async () => {
-        await dispatch(sendAnswers({
-            payload: {
-                'ticket_id': id,
-                'answers_id': selectedAnswers,
-            },
-        }))
+        if (idTheme) {
+            await dispatch(sendAnswersFromTest({
+                payload: {
+                    'ticket_id': id,
+                    'answers_id': selectedAnswers,
+                    'idTheme': `/${idTheme}`,
+                },
+            }))
+        } else {
+            await dispatch(sendAnswers({
+                payload: {
+                    'ticket_id': id,
+                    'answers_id': selectedAnswers,
+                },
+            }))
+        }
     }
 
     const answersForm = () => {
@@ -53,6 +67,7 @@ export default function FormAnswers() {
                         label={answer.answer}
                     />
                 ))}
+                {isMistake ? <div>{commentMistake}</div> : null}
                 <div style={nextQuestionButton}>
                     <Button
                         onClick={handleSubmit}

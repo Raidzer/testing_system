@@ -17,6 +17,7 @@ const authService = {
         return data;
     },
     refresh: async () => {
+
         try {
             const { data } = await http.post("/auth/refreshtoken", {
                 'refresh_token': localStorageService.getRefreshKey(),
@@ -25,7 +26,7 @@ const authService = {
         } catch (error) {
             console.log("Ошибка обновления токена, сессия закрыта")
             localStorageService.removeTokens();
-            window.location.reload();
+            window.location.href = '/';
         }
 
     },

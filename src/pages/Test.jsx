@@ -1,21 +1,20 @@
 import { Box, IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getSelectThemeId } from "../store/themes";
+import { Link, useParams } from "react-router-dom";
 import localStorageService from "../service/localStorage.service";
 import { Home } from "@mui/icons-material";
 import QuestionLoader from "../component/Questionloader";
-import { getDataQuestion, getInitJSessionId, getQuestionIsOver, loadingDataQuestion } from "../store/question";
+import { getDataQuestion, getInitJSessionId, getQuestionIsOver, loadingDataQuestion, loadingDataQuestionFromTest } from "../store/question";
 import ComplitedTest from "../component/question/ComplitedTest";
 import FormAnswers from "../component/question/FormAnswers";
 import { useEffect } from "react";
 
 function Test() {
     const dispatch = useDispatch();
-    const idTheme = useSelector(getSelectThemeId());
     const testIsComplited = useSelector(getQuestionIsOver());
     const dataTest = useSelector(getDataQuestion());
     const { quest } = dataTest;
+    const { idTheme } = useParams();
 
     useEffect(() => {
         let jsessionId = localStorageService.getSessionQuestionId();
@@ -25,15 +24,25 @@ function Test() {
                 await dispatch(getInitJSessionId());
             }
             jsessionId = localStorageService.getSessionQuestionId();
-            await dispatch(loadingDataQuestion(
-                {
-                    payload: {
-                        jsessionId,
+            if (idTheme) {
+                await dispatch(loadingDataQuestionFromTest(
+                    {
+                        payload: {
+                            jsessionId,
+                            'idTheme': `/${idTheme}`,
+                        }
                     }
-                }
-            ))
+                ))
+            } else {
+                await dispatch(loadingDataQuestion(
+                    {
+                        payload: {
+                            jsessionId,
+                        }
+                    }
+                ))
+            }
         }
-
         getData();
     }, [])
 
@@ -75,7 +84,7 @@ function Test() {
                             <>
                                 <h1 style={{
                                     textAlign: 'center'
-                                }}>Вопрос экзамена:</h1>
+                                }}>Вопрос теста по теме:</h1>
                                 <h4 style={{
                                     minHeight: 100,
                                     height: '100%',

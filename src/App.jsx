@@ -19,7 +19,6 @@ export function App() {
 
   return (
     <div className="m-auto max-w-screen-2xl flex-auto w-full items-center">
-
       <Router>
         <Routes>
           <Route
@@ -39,7 +38,7 @@ export function App() {
             element={<Exam />}
           />
           <Route
-            path="/test"
+            path="/test/:idTheme"
             element={<Test />}
           />
           <Route

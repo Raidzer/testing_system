@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { getUserId } from "../service/localStorage.service";
 import { useEffect } from "react";
 import { getInfoUser, getStatusLoadingUser } from "../store/user";
-import { Circles } from "react-loader-spinner";
 import { getStatusLoadingThemes, loadingDataThemes } from "../store/themes";
 import { CircularProgress } from "@mui/material";
 
@@ -22,7 +21,6 @@ const AppLoader = ({ children }) => {
                 console.log(error);
             }
         };
-
         getData();
     }, []);
 

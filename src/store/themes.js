@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit"
 import httpService from "../service/http.service";
+import localStorageService from "../service/localStorage.service";
 
 
 const initialState = {
     isLoading: true,
     themesData: null,
     error: null,
-    selectThemeId: null,
 }
 
 const themesSlice = createSlice({
@@ -22,10 +22,6 @@ const themesSlice = createSlice({
         setData: (state, action) => {
             const { data } = action.payload;
             state.data = data;
-        },
-        setSelectThemeId: (state, action) => {
-            const { selectThemeId } = action.payload;
-            state.selectThemeId = selectThemeId;
         },
     }
 })
@@ -55,11 +51,11 @@ export const setThemeId =
     ({ payload }) =>
         (dispath) => {
             const { selectThemeId } = payload;
+            localStorageService.setSelectedThemeId(selectThemeId);
             dispath(setSelectThemeId({ selectThemeId }));
         }
 
 export const getStatusLoadingThemes = () => (state) => state.themes.isLoading;
 export const getDataThemes = () => (state) => state.themes.data;
-export const getSelectThemeId = () => (state) => state.themes.selectThemeId;
 
 export default themesReducer;
