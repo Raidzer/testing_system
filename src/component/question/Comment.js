@@ -55,9 +55,16 @@ export default function Comment() {
                     <p id="parent-modal-description">
                         {commentMistake}
                     </p>
-                    <Button onClick={() => handleClose()}>Закрыть</Button>
+                    <Button
+                        onClick={() => handleClose()}
+                        sx={{
+                            mt: 2,
+                        }}
+                    >
+                        Следующий вопрос
+                    </Button>
                 </Box>
             </Modal>
-        </div>
+        </div >
     )
 }
