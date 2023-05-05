@@ -1,0 +1,63 @@
+import { useDispatch, useSelector } from "react-redux";
+import { getCommentMistake, getDataQuestion, loadingDataQuestionFromTest } from "../../store/question";
+import { useState } from "react";
+import { Box, Button, Modal } from "@mui/material";
+import { useParams } from "react-router";
+import localStorageService from "../../service/localStorage.service";
+
+export default function Comment() {
+    const commentMistake = useSelector(getCommentMistake());
+    const [openModal, setOpenModal] = useState(true);
+    const dispatch = useDispatch();
+    const { idTheme } = useParams();
+    const { id } = useSelector(getDataQuestion());
+    let jsessionId = localStorageService.getSessionQuestionId();
+
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    };
+
+    const handleClose = async () => {
+        await dispatch(loadingDataQuestionFromTest({
+            payload: {
+                jsessionId,
+                'idTheme': `/${idTheme}`,
+            }
+        }));
+        setOpenModal(false);
+
+    }
+
+    return (
+        <div>
+            <Modal
+                open={openModal}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+            >
+                <Box sx={{ ...style, width: 500 }}>
+                    <h2 id="parent-modal-title">Неправильно!</h2>
+                    <p id="parent-modal-description">
+                        {commentMistake}
+                    </p>
+                    <Button onClick={() => handleClose()}>Закрыть</Button>
+                </Box>
+            </Modal>
+        </div>
+    )
+}

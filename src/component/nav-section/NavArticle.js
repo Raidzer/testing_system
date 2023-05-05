@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import httpService from '../../service/http.service';
 import { Link, NavLink as RouterLink } from 'react-router-dom';
-import { List, ListItemButton, ListItemText, Button } from "@mui/material";
+import { List, ListItemButton, ListItemText, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataArticle } from "../../store/lesson";
 
 export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
     const dispatch = useDispatch();
+
 
 
     const getArticles = async () => {
@@ -33,6 +34,7 @@ export default function NavArticles({ id }) {
 
     return (
         <List>
+
             {
                 articles.map((article) => {
                     const { id, title } = article;
@@ -42,8 +44,13 @@ export default function NavArticles({ id }) {
                             to={'/'}
                             key={id}
                             onClick={() => handleClick(id)}
+
                         >
-                            <ListItemText disableTypography primary={title} />
+                            <ListItemText disableTypography >
+                                <Typography variant="body3" style={{ paddingLeft: '10px' }}>
+                                    {title}
+                                </Typography>
+                            </ListItemText>
                         </ListItemButton>
                     )
                 })

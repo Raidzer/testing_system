@@ -1,9 +1,10 @@
-import { Box, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommentMistake, getDataQuestion, getMultiAnswer, getStatusMistakeAnswer, sendAnswers, sendAnswersFromTest } from "../../store/question";
 import { useEffect, useState } from "react";
 import { nextQuestionButton } from "./styles";
 import { useParams } from "react-router";
+import Comment from "./Comment";
 
 
 export default function FormAnswers() {
@@ -67,13 +68,13 @@ export default function FormAnswers() {
                         label={answer.answer}
                     />
                 ))}
-                {isMistake ? <div>{commentMistake}</div> : null}
+                {isMistake ? <Comment /> : null}
                 <div style={nextQuestionButton}>
                     <Button
                         onClick={handleSubmit}
                         disabled={disableSendForm}
                     >
-                        Следующий вопрос
+                        Отправить ответ
                     </Button>
                 </div>
             </>

@@ -80,7 +80,10 @@ export const getInitJSessionId = () =>
             localStorageService.setSessionQuestionId(x_jsessionid);
             dispatch(setJSessionId(data))
         } catch (error) {
-            alert(error);
+            if (error.response.status === 401) {
+                localStorageService.removeTokens();
+                window.location.href = '/';
+            }
         }
     }
 
@@ -200,7 +203,7 @@ export const loadingDataQuestionFromTest =
             } catch (error) {
                 alert("Сессия устарела! Пройдите экзамен заново.");
                 dispatch(getInitJSessionId());
-                console.log(error);
+                console.log(error.response.status);
             }
         }
 
@@ -221,7 +224,6 @@ export const sendAnswersFromTest =
 
                 if (is_answer) {
                     dispatch(setIsLoading());
-                    console.log('dfsd')
                     await dispatch(loadingDataQuestionFromTest({
                         payload: {
                             jsessionId,
