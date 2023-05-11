@@ -1,5 +1,5 @@
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Button, ClickAwayListener, Menu, MenuItem, Typography } from '@mui/material';
+import { Box, ClickAwayListener, Menu, MenuItem, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
@@ -8,7 +8,7 @@ import { useState } from 'react';
 import NavThemes from '../../component/nav-section/NavThemes';
 import { AnimatedIcon } from './styles';
 import { Face, School } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { LinkButton } from '../../component/LinkButton';
 
 const NAV_WIDTH = 350;
 
@@ -99,29 +99,14 @@ export default function Nav() {
                     textAlign: 'center'
                 }}
             >
-                Темы для изучения:
+                Темы для изучения
             </Typography>
             <NavThemes />
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <Link to='/exam'>
-                    <Button
-                        variant="contained"
-                        size='large'
-                        startIcon={<School />}
-                        sx={{ width: 300 }}
-                        style={{
-                            backgroundColor: '#eeeeee',
-                            color: '#43a047',
-                        }}
-                    >
-                        Экзамен
-                    </Button>
-                </Link>
-            </Box>
+            <LinkButton
+                link={'/exam'}
+                text={'Пройти экзамен'}
+                startIcon={< School />}
+            />
         </Box>
     );
 

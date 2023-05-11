@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import httpService from '../../service/http.service';
 import { Link, NavLink as RouterLink } from 'react-router-dom';
-import { List, ListItemButton, ListItemText, Button, Typography } from "@mui/material";
+import { List, ListItemButton, ListItemText, Button, Typography, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataArticle } from "../../store/lesson";
+import { LinkButton } from "../LinkButton";
+import { School } from "@mui/icons-material";
 
 export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
@@ -55,9 +57,12 @@ export default function NavArticles({ id }) {
                     )
                 })
             }
-            <Link to={`/test/${id}`}>
-                <Button>Пройти тест по выбраной теме</Button>
-            </Link>
+
+            <LinkButton
+                link={`/test/${id}`}
+                text={'тест по теме'}
+                startIcon={< School />}
+            />
         </List>
     )
 }
