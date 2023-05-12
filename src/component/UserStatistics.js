@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import httpService from "../service/http.service"
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material"
+import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, tableCellClasses } from "@mui/material"
 import dateService from "../service/data.service"
+import { Delete } from "@mui/icons-material";
+import styled from "@emotion/styled";
 
 const columns = [
     {
@@ -18,19 +20,13 @@ const columns = [
     },
     {
         id: 'percentageOfCorrectAnswers',
-        label: 'Процент правильных ответов',
+        label: 'Правильные ответы',
         minWidth: 70,
         align: 'center',
     },
     {
         id: 'date',
-        label: 'Дата прохождения теста',
-        minWidth: 170,
-        align: 'center',
-    },
-    {
-        id: 'time',
-        label: 'Время прохождения теста',
+        label: 'Дата прохождения экзамена',
         minWidth: 170,
         align: 'center',
     },
@@ -40,7 +36,7 @@ function createData({ count_correct_ticket, count_ticket, created_at, user_info 
     const allAnswers = count_ticket;
     const allUncorrectAnswers = count_ticket - count_correct_ticket;
     const allCorrectAnswers = count_correct_ticket;
-    const percentageOfCorrectAnswers = Math.round(allCorrectAnswers / allAnswers * 100)
+    const percentageOfCorrectAnswers = `${Math.round(allCorrectAnswers / allAnswers * 100)} %`
     const firstName = user_info.first_name;
     const lastName = user_info.last_name;
     const date = dateService.getDate(created_at);
@@ -52,11 +48,16 @@ function createData({ count_correct_ticket, count_ticket, created_at, user_info 
         allCorrectAnswers,
         firstName,
         lastName,
-        date,
-        time,
+        date: `${date}, ${time}`,
         percentageOfCorrectAnswers,
     }
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: "#f0f0f0",
+    },
+}));
 
 export const UserStatistics = () => {
     const [userStatistics, setUserStatistics] = useState([])
@@ -83,18 +84,25 @@ export const UserStatistics = () => {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ minHeight: 800, maxHeight: 800 }}>
+            <style>
+                {`
+        .MuiTablePagination-root {
+          background-color: #f0f0f0; /* Замените на ваш цвет фона */
+        }
+        `}
+            </style>
+            <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
                             {columns.map((column) => (
-                                <TableCell
+                                <StyledTableCell
                                     key={column.id}
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
                                 >
                                     {column.label}
-                                </TableCell>
+                                </StyledTableCell>
                             ))}
                         </TableRow>
                     </TableHead>
