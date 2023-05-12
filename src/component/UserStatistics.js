@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import httpService from "../service/http.service"
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, tableCellClasses } from "@mui/material"
+import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, tableCellClasses } from "@mui/material"
 import dateService from "../service/data.service"
-import { Delete } from "@mui/icons-material";
+import { Cached, Delete } from "@mui/icons-material";
 import styled from "@emotion/styled";
+import { AnimatedIcon } from "../layouts/navigator/styles";
 
 const columns = [
     {
@@ -82,6 +83,10 @@ export const UserStatistics = () => {
         setPage(0);
     }
 
+    const handleClickRefresh = () => {
+        getUserStatistics();
+    }
+
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <style>
@@ -128,15 +133,33 @@ export const UserStatistics = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[12, 24, 50]}
-                component="div"
-                count={userStatistics.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <div style={{ position: 'relative' }}>
+                <TablePagination
+                    rowsPerPageOptions={[12, 24, 50]}
+                    component="div"
+                    count={userStatistics.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                >
+                </TablePagination>
+                <AnimatedIcon
+                    style={{
+                        position: 'absolute',
+                        top: '10px',
+                        left: '20px'
+                    }}
+                    onClick={handleClickRefresh}
+                >
+                    <Cached
+                        sx={{
+                            fontSize: 20
+                        }}
+                        color="action"
+                    />
+                </AnimatedIcon>
+            </div>
         </Paper>
     );
 }
