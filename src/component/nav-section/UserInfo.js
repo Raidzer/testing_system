@@ -24,7 +24,7 @@ export const UserInfo = (props) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = (event) => {
+    const handleClose = () => {
         setAnchorEl(null);
     };
 

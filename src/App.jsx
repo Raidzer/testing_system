@@ -22,16 +22,23 @@ export function App() {
       <Router>
         <Routes>
           <Route
-            path="/"
-            element={isAuthenticated ? <Main /> : <Navigate to='/login' />}
+            path="/*"
+            element={
+              isAuthenticated ?
+                <Main /> : <Navigate to='/login' />
+            }
           />
           <Route
             path="/login"
-            element={isAuthenticated ? <Navigate to='/' /> : <Login />}
+            element={isAuthenticated ?
+              <Navigate to='/' /> : <Login />
+            }
           />
           <Route
             path="/register"
-            element={isAuthenticated ? <Navigate to='/' /> : <Register />}
+            element={isAuthenticated ?
+              <Navigate to='/' /> : <Register />
+            }
           />
           <Route
             path="/exam"

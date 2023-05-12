@@ -2,9 +2,11 @@ import React from "react";
 import { styled } from '@mui/material/styles';
 import Nav from "../layouts/navigator/nav";
 import { Box } from '@mui/material';
-import { useSelector } from "react-redux";
-import { getDataLesson } from "../store/lesson";
 import AppLoader from "../component/Apploader";
+import { Route, Routes } from "react-router";
+import NotFound from "./NotFound";
+import { UserStatistics } from "../component/UserStatistics";
+import { Lesson } from "../component/Lesson";
 
 
 const StyledRoot = styled('div')({
@@ -33,9 +35,6 @@ const StyledNav = styled(Box)(({ theme }) => ({
 }));
 
 export default function Main() {
-    const dataLesson = useSelector(getDataLesson());
-    const { description } = dataLesson;
-
     return (
         <AppLoader>
             <StyledRoot>
@@ -45,9 +44,26 @@ export default function Main() {
                     </StyledNav>
                 </Box>
                 <StyledContent>
-                    {description ?
-                        <div dangerouslySetInnerHTML={{ __html: description }} /> :
-                        <div>Добро пожаловать в систему обучения персонала эксплуатации АСУ ИС!</div>}
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <Lesson />
+                            }
+                        />
+                        <Route
+                            path="/statistics"
+                            element={
+                                <UserStatistics />
+                            }
+                        />
+                        <Route
+                            path="/*"
+                            element={
+                                <NotFound />
+                            }
+                        />
+                    </Routes>
                 </StyledContent>
             </StyledRoot>
         </AppLoader>

@@ -16,7 +16,7 @@ export default function Nav() {
     const renderContent = (
         <Box>
             <Box sx={{ mb: 5, mx: 5 }}>
-                <UserInfo firstName={firstName} lastName={lastName}/>
+                <UserInfo firstName={firstName} lastName={lastName} />
             </Box>
             <Typography
                 variant="h6"
@@ -29,11 +29,13 @@ export default function Nav() {
                 Темы для изучения
             </Typography>
             <NavThemes />
-            <LinkButton
-                link={'/exam'}
-                text={'Пройти экзамен'}
-                startIcon={< School />}
-            />
+            <Box>
+                <LinkButton
+                    link={'/exam'}
+                    text={'Пройти экзамен'}
+                    startIcon={< School />}
+                />
+            </Box>
         </Box>
     );
 
