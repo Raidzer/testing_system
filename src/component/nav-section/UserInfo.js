@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
 import { styled, alpha } from '@mui/material/styles';
+import { Link } from "react-router-dom";
 
 const StyledAccount = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -73,6 +74,13 @@ export const UserInfo = (props) => {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
+                        <MenuItem
+                            component={Link}
+                            to="/statistics"
+                            onClick={handleClose}
+                        >
+                            Статистика
+                        </MenuItem>
                         <MenuItem onClick={handleLogout}>Выйти</MenuItem>
                     </Menu>
                 </ClickAwayListener>
