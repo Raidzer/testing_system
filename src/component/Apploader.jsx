@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { getInfoUser, getStatusLoadingUser } from "../store/user";
 import { getStatusLoadingThemes, loadingDataThemes } from "../store/themes";
 import { CircularProgress } from "@mui/material";
+import { IsLoading } from "./IsLoading";
 
 
 const AppLoader = ({ children }) => {
@@ -33,18 +34,7 @@ const AppLoader = ({ children }) => {
             {isLoading ? (
                 children
             ) :
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100vh',
-                    }}
-                >
-                    <div>
-                        <CircularProgress color="inherit" />
-                    </div>
-                </div>
+                <IsLoading />
             }
         </>
     )

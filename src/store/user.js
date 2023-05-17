@@ -5,6 +5,7 @@ const initialState = {
     firstName: null,
     lastName: null,
     roles: null,
+    isAdmin: false,
     error: null,
     loading: true,
 }
@@ -18,6 +19,7 @@ const userSlice = createSlice({
             state.firstName = first_name;
             state.lastName = last_name;
             state.roles = roles;
+            state.isAdmin = roles === 'ROLE_ADMIN';
         },
         setLoading: (state) => {
             state.loading = true;
@@ -52,5 +54,6 @@ export const getInfoUser =
 export const getFirstName = () => (state) => state.user.firstName;
 export const getLastName = () => (state) => state.user.lastName;
 export const getStatusLoadingUser = () => (state) => state.user.loading;
+export const userIsAdmin = () => (state) => state.user.isAdmin;
 
 export default userReduser;
