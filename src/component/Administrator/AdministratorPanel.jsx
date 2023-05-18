@@ -2,18 +2,16 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { getDataThemes } from "../../store/themes";
 import {
-    Checkbox,
     Paper,
     Table,
-    TableBody,
-    TableCell,
     TableContainer,
     TablePagination,
-    TableRow,
 } from "@mui/material";
 import { IsLoading } from "../IsLoading";
-import EnhancedTableToolbar from "./EnhancedToolBar";
-import EnhancedTableHead from "./EnhancedTableHead";
+import EnhancedTableToolbar from "./Table/EnhancedToolBar";
+import EnhancedTableHead from "./Table/EnhancedTableHead";
+import AdminTableBody from "./Table/TableBody";
+import { getComparator, stableSort } from "../../utils/sortTable";
 
 const headCells = [
     {
@@ -46,34 +44,6 @@ function createData({ subject, id }) {
         articles,
         tickets,
     };
-}
-
-function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
-
-function getComparator(order, orderBy) {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) {
-            return order;
-        }
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
 }
 
 export default function AdministratorPanel() {
@@ -165,49 +135,12 @@ export default function AdministratorPanel() {
                             rowCount={rows.length}
                             headCells={headCells}
                         />
-                        <TableBody
-                            sx={{
-                                width: "100%",
-                            }}
-                        >
-                            {visibleRows.map((row, index) => {
-                                const isItemSelected = isSelected(row.theme);
-                                const labelId = `enhanced-table-checkbox-${index}`;
-                                return (
-                                    <TableRow
-                                        hover
-                                        onClick={(event) => handleClick(event, row.theme)}
-                                        role="checkbox"
-                                        aria-checked={isItemSelected}
-                                        tabIndex={-1}
-                                        key={row.theme}
-                                        selected={isItemSelected}
-                                        sx={{ cursor: 'pointer' }}
-                                    >
-                                        <TableCell padding="checkbox">
-                                            <Checkbox
-                                                color="primary"
-                                                checked={isItemSelected}
-                                                inputProps={{
-                                                    'aria-labelledby': labelId,
-                                                }}
-                                            />
-                                        </TableCell>
-                                        {headCells.map((cell) => {
-                                            const value = row[cell.id]
-                                            return (
-                                                <TableCell
-                                                    key={cell.id}
-                                                    align="center"
-                                                >
-                                                    {value}
-                                                </TableCell>
-                                            )
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                        </TableBody>
+                        <AdminTableBody 
+                            rows={visibleRows}
+                            headCells={headCells}
+                            isSelected={isSelected}
+                            handleClick={handleClick}
+                        />
                     </Table>
                 </TableContainer>
                 <TablePagination
