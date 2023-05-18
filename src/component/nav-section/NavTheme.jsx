@@ -6,7 +6,6 @@ import NavArticles from './NavArticle';
 
 export default function NavTheme({ theme }) {
     const { id, subject } = theme;
-
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {

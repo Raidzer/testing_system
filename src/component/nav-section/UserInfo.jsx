@@ -2,11 +2,12 @@ import { Box, ClickAwayListener, Menu, MenuItem, Typography } from "@mui/materia
 import { AnimatedIcon } from "../../layouts/navigator/styles";
 import { useState } from "react";
 import { Face } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import authService from "../../service/auth.service";
 import { logout } from "../../store/session";
 import { styled, alpha } from '@mui/material/styles';
 import { Link } from "react-router-dom";
+import { getUserIsAdmin } from "../../store/user";
 
 const StyledAccount = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -18,6 +19,7 @@ const StyledAccount = styled('div')(({ theme }) => ({
 
 export const UserInfo = (props) => {
     const dispatch = useDispatch();
+    const userIsAdmin = useSelector(getUserIsAdmin())
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -51,7 +53,7 @@ export const UserInfo = (props) => {
                         {props.lastName}
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        Пользователь
+                        {userIsAdmin ? "Администратор" : "Пользователь"}
                     </Typography>
                 </Box>
                 <AnimatedIcon
@@ -64,7 +66,11 @@ export const UserInfo = (props) => {
                 >
                     <Face />
                 </AnimatedIcon>
-                <ClickAwayListener mouseEvent="onMouseDown" touchEvent="onTouchStart" onClickAway={handleClose}>
+                <ClickAwayListener
+                    mouseEvent="onMouseDown"
+                    touchEvent="onTouchStart"
+                    onClickAway={handleClose}
+                >
                     <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -81,6 +87,15 @@ export const UserInfo = (props) => {
                         >
                             Статистика
                         </MenuItem>
+                        {userIsAdmin ?
+                            <MenuItem
+                                component={Link}
+                                to="/administrator"
+                                onClick={handleClose}
+                            >
+                                Панель администратора
+                            </MenuItem> : null
+                        }
                         <MenuItem onClick={handleLogout}>Выйти</MenuItem>
                     </Menu>
                 </ClickAwayListener>

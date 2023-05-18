@@ -92,7 +92,7 @@ export const UserStatistics = () => {
             <style>
                 {`
         .MuiTablePagination-root {
-          background-color: #f0f0f0;
+            background-color: #f0f0f0;
         }
         `}
             </style>

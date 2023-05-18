@@ -7,6 +7,9 @@ import { Route, Routes } from "react-router";
 import NotFound from "./NotFound";
 import { UserStatistics } from "../component/UserStatistics";
 import { Lesson } from "../component/Lesson";
+import { useSelector } from "react-redux";
+import { getUserIsAdmin } from "../store/user";
+import AdministratorPanel from "../component/Administrator/AdministratorPanel";
 
 
 const StyledRoot = styled('div')({
@@ -35,6 +38,8 @@ const StyledNav = styled(Box)(({ theme }) => ({
 }));
 
 export default function Main() {
+    const userIsAdmin = useSelector(getUserIsAdmin())
+
     return (
         <AppLoader>
             <StyledRoot>
@@ -55,6 +60,14 @@ export default function Main() {
                             path="/statistics"
                             element={
                                 <UserStatistics />
+                            }
+                        />
+                        <Route
+                            path="/administrator"
+                            element={
+                                userIsAdmin ?
+                                    <AdministratorPanel /> :
+                                    <NotFound />
                             }
                         />
                         <Route

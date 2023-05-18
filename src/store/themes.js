@@ -5,7 +5,7 @@ import localStorageService from "../service/localStorage.service";
 
 const initialState = {
     isLoading: true,
-    themesData: null,
+    themesData: [],
     error: null,
 }
 
@@ -21,7 +21,7 @@ const themesSlice = createSlice({
         },
         setData: (state, action) => {
             const { data } = action.payload;
-            state.data = data;
+            state.themesData = data;
         },
     }
 })
@@ -56,6 +56,6 @@ export const setThemeId =
         }
 
 export const getStatusLoadingThemes = () => (state) => state.themes.isLoading;
-export const getDataThemes = () => (state) => state.themes.data;
+export const getDataThemes = () => (state) => state.themes.themesData;
 
 export default themesReducer;

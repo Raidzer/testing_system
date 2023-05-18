@@ -11,8 +11,6 @@ export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
     const dispatch = useDispatch();
 
-
-
     const getArticles = async () => {
         try {
             const { data } = await httpService.get(`/articles/theme/${id}`)
@@ -32,7 +30,7 @@ export default function NavArticles({ id }) {
 
     useEffect(() => {
         getArticles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

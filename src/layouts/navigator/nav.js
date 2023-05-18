@@ -26,6 +26,7 @@ export default function Nav() {
                     textAlign: 'center'
                 }}
             >
+                
                 Темы для изучения
             </Typography>
             <NavThemes />
