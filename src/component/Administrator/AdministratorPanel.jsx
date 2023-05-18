@@ -23,6 +23,7 @@ import { visuallyHidden } from '@mui/utils';
 import { IsLoading } from "../IsLoading";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { LibraryAdd, Mode } from "@mui/icons-material";
+import EnhancedTableToolbar from "./EnhancedToolBar";
 
 const headCells = [
     {
@@ -125,63 +126,6 @@ function EnhancedTableHead(props) {
     );
 }
 
-function EnhancedTableToolbar(props) {
-    const { selectedTheme } = props;
-
-    return (
-        <Toolbar
-            sx={{
-                pl: { sm: 2 },
-                pr: { xs: 1, sm: 1 },
-                ...(selectedTheme.length > 0 && {
-                    bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-                }),
-            }}
-        >
-            {selectedTheme.length > 0 ? (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    color="inherit"
-                    variant="subtitle1"
-                    component="div"
-                >
-                    {selectedTheme}
-                </Typography>
-            ) : (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    Список созданных тем
-                </Typography>
-            )}
-            {selectedTheme.length > 0 ? (
-                <>
-                    <Tooltip title="Изменить тему">
-                        <IconButton>
-                            <Mode />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Удалить тему">
-                        <IconButton>
-                            <DeleteIcon />
-                        </IconButton>
-                    </Tooltip>
-                </>
-            ) : (
-                <Tooltip title="Добавить тему">
-                    <IconButton>
-                        <LibraryAdd />
-                    </IconButton>
-                </Tooltip>
-            )}
-        </Toolbar>
-    );
-}
-
 export default function AdministratorPanel() {
     const themes = useSelector(getDataThemes())
     const [selected, setSelected] = useState([]);
@@ -260,7 +204,11 @@ export default function AdministratorPanel() {
         }
         `}
                 </style>
-                <EnhancedTableToolbar selectedTheme={selected} />
+                <EnhancedTableToolbar
+                    selected={selected}
+                    title='Список созданых тем'
+                    lableActionButton='Тему'
+                />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table
                         sx={{
@@ -304,17 +252,21 @@ export default function AdministratorPanel() {
                                                 }}
                                             />
                                         </TableCell>
-                                        {headCells.map((cell) => {
+
+                                        { /*headCells.map((cell) => {
                                             const value = row[cell.id]
                                             return (
                                                 <TableCell
                                                     key={cell.id}
-                                                    align={cell.align}
+                                                    align="center"
                                                 >
                                                     {value}
                                                 </TableCell>
                                             )
-                                        })}
+                                        })*/}
+                                        <TableCell align="center">{row.theme}</TableCell>
+                                        <TableCell align="center">{row.articles}</TableCell>
+                                        <TableCell align="center">{row.tickets}</TableCell>
                                     </TableRow>
                                 );
                             })}
