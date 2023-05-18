@@ -2,28 +2,18 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { getDataThemes } from "../../store/themes";
 import {
-    Box,
     Checkbox,
-    IconButton,
     Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
-    TableHead,
     TablePagination,
     TableRow,
-    TableSortLabel,
-    Toolbar,
-    Tooltip,
-    Typography,
-    alpha
 } from "@mui/material";
-import { visuallyHidden } from '@mui/utils';
 import { IsLoading } from "../IsLoading";
-import DeleteIcon from '@mui/icons-material/Delete';
-import { LibraryAdd, Mode } from "@mui/icons-material";
 import EnhancedTableToolbar from "./EnhancedToolBar";
+import EnhancedTableHead from "./EnhancedTableHead";
 
 const headCells = [
     {
@@ -86,46 +76,6 @@ function stableSort(array, comparator) {
     return stabilizedThis.map((el) => el[0]);
 }
 
-function EnhancedTableHead(props) {
-    const {
-        order,
-        orderBy,
-        onRequestSort
-    } = props;
-    const createSortHandler = (property) => (event) => {
-        onRequestSort(event, property);
-    };
-
-    return (
-        <TableHead>
-            <TableRow>
-                <TableCell padding="checkbox">
-                </TableCell>
-                {headCells.map((headCell) => (
-                    <TableCell
-                        key={headCell.id}
-                        align={headCell.align}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                    >
-                        <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
-                        >
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </Box>
-                            ) : null}
-                        </TableSortLabel>
-                    </TableCell>
-                ))}
-            </TableRow>
-        </TableHead>
-    );
-}
-
 export default function AdministratorPanel() {
     const themes = useSelector(getDataThemes())
     const [selected, setSelected] = useState([]);
@@ -146,15 +96,6 @@ export default function AdministratorPanel() {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
-    };
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelected = rows.map((n) => n.theme);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -220,9 +161,9 @@ export default function AdministratorPanel() {
                             numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
                             rowCount={rows.length}
+                            headCells={headCells}
                         />
                         <TableBody
                             sx={{
@@ -252,8 +193,7 @@ export default function AdministratorPanel() {
                                                 }}
                                             />
                                         </TableCell>
-
-                                        { /*headCells.map((cell) => {
+                                        {headCells.map((cell) => {
                                             const value = row[cell.id]
                                             return (
                                                 <TableCell
@@ -263,10 +203,7 @@ export default function AdministratorPanel() {
                                                     {value}
                                                 </TableCell>
                                             )
-                                        })*/}
-                                        <TableCell align="center">{row.theme}</TableCell>
-                                        <TableCell align="center">{row.articles}</TableCell>
-                                        <TableCell align="center">{row.tickets}</TableCell>
+                                        })}
                                     </TableRow>
                                 );
                             })}
