@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import httpService from '../../service/http.service';
 import { NavLink as RouterLink } from 'react-router-dom';
-import { List, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { List, ListItemButton, ListItemText, Skeleton, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { getDataArticle } from "../../store/lesson";
 import { LinkButton } from "../LinkButton";
 import { School } from "@mui/icons-material";
 import { getArticles } from "../../service/data.service";
 import { isEmpty } from "../../utils/utilsArray";
-import { IsLoading } from "../IsLoading";
 
 export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
@@ -34,7 +32,7 @@ export default function NavArticles({ id }) {
     return (
         <>
             {isEmpty(articles) ?
-                null :
+                <Skeleton sx={{ height: 50 }} animation="wave" /> :
                 <List>
                     {
                         articles.map((article) => {
