@@ -15,7 +15,7 @@ import { getComparator, stableSort } from "../../utils/sortTable";
 
 const headCells = [
     {
-        id: 'theme',
+        id: 'name',
         label: 'Тема',
         minWidth: 250,
         align: 'center',
@@ -35,12 +35,12 @@ const headCells = [
 ]
 
 function createData({ subject, id }) {
-    const theme = subject;
+    const name = subject;
     const articles = id;
     const tickets = 10 + id;
 
     return {
-        theme,
+        name,
         articles,
         tickets,
         id,
@@ -101,6 +101,17 @@ export default function AdministratorPanel() {
         [order, orderBy, page, rowsPerPage, rows],
     );
 
+    const menuItems = [
+        {
+            to: `/administrator/theme/${idSelected}/articles`,
+            text: "Изменить главу"
+        },
+        {
+            to: `/administrator/theme/${idSelected}/questions`,
+            text: "Изменить вопросы"
+        }
+    ]
+
     return isLoading() ? <IsLoading /> :
         (
             <Paper
@@ -124,6 +135,7 @@ export default function AdministratorPanel() {
                     title='Список созданых тем'
                     lableActionButton='Тему'
                     idSelected={idSelected}
+                    menuItems={menuItems}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table
@@ -140,7 +152,7 @@ export default function AdministratorPanel() {
                             rowCount={rows.length}
                             headCells={headCells}
                         />
-                        <AdminTableBody 
+                        <AdminTableBody
                             rows={visibleRows}
                             headCells={headCells}
                             isSelected={isSelected}

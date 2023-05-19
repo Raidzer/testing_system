@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import httpService from "../service/http.service"
 import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, tableCellClasses } from "@mui/material"
-import dateService from "../service/data.service"
+import dateService from "../service/date.service"
 import { Cached, Delete } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { AnimatedIcon } from "../layouts/navigator/styles";

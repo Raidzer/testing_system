@@ -9,7 +9,9 @@ import { UserStatistics } from "../component/UserStatistics";
 import { Lesson } from "../component/Lesson";
 import { useSelector } from "react-redux";
 import { getUserIsAdmin } from "../store/user";
-import AdministratorPanel from "../component/Administrator/AdministratorPanel";
+import AdministratorPanelTheme from "../component/Administrator/AdministratorPanelTheme";
+import AdministratorPanelArticle from "../component/Administrator/AdministratorPanelArticle";
+import AdministratorPanelQuestion from "../component/Administrator/AdministratorPanelQuestion";
 
 
 const StyledRoot = styled('div')({
@@ -66,14 +68,24 @@ export default function Main() {
                             path="/administrator"
                             element={
                                 userIsAdmin ?
-                                    <AdministratorPanel /> :
+                                    <AdministratorPanelTheme /> :
                                     <NotFound />
                             }
                         />
                         <Route
                             path="/administrator/theme/:idTheme/questions"
                             element={
-                                <div>Админка вопросов</div>
+                                userIsAdmin ?
+                                    <AdministratorPanelQuestion /> :
+                                    <NotFound />
+                            }
+                        />
+                        <Route
+                            path="/administrator/theme/:idTheme/articles"
+                            element={
+                                userIsAdmin ?
+                                    <AdministratorPanelArticle /> :
+                                    <NotFound />
                             }
                         />
                         <Route

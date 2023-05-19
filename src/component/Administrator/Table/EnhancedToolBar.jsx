@@ -9,7 +9,8 @@ export default function EnhancedTableToolbar(props) {
         selected,
         title,
         lableActionButton,
-        idSelected
+        idSelected,
+        menuItems
     } = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -20,7 +21,6 @@ export default function EnhancedTableToolbar(props) {
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-        console.log(selected)
     };
 
     return (
@@ -79,20 +79,18 @@ export default function EnhancedTableToolbar(props) {
                                 'aria-labelledby': 'basic-button',
                             }}
                         >
-                            <MenuItem
-                                component={Link}
-                                to={`/administrator/theme/${idSelected}/articles`}
-                                onClick={handleClose}
-                            >
-                                Изменить главу
-                            </MenuItem>
-                            <MenuItem
-                                component={Link}
-                                to={`/administrator/theme/${idSelected}/questions`}
-                                onClick={handleClose}
-                            >
-                                Изменить вопросы
-                            </MenuItem>
+                            {menuItems.map((item, index) => {
+                                return (
+                                    <MenuItem
+                                        component={Link}
+                                        to={item.to}
+                                        onClick={handleClose}
+                                        key={index}
+                                    >
+                                        {item.text}
+                                    </MenuItem>
+                                )
+                            })}
                         </Menu>
                     </ClickAwayListener>
                 </>
