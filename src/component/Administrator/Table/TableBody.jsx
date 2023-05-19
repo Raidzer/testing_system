@@ -21,7 +21,7 @@ export default function AdminTableBody(props) {
                 return (
                     <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.theme)}
+                        onClick={(event) => handleClick(event, row.theme, row.id)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}

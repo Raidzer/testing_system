@@ -71,6 +71,12 @@ export default function Main() {
                             }
                         />
                         <Route
+                            path="/administrator/theme/:idTheme/questions"
+                            element={
+                                <div>Админка вопросов</div>
+                            }
+                        />
+                        <Route
                             path="/*"
                             element={
                                 <NotFound />

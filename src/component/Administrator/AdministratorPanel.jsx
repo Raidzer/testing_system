@@ -43,12 +43,14 @@ function createData({ subject, id }) {
         theme,
         articles,
         tickets,
+        id,
     };
 }
 
 export default function AdministratorPanel() {
     const themes = useSelector(getDataThemes())
     const [selected, setSelected] = useState([]);
+    const [idSelected, setIdSelected] = useState([]);
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('theme');
     const [rows, setRows] = useState([]);
@@ -77,11 +79,13 @@ export default function AdministratorPanel() {
         setPage(0);
     };
 
-    const handleClick = (event, theme) => {
+    const handleClick = (event, theme, id) => {
         if (isSelected(theme)) {
             setSelected([])
+            setIdSelected([])
         } else {
             setSelected(theme)
+            setIdSelected(id)
         }
     }
 
@@ -119,6 +123,7 @@ export default function AdministratorPanel() {
                     selected={selected}
                     title='Список созданых тем'
                     lableActionButton='Тему'
+                    idSelected={idSelected}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table

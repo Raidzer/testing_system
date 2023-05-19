@@ -1,9 +1,27 @@
 import { LibraryAdd, Mode } from "@mui/icons-material";
-import { IconButton, Toolbar, Tooltip, Typography, alpha } from "@mui/material";
+import { ClickAwayListener, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, alpha } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function EnhancedTableToolbar(props) {
-    const { selected, title, lableActionButton } = props;
+    const {
+        selected,
+        title,
+        lableActionButton,
+        idSelected
+    } = props;
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+        console.log(selected)
+    };
 
     return (
         <Toolbar
@@ -38,7 +56,7 @@ export default function EnhancedTableToolbar(props) {
             {selected.length > 0 ? (
                 <>
                     <Tooltip title={`Изменить ${lableActionButton}`}>
-                        <IconButton>
+                        <IconButton onClick={handleClick}>
                             <Mode />
                         </IconButton>
                     </Tooltip>
@@ -47,6 +65,36 @@ export default function EnhancedTableToolbar(props) {
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
+                    <ClickAwayListener
+                        mouseEvent="onMouseDown"
+                        touchEvent="onTouchStart"
+                        onClickAway={handleClose}
+                    >
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}
+                        >
+                            <MenuItem
+                                component={Link}
+                                to={`/administrator/theme/${idSelected}/articles`}
+                                onClick={handleClose}
+                            >
+                                Изменить главу
+                            </MenuItem>
+                            <MenuItem
+                                component={Link}
+                                to={`/administrator/theme/${idSelected}/questions`}
+                                onClick={handleClose}
+                            >
+                                Изменить вопросы
+                            </MenuItem>
+                        </Menu>
+                    </ClickAwayListener>
                 </>
             ) : (
                 <Tooltip title={`Добавить ${lableActionButton}`}>
