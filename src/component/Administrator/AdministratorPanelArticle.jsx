@@ -30,16 +30,17 @@ function createData({ title, id }) {
 
 
 export default function AdministratorPanelArticle() {
+    const dispatch = useDispatch();
     const { idTheme } = useParams();
     const [articles, setArticles] = useState([]);
     const [selected, setSelected] = useState([]);
+    const [articlesIsLoading, setArticlesIsLoading] = useState(true)
     const [idSelected, setIdSelected] = useState([]);
     const [rows, setRows] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(12);
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('theme');
     const [page, setPage] = useState(0);
-    const dispatch = useDispatch();
     const { pathname } = useLocation();
 
     const fetchData = async () => {
@@ -47,6 +48,7 @@ export default function AdministratorPanelArticle() {
         setArticles(data);
         const newRows = data.map((article, index) => createData(article, index))
         setRows(newRows)
+        setArticlesIsLoading(false);
     }
 
     useEffect(() => {
@@ -132,7 +134,7 @@ export default function AdministratorPanelArticle() {
                     lableActionButton='Главу'
                     idSelected={idSelected}
                     menuItems={menuItems}
-                    getDataSelectedArticle={getDataSelectedArticle}
+                    getData={getDataSelectedArticle}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table
@@ -149,12 +151,14 @@ export default function AdministratorPanelArticle() {
                             rowCount={rows.length}
                             headCells={headCells}
                         />
-                        <AdminTableBody
-                            rows={visibleRows}
-                            headCells={headCells}
-                            isSelected={isSelected}
-                            handleClick={handleClick}
-                        />
+                        {articlesIsLoading ? <IsLoading /> :
+                            <AdminTableBody
+                                rows={visibleRows}
+                                headCells={headCells}
+                                isSelected={isSelected}
+                                handleClick={handleClick}
+                            />
+                        }
                     </Table>
                 </TableContainer>
                 <TablePagination

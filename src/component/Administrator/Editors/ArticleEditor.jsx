@@ -13,17 +13,12 @@ function ArticleEditor() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("начал получать данные")
         dispatch(getDataArticle({
             payload: {
                 id: idArticle,
             }
         }))
     }, [])
-
-    useEffect(() => {
-        console.log(articleIsLoading, "процесс загрузки")
-    }, [articleIsLoading])
 
     return (
         <div>

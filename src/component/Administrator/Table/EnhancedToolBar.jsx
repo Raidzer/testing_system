@@ -10,7 +10,7 @@ export default function EnhancedTableToolbar(props) {
         title,
         lableActionButton,
         menuItems,
-        getDataSelectedArticle,
+        getData,
     } = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -25,8 +25,11 @@ export default function EnhancedTableToolbar(props) {
 
     const handleClickMenuItem = () => {
         handleClose();
-        getDataSelectedArticle();
+        if (getData) {
+            getData();
+        }
     }
+
     return (
         <Toolbar
             sx={{
