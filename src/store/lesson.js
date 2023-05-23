@@ -3,9 +3,9 @@ import httpService from "../service/http.service";
 
 
 const initialState = {
-    isLoadig: false,
+    isLoading: true,
     dataId: { id: null },
-    data: { description: null },
+    data: { description: undefined },
     error: null,
 }
 
@@ -14,10 +14,10 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setIsLoading: (state) => {
-            state.isLoadig = true;
+            state.isLoading = true;
         },
         resetIsLoading: (state) => {
-            state.isLoadig = false;
+            state.isLoading = false;
         },
         setData: (state, action) => {
             state.data = action.payload;
@@ -38,14 +38,15 @@ export const getDataArticle =
             dispatch(setIsLoading());
             try {
                 const { data } = await httpService.get(`/articles/${id}`)
-                dispatch(setData(data))
-                dispatch(resetIsLoading());
+                dispatch(setData(data));
+                dispatch(resetIsLoading())
             } catch (error) {
                 console.log(error)
+                dispatch(resetIsLoading())
             }
         }
 
-export const getStatusLoadingLesson = () => (state) => state.lesson.isLoadig;
+export const getStatusLoadingLesson = () => (state) => state.lesson.isLoading;
 export const getDataLesson = () => (state) => state.lesson.data;
 
 export default lessonReducer;

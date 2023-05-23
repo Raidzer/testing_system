@@ -9,8 +9,8 @@ export default function EnhancedTableToolbar(props) {
         selected,
         title,
         lableActionButton,
-        idSelected,
-        menuItems
+        menuItems,
+        getDataSelectedArticle,
     } = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -23,6 +23,10 @@ export default function EnhancedTableToolbar(props) {
         setAnchorEl(event.currentTarget);
     };
 
+    const handleClickMenuItem = () => {
+        handleClose();
+        getDataSelectedArticle();
+    }
     return (
         <Toolbar
             sx={{
@@ -84,7 +88,7 @@ export default function EnhancedTableToolbar(props) {
                                     <MenuItem
                                         component={Link}
                                         to={item.to}
-                                        onClick={handleClose}
+                                        onClick={handleClickMenuItem}
                                         key={index}
                                     >
                                         {item.text}

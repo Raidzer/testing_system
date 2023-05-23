@@ -13,6 +13,7 @@ import AdministratorPanelTheme from "../component/Administrator/AdministratorPan
 import AdministratorPanelArticle from "../component/Administrator/AdministratorPanelArticle";
 import AdministratorPanelQuestion from "../component/Administrator/AdministratorPanelQuestion";
 import TextEditor from "../component/TextEditor/TextEditor";
+import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
 
 
 const StyledRoot = styled('div')({
@@ -86,6 +87,14 @@ export default function Main() {
                             element={
                                 userIsAdmin ?
                                     <AdministratorPanelArticle /> :
+                                    <NotFound />
+                            }
+                        />
+                        <Route 
+                            path="/administrator/theme/:idTheme/articles/:idArticle"
+                            element={
+                                userIsAdmin ?
+                                    <ArticleEditor /> :
                                     <NotFound />
                             }
                         />

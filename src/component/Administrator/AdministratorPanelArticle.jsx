@@ -1,4 +1,4 @@
-import { useParams } from "react-router"
+import { useLocation, useParams } from "react-router"
 import { IsLoading } from "../IsLoading";
 import { Paper, Table, TableContainer, TablePagination } from "@mui/material";
 import EnhancedTableToolbar from "./Table/EnhancedToolBar";
@@ -7,6 +7,8 @@ import AdminTableBody from "./Table/TableBody";
 import { useEffect, useMemo, useState } from "react";
 import { getComparator, stableSort } from "../../utils/sortTable";
 import { getArticles } from "../../service/data.service";
+import { useDispatch } from "react-redux";
+import { getDataArticle } from "../../store/lesson";
 
 const headCells = [
     {
@@ -37,6 +39,8 @@ export default function AdministratorPanelArticle() {
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('theme');
     const [page, setPage] = useState(0);
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
 
     const fetchData = async () => {
         const data = await getArticles(idTheme);
@@ -91,10 +95,18 @@ export default function AdministratorPanelArticle() {
 
     const menuItems = [
         {
-            to: ``,
-            text: "Редактировать главу"
+            to: `${pathname}/${idSelected}`,
+            text: "Редактировать главу",
         },
     ]
+
+    const getDataSelectedArticle = () => {
+        dispatch(getDataArticle({
+            payload: {
+                id: idSelected,
+            }
+        }))
+    }
 
     return isLoading() ? <IsLoading /> :
         (
@@ -120,6 +132,7 @@ export default function AdministratorPanelArticle() {
                     lableActionButton='Главу'
                     idSelected={idSelected}
                     menuItems={menuItems}
+                    getDataSelectedArticle={getDataSelectedArticle}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table

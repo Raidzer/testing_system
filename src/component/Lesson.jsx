@@ -2,8 +2,7 @@ import { useSelector } from "react-redux";
 import { getDataLesson } from "../store/lesson";
 
 export const Lesson = () => {
-    const dataLesson = useSelector(getDataLesson());
-    const { description } = dataLesson;
+    const { description } = useSelector(getDataLesson());
 
     return (
         <>
