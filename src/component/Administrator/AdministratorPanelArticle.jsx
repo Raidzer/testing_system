@@ -151,14 +151,12 @@ export default function AdministratorPanelArticle() {
                             rowCount={rows.length}
                             headCells={headCells}
                         />
-                        {articlesIsLoading ? <IsLoading /> :
-                            <AdminTableBody
-                                rows={visibleRows}
-                                headCells={headCells}
-                                isSelected={isSelected}
-                                handleClick={handleClick}
-                            />
-                        }
+                        <AdminTableBody
+                            rows={visibleRows}
+                            headCells={headCells}
+                            isSelected={isSelected}
+                            handleClick={handleClick}
+                        />
                     </Table>
                 </TableContainer>
                 <TablePagination

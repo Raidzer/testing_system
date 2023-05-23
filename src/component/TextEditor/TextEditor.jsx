@@ -7,8 +7,20 @@ import { IsLoading } from '../IsLoading';
 const editorConfiguration = {
     toolbar: {
         shouldNotGroupWhenFull: true,
+    },
+    simpleUpload: {
+        uploadUrl: 'http://localhost',
+        headers: {
+            'X-CSRF-TOKEN': 'CSRF-Token',
+            Authorization: 'Bearer <JSON Web Token>'
+        },
+    },
+    image: {
+        upload: {
+            types: ['png', 'gif', 'jpeg']
+        }
     }
-};
+}
 
 function TextEditor(props) {
     const {
@@ -35,18 +47,9 @@ function TextEditor(props) {
                         editor={Editor}
                         config={editorConfiguration}
                         data={initData}
-                        onReady={editor => {
-                            console.log('Editor готов', editor);
-                        }}
                         onChange={(event, editor) => {
                             const data = editor.getData();
                             console.log({ event, editor, data });
-                        }}
-                        onBlur={(event, editor) => {
-                            console.log('Blur.', editor);
-                        }}
-                        onFocus={(event, editor) => {
-                            console.log('Focus.', editor);
                         }}
                     />
                 </Box>
