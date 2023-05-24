@@ -11,6 +11,7 @@ function ArticleEditor() {
     let articleIsLoading = useSelector(getStatusLoadingLesson());
     const { description } = useSelector(getDataLesson());
     const dispatch = useDispatch();
+    const { idTheme } = useParams();
 
     useEffect(() => {
         dispatch(getDataArticle({
@@ -23,7 +24,11 @@ function ArticleEditor() {
     return (
         <div>
             {
-                articleIsLoading ? <IsLoading /> : <TextEditor initData={description} />
+                articleIsLoading ? <IsLoading /> :
+                    <TextEditor
+                        initData={description}
+                        idTheme={idTheme}
+                    />
             }
         </div>
     )

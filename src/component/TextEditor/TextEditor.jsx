@@ -3,35 +3,37 @@ import { Box } from '@mui/material';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { useEffect, useState } from 'react';
 import { IsLoading } from '../IsLoading';
-
-const editorConfiguration = {
-    toolbar: {
-        shouldNotGroupWhenFull: true,
-    },
-    simpleUpload: {
-        uploadUrl: 'http://localhost',
-        headers: {
-            'X-CSRF-TOKEN': 'CSRF-Token',
-            Authorization: 'Bearer <JSON Web Token>'
-        },
-    },
-    image: {
-        upload: {
-            types: ['png', 'gif', 'jpeg']
-        }
-    }
-}
+import uploadFileAdapterCKEditor from '../../utils/adapterUpload';
 
 function TextEditor(props) {
     const {
         initData,
+        idTheme,
     } = props;
     const [isLoading, setIsLoading] = useState(true);
+
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new uploadFileAdapterCKEditor(loader, idTheme);
+        };
+    }
+
+    const editorConfiguration = {
+        extraPlugins: [MyCustomUploadAdapterPlugin],
+        toolbar: {
+            shouldNotGroupWhenFull: true,
+        },
+        image: {
+            upload: {
+                types: ['png', 'gif', 'jpeg']
+            }
+        }
+    }
 
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 5000);
+        }, 1000);
     }, []);
 
     return (
