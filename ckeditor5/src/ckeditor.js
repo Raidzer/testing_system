@@ -25,6 +25,7 @@ import Image from '@ckeditor/ckeditor5-image/src/image.js';
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption.js';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
@@ -47,7 +48,6 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar.js';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
-import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 
 class Editor extends ClassicEditor {}
 
@@ -76,6 +76,7 @@ Editor.builtinPlugins = [
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload,
+	ImageResize,
 	Indent,
 	Italic,
 	Link,
@@ -121,8 +122,8 @@ Editor.defaultConfig = {
 			'undo',
 			'redo',
 			'alignment',
-			'code',
-			'codeBlock',
+			//'code',
+			//'codeBlock',
 			'findAndReplace',
 			'fontBackgroundColor',
 			'fontColor',
@@ -130,7 +131,7 @@ Editor.defaultConfig = {
 			'fontSize',
 			'highlight',
 			'horizontalLine',
-			'htmlEmbed',
+			//'htmlEmbed',
 			'sourceEditing',
 			'specialCharacters',
 			'underline'

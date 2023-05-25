@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useParams } from "react-router";
 import { IsLoading } from "../../IsLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataArticle, getDataLesson, getStatusLoadingLesson } from "../../../store/lesson";
-import { Button } from "@mui/material";
 import TextEditor from "../../TextEditor/TextEditor";
 
 function ArticleEditor() {

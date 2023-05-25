@@ -42,7 +42,7 @@ function TextEditor(props) {
                 <Box
                     sx={{
                         width: '100%',
-                        minHeight: '300px',
+                        minHeight: '500px',
                     }}>
                     <h2>Редактор глав</h2>
                     <CKEditor
@@ -51,8 +51,9 @@ function TextEditor(props) {
                         data={initData}
                         onChange={(event, editor) => {
                             const data = editor.getData();
-                            console.log({ event, editor, data });
+                            console.log({ data });
                         }}
+                        uploadComplete={() => console.log('загрузка завершена')}
                     />
                 </Box>
             }
