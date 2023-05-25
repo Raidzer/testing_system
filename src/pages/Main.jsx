@@ -67,7 +67,7 @@ export default function Main() {
                             }
                         />
                         <Route
-                            path="/administrator"
+                            path="/administrator/theme"
                             element={
                                 userIsAdmin ?
                                     <AdministratorPanelTheme /> :

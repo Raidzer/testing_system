@@ -3,7 +3,8 @@ import { Box } from '@mui/material';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { useEffect, useState } from 'react';
 import { IsLoading } from '../IsLoading';
-import uploadFileAdapterCKEditor from '../../utils/adapterUpload';
+import uploadFileAdapterCKEditor from './adapterUpload';
+import { useParams } from 'react-router';
 
 function TextEditor(props) {
     const {
@@ -11,15 +12,16 @@ function TextEditor(props) {
         idTheme,
     } = props;
     const [isLoading, setIsLoading] = useState(true);
+    const { idArticle } = useParams()
 
-    function MyCustomUploadAdapterPlugin(editor) {
+    function uploadImageAdapter(editor) {
         editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-            return new uploadFileAdapterCKEditor(loader, idTheme);
+            return new uploadFileAdapterCKEditor(loader, idTheme, idArticle);
         };
     }
 
     const editorConfiguration = {
-        extraPlugins: [MyCustomUploadAdapterPlugin],
+        extraPlugins: [uploadImageAdapter],
         toolbar: {
             shouldNotGroupWhenFull: true,
         },

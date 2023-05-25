@@ -1,10 +1,10 @@
-import httpService from "../service/http.service";
-import configFile from "../config.json";
+import httpService from "../../service/http.service";
 
 class uploadFileAdapterCKEditor {
-    constructor(loader, idTheme) {
+    constructor(loader, idTheme, idArticle) {
         this.loader = loader;
         this.idTheme = idTheme;
+        this.idArticle = idArticle;
     }
 
     upload() {
@@ -23,6 +23,7 @@ class uploadFileAdapterCKEditor {
                     const data = new FormData();
                     data.append('image_upload', file);
                     data.append('theme_id', this.idTheme);
+                    data.append('article_id', this.idArticle);
                     this.http.post('/upload', data)
                         .then(response => {
                             if (response.status === 200) {

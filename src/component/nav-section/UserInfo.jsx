@@ -90,7 +90,7 @@ export const UserInfo = (props) => {
                         {userIsAdmin ?
                             <MenuItem
                                 component={Link}
-                                to="/administrator"
+                                to="/administrator/theme"
                                 onClick={handleClose}
                             >
                                 Панель администратора
