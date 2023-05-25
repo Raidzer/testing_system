@@ -9,14 +9,18 @@ import { useParams } from 'react-router';
 function TextEditor(props) {
     const {
         initData,
-        idTheme,
     } = props;
     const [isLoading, setIsLoading] = useState(true);
-    const { idArticle } = useParams()
+    const { idArticle, idTheme, idQuestion } = useParams()
 
     function uploadImageAdapter(editor) {
         editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-            return new uploadFileAdapterCKEditor(loader, idTheme, idArticle);
+            return new uploadFileAdapterCKEditor(
+                loader, 
+                idTheme, 
+                idArticle, 
+                idQuestion
+                );
         };
     }
 

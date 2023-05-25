@@ -1,10 +1,11 @@
 import httpService from "../../service/http.service";
 
 class uploadFileAdapterCKEditor {
-    constructor(loader, idTheme, idArticle) {
+    constructor(loader, idTheme, idArticle, idQuestion) {
         this.loader = loader;
         this.idTheme = idTheme;
         this.idArticle = idArticle;
+        this.idQuestion = idQuestion;
     }
 
     upload() {
@@ -24,6 +25,7 @@ class uploadFileAdapterCKEditor {
                     data.append('image_upload', file);
                     data.append('theme_id', this.idTheme);
                     data.append('article_id', this.idArticle);
+                    data.append('question_id', this.idQuestion);
                     this.http.post('/upload', data)
                         .then(response => {
                             if (response.status === 200) {
