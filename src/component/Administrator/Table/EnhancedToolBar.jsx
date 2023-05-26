@@ -1,8 +1,27 @@
 import { LibraryAdd, Mode } from "@mui/icons-material";
-import { ClickAwayListener, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, alpha } from "@mui/material";
+import {
+    Button,
+    ClickAwayListener,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    IconButton,
+    Menu,
+    MenuItem,
+    TextField,
+    Toolbar,
+    Tooltip,
+    Typography,
+    alpha
+} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { createNewTheme } from "../../../service/data.service";
+import { useDispatch } from "react-redux";
+import { loadingDataThemes } from "../../../store/themes";
 
 export default function EnhancedTableToolbar(props) {
     const {
@@ -11,8 +30,12 @@ export default function EnhancedTableToolbar(props) {
         lableActionButton,
         menuItems,
         getData,
+        modalOptions,
     } = props;
     const [anchorEl, setAnchorEl] = useState(null);
+    const [openForm, setOpenForm] = useState(false);
+    const [textFieldValue, setTextFieldValue] = useState('');
+    const dispatch = useDispatch();
     const open = Boolean(anchorEl);
 
     const handleClose = () => {
@@ -28,6 +51,23 @@ export default function EnhancedTableToolbar(props) {
         if (getData) {
             getData();
         }
+    }
+
+    const hundleClickOpenModal = () => {
+        setOpenForm(true)
+    }
+
+    const hundleClickCloseModal = () => {
+        setOpenForm(false)
+    }
+
+    const hundleChangeTextModal = (event) => {
+        setTextFieldValue(event.target.value)
+    }
+    const hundleClickCreate = async () => {
+        await createNewTheme(textFieldValue)
+        await dispatch(loadingDataThemes());
+        hundleClickCloseModal();
     }
 
     return (
@@ -103,11 +143,35 @@ export default function EnhancedTableToolbar(props) {
                 </>
             ) : (
                 <Tooltip title={`Добавить ${lableActionButton}`}>
-                    <IconButton>
+                    <IconButton onClick={hundleClickOpenModal}>
                         <LibraryAdd />
                     </IconButton>
                 </Tooltip>
             )}
+            {modalOptions ?
+                <Dialog open={openForm} onClose={handleClose}>
+                    <DialogTitle>{modalOptions.title}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            {modalOptions.contentText}
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label={modalOptions.label}
+                            fullWidth
+                            variant="standard"
+                            onChange={hundleChangeTextModal}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={hundleClickCloseModal}>Отменить</Button>
+                        <Button onClick={hundleClickCreate}>Создать</Button>
+                    </DialogActions>
+                </Dialog> : null
+            }
+
         </Toolbar>
     );
 }

@@ -112,6 +112,12 @@ export default function AdministratorPanel() {
         }
     ]
 
+    const modalOptions = {
+        "title": "Создание новой темы",
+        "contentText": "Введите название темы:",
+        "label": "Название темы"
+    }
+
     return isLoading() ? <IsLoading /> :
         (
             <Paper
@@ -136,6 +142,7 @@ export default function AdministratorPanel() {
                     lableActionButton='Тему'
                     idSelected={idSelected}
                     menuItems={menuItems}
+                    modalOptions={modalOptions}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table
