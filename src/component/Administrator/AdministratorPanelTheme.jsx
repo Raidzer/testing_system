@@ -12,6 +12,7 @@ import EnhancedTableToolbar from "./Table/EnhancedToolBar";
 import EnhancedTableHead from "./Table/EnhancedTableHead";
 import AdminTableBody from "./Table/TableBody";
 import { getComparator, stableSort } from "../../utils/sortTable";
+import { createNewTheme, deleteTheme } from "../../service/admin.service";
 
 const headCells = [
     {
@@ -116,7 +117,8 @@ export default function AdministratorPanel() {
     const modalOptions = {
         "title": "Создание новой темы",
         "contentText": "Введите название темы:",
-        "label": "Название темы"
+        "label": "Название темы",
+        "createElement": createNewTheme,
     }
 
     return isLoading() ? <IsLoading /> :
@@ -144,6 +146,7 @@ export default function AdministratorPanel() {
                     idSelected={idSelected}
                     menuItems={menuItems}
                     modalOptions={modalOptions}
+                    deleteElement={deleteTheme}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table

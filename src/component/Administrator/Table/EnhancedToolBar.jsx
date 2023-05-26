@@ -1,16 +1,9 @@
 import { LibraryAdd, Mode } from "@mui/icons-material";
 import {
-    Button,
     ClickAwayListener,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
     IconButton,
     Menu,
     MenuItem,
-    TextField,
     Toolbar,
     Tooltip,
     Typography,
@@ -21,7 +14,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
-import { deleteTheme } from "../../../service/admin.service";
 import CreateModal from "../../Form/createModal";
 
 export default function EnhancedTableToolbar(props) {
@@ -33,8 +25,9 @@ export default function EnhancedTableToolbar(props) {
         getData,
         idSelected,
         modalOptions,
+        deleteElement,
     } = props;
-    
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [openForm, setOpenForm] = useState(false);
     const dispatch = useDispatch();
@@ -65,7 +58,7 @@ export default function EnhancedTableToolbar(props) {
 
     const hundleClickDelete = async (idSelected) => {
         await Promise.all(idSelected.map(async (id) => {
-            await deleteTheme(id);
+            await deleteElement(id);
         }));
         dispatch(loadingDataThemes())
     }

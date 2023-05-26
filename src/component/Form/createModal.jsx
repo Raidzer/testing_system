@@ -1,6 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { useState } from "react";
-import { createNewTheme, deleteTheme } from "../../service/admin.service";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../store/themes";
 
@@ -25,7 +24,7 @@ export default function CreateModal(props) {
 
     const hundleClickCreate = async () => {
         if (textFieldValue) {
-            await createNewTheme(textFieldValue)
+            await modalOptions.createElement(textFieldValue)
             await dispatch(loadingDataThemes());
             closeModal();
         } else {
