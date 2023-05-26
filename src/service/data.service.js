@@ -9,20 +9,8 @@ export const getArticles = async (id) => {
     }
 }
 
-export const createNewTheme = async (subject) => {
-    try {
-        const { data } = await httpService.put(`/themes`, {
-            subject,
-        })
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 const dataService = {
     getArticles,
-    createNewTheme,
 }
 
 export default dataService;

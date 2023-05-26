@@ -19,9 +19,9 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { createNewTheme } from "../../../service/data.service";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
+import { createNewTheme, deleteTheme } from "../../../service/admin.service";
 
 export default function EnhancedTableToolbar(props) {
     const {
@@ -30,6 +30,7 @@ export default function EnhancedTableToolbar(props) {
         lableActionButton,
         menuItems,
         getData,
+        idSelected,
         modalOptions,
     } = props;
     const [anchorEl, setAnchorEl] = useState(null);
@@ -71,8 +72,11 @@ export default function EnhancedTableToolbar(props) {
         hundleClickCloseModal();
     }
 
-    const hundleClickDelete = (selected) => {
-        console.log(selected)
+    const hundleClickDelete = async (idSelected) => {
+        await Promise.all(idSelected.map(async (id) => {
+            await deleteTheme(id);
+        }));
+        dispatch(loadingDataThemes())
     }
 
     return (
@@ -113,7 +117,7 @@ export default function EnhancedTableToolbar(props) {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={`Удалить ${lableActionButton}`}>
-                        <IconButton>
+                        <IconButton onClick={() => hundleClickDelete(idSelected)}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
