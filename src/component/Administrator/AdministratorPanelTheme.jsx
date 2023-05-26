@@ -35,6 +35,13 @@ const headCells = [
     },
 ]
 
+const modalOptions = {
+    "title": "Создание новой темы",
+    "contentText": "Введите название темы:",
+    "label": "Название темы",
+    "createElement": createNewTheme,
+}
+
 function createData({ subject, id }) {
     const name = subject;
     const articles = id;
@@ -113,13 +120,6 @@ export default function AdministratorPanel() {
             text: "Изменить вопросы"
         }
     ]
-
-    const modalOptions = {
-        "title": "Создание новой темы",
-        "contentText": "Введите название темы:",
-        "label": "Название темы",
-        "createElement": createNewTheme,
-    }
 
     return isLoading() ? <IsLoading /> :
         (

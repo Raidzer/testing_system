@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router"
 import { IsLoading } from "../IsLoading";
-import { Paper, Table, TableContainer, TablePagination } from "@mui/material";
+import { Paper, Table, TableContainer, TablePagination} from "@mui/material";
 import EnhancedTableToolbar from "./Table/EnhancedToolBar";
 import EnhancedTableHead from "./Table/EnhancedTableHead";
 import AdminTableBody from "./Table/TableBody";
@@ -19,6 +19,13 @@ const headCells = [
     },
 ]
 
+const modalOptions = {
+    "title": "Создание новой главы",
+    "contentText": "Введите название главы:",
+    "label": "Название главы",
+    "createElement": (text) => console.log(text),
+}
+
 function createData({ title, id }) {
     const name = title;
 
@@ -28,13 +35,11 @@ function createData({ title, id }) {
     };
 }
 
-
 export default function AdministratorPanelArticle() {
     const dispatch = useDispatch();
     const { idTheme } = useParams();
     const [articles, setArticles] = useState([]);
     const [selected, setSelected] = useState([]);
-    const [articlesIsLoading, setArticlesIsLoading] = useState(true)
     const [idSelected, setIdSelected] = useState([]);
     const [rows, setRows] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(12);
@@ -48,7 +53,6 @@ export default function AdministratorPanelArticle() {
         setArticles(data);
         const newRows = data.map((article, index) => createData(article, index))
         setRows(newRows)
-        setArticlesIsLoading(false);
     }
 
     useEffect(() => {
@@ -135,6 +139,7 @@ export default function AdministratorPanelArticle() {
                     idSelected={idSelected}
                     menuItems={menuItems}
                     getData={getDataSelectedArticle}
+                    modalOptions={modalOptions}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table
