@@ -84,8 +84,8 @@ export default function AdministratorPanel() {
             setSelected([])
             setIdSelected([])
         } else {
-            setSelected(theme)
-            setIdSelected(id)
+            setSelected([theme])
+            setIdSelected([id])
         }
     }
 

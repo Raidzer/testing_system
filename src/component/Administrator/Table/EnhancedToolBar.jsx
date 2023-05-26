@@ -64,6 +64,7 @@ export default function EnhancedTableToolbar(props) {
     const hundleChangeTextModal = (event) => {
         setTextFieldValue(event.target.value)
     }
+    
     const hundleClickCreate = async () => {
         await createNewTheme(textFieldValue)
         await dispatch(loadingDataThemes());
