@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { getDataThemes } from "../../store/themes";
+import { getDataThemes, getStatusLoadingThemes } from "../../store/themes";
 import {
     Paper,
     Table,
@@ -48,7 +48,8 @@ function createData({ subject, id }) {
 }
 
 export default function AdministratorPanel() {
-    const themes = useSelector(getDataThemes())
+    const themes = useSelector(getDataThemes());
+    const themesIsLoading = useSelector(getStatusLoadingThemes());
     const [selected, setSelected] = useState([]);
     const [idSelected, setIdSelected] = useState([]);
     const [order, setOrder] = useState('asc');
@@ -159,12 +160,14 @@ export default function AdministratorPanel() {
                             rowCount={rows.length}
                             headCells={headCells}
                         />
-                        <AdminTableBody
-                            rows={visibleRows}
-                            headCells={headCells}
-                            isSelected={isSelected}
-                            handleClick={handleClick}
-                        />
+                        {themesIsLoading ? <IsLoading /> :
+                            <AdminTableBody
+                                rows={visibleRows}
+                                headCells={headCells}
+                                isSelected={isSelected}
+                                handleClick={handleClick}
+                            />
+                        }
                     </Table>
                 </TableContainer>
                 <TablePagination
