@@ -21,7 +21,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
-import { createNewTheme, deleteTheme } from "../../../service/admin.service";
+import { deleteTheme } from "../../../service/admin.service";
+import CreateModal from "../../Form/createModal";
 
 export default function EnhancedTableToolbar(props) {
     const {
@@ -33,11 +34,9 @@ export default function EnhancedTableToolbar(props) {
         idSelected,
         modalOptions,
     } = props;
+    
     const [anchorEl, setAnchorEl] = useState(null);
     const [openForm, setOpenForm] = useState(false);
-    const [textFieldValue, setTextFieldValue] = useState('');
-    const [textFieldValueEmpty, setTextFieldValueEmpty] = useState(false);
-    const [textFieldValueDuplicate, setTextFieldValueDuplicate] = useState(false);
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
 
@@ -62,23 +61,6 @@ export default function EnhancedTableToolbar(props) {
 
     const hundleClickCloseModal = () => {
         setOpenForm(false);
-        setTextFieldValueDuplicate(false);
-        setTextFieldValueEmpty(false);
-    }
-
-    const hundleChangeTextModal = (event) => {
-        setTextFieldValue(event.target.value)
-    }
-
-    const hundleClickCreate = async () => {
-        if (textFieldValue) {
-            await createNewTheme(textFieldValue)
-            await dispatch(loadingDataThemes());
-            hundleClickCloseModal();
-        } else {
-            setTextFieldValueEmpty(true)
-        }
-
     }
 
     const hundleClickDelete = async (idSelected) => {
@@ -86,16 +68,6 @@ export default function EnhancedTableToolbar(props) {
             await deleteTheme(id);
         }));
         dispatch(loadingDataThemes())
-    }
-
-    const labelErrorText = () => {
-        if (textFieldValueEmpty) {
-            return "Введите название!"
-        } else if (textFieldValueDuplicate) {
-            return "Такое имя уже существует!"
-        } else {
-            return modalOptions.label;
-        }
     }
 
     return (
@@ -177,30 +149,12 @@ export default function EnhancedTableToolbar(props) {
                 </Tooltip>
             )}
             {modalOptions ?
-                <Dialog open={openForm} onClose={handleClose}>
-                    <DialogTitle>{modalOptions.title}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            {modalOptions.contentText}
-                        </DialogContentText>
-                        <TextField
-                            error={textFieldValueDuplicate || textFieldValueEmpty}
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label={labelErrorText()}
-                            fullWidth
-                            variant="standard"
-                            onChange={hundleChangeTextModal}
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={hundleClickCloseModal}>Отменить</Button>
-                        <Button onClick={hundleClickCreate}>Создать</Button>
-                    </DialogActions>
-                </Dialog> : null
+                <CreateModal
+                    openForm={openForm}
+                    hundleClickCloseModal={hundleClickCloseModal}
+                    modalOptions={modalOptions}
+                /> : null
             }
-
         </Toolbar>
     );
 }
