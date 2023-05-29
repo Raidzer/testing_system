@@ -73,7 +73,6 @@ export const updateTitleArticle = async ({ title, id, idTheme, description }) =>
 }
 
 export const updateArticle = async ({ title, id, idTheme, description }) => {
-    console.log(idTheme)
     try {
         const { data } = await httpService.patch(`/articles/theme/${idTheme}`, {
             title,

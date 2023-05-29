@@ -25,7 +25,7 @@ class uploadFileAdapterCKEditor {
                     data.append('image_upload', file);
                     data.append('theme_id', this.idTheme);
                     data.append('article_id', this.idArticle);
-                    data.append('question_id', this.idQuestion);
+                    data.append('ticket_id', this.idQuestion);
                     this.http.post('/upload', data)
                         .then(response => {
                             if (response.status === 200) {
