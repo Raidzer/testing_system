@@ -12,7 +12,7 @@ import EnhancedTableToolbar from "./Table/EnhancedToolBar";
 import EnhancedTableHead from "./Table/EnhancedTableHead";
 import AdminTableBody from "./Table/TableBody";
 import { getComparator, stableSort } from "../../utils/sortTable";
-import { createNewTheme, deleteTheme } from "../../service/admin.service";
+import { createTheme, deleteTheme, updateTitleTheme } from "../../service/admin.service";
 
 const headCells = [
     {
@@ -40,11 +40,12 @@ const modalOptions = {
     "titleChange": "Изменение названия темы",
     "contentText": "Введите название темы:",
     "label": "Название темы",
-    "createElement": createNewTheme,
+    "createElement": createTheme,
+    "updateElement": updateTitleTheme,
 }
 
-function createData({ subject, id }) {
-    const name = subject;
+function createData({ title, id }) {
+    const name = title;
     const articles = id;
     const tickets = 10 + id;
 

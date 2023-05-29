@@ -26,6 +26,7 @@ export default function EnhancedTableToolbar(props) {
         idSelected,
         modalOptions,
         deleteElement,
+        idTheme,
     } = props;
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -58,7 +59,7 @@ export default function EnhancedTableToolbar(props) {
 
     const hundleClickDelete = async (idSelected) => {
         await Promise.all(idSelected.map(async (id) => {
-            await deleteElement(id);
+            await deleteElement({ id, idTheme });
         }));
         dispatch(loadingDataThemes())
     }
@@ -153,6 +154,7 @@ export default function EnhancedTableToolbar(props) {
                     modalOptions={modalOptions}
                     selected={selected}
                     idSelected={idSelected}
+                    idTheme={idTheme}
                 /> : null
             }
         </Toolbar>

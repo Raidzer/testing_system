@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router"
 import { IsLoading } from "../IsLoading";
-import { Paper, Table, TableContainer, TablePagination} from "@mui/material";
+import { Paper, Table, TableContainer, TablePagination } from "@mui/material";
 import EnhancedTableToolbar from "./Table/EnhancedToolBar";
 import EnhancedTableHead from "./Table/EnhancedTableHead";
 import AdminTableBody from "./Table/TableBody";
@@ -9,6 +9,7 @@ import { getComparator, stableSort } from "../../utils/sortTable";
 import { getArticles } from "../../service/data.service";
 import { useDispatch } from "react-redux";
 import { getDataArticle } from "../../store/lesson";
+import { createArticle, deleteArticle, updateTitleArticle } from "../../service/admin.service";
 
 const headCells = [
     {
@@ -23,7 +24,8 @@ const modalOptions = {
     "title": "Создание новой главы",
     "contentText": "Введите название главы:",
     "label": "Название главы",
-    "createElement": (text) => console.log(text),
+    "createElement": createArticle,
+    "updateElement": updateTitleArticle,
 }
 
 function createData({ title, id }) {
@@ -140,6 +142,8 @@ export default function AdministratorPanelArticle() {
                     menuItems={menuItems}
                     getData={getDataSelectedArticle}
                     modalOptions={modalOptions}
+                    idTheme={idTheme}
+                    deleteElement={deleteArticle}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table

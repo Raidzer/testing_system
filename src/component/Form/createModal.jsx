@@ -11,12 +11,14 @@ export default function CreateModal(props) {
         modalOptions,
         selected,
         idSelected,
+        idTheme,
     } = props;
 
     const [textFieldValue, setTextFieldValue] = useState(selected[0]);
     const [textFieldValueEmpty, setTextFieldValueEmpty] = useState(false);
     const [textFieldValueDuplicate, setTextFieldValueDuplicate] = useState(false);
     const dispatch = useDispatch();
+
 
     const closeModal = () => {
         hundleClickCloseModal();
@@ -27,7 +29,12 @@ export default function CreateModal(props) {
     const hundleClickCreate = async () => {
         if (textFieldValue) {
             try {
-                await modalOptions.createElement(textFieldValue, idSelected[0])
+                await modalOptions
+                    .createElement({
+                        title: textFieldValue,
+                        id: idSelected[0],
+                        idTheme,
+                    })
                 await dispatch(loadingDataThemes());
                 closeModal();
             } catch (error) {
@@ -36,7 +43,25 @@ export default function CreateModal(props) {
         } else {
             setTextFieldValueEmpty(true)
         }
+    }
 
+    const hundleClickUpdate = async () => {
+        if (textFieldValue) {
+            try {
+                await modalOptions
+                    .updateElement({
+                        title: textFieldValue,
+                        id: idSelected[0],
+                        idTheme,
+                    })
+                await dispatch(loadingDataThemes());
+                closeModal();
+            } catch (error) {
+                setTextFieldValueDuplicate(true);
+            }
+        } else {
+            setTextFieldValueEmpty(true)
+        }
     }
 
     const hundleChangeTextModal = (event) => {
@@ -79,7 +104,9 @@ export default function CreateModal(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={closeModal}>Отменить</Button>
-                <Button onClick={hundleClickCreate}>
+                <Button onClick={
+                    idSelected[0] ? hundleClickUpdate : hundleClickCreate
+                }>
                     {idSelected[0] ? "Изменить" : "Создать"}
                 </Button>
             </DialogActions>

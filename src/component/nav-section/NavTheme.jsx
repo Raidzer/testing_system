@@ -5,7 +5,7 @@ import NavArticles from './NavArticle';
 
 
 export default function NavTheme({ theme }) {
-    const { id, subject } = theme;
+    const { id, title } = theme;
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
@@ -22,7 +22,7 @@ export default function NavTheme({ theme }) {
                     display: 'inline-block'
                 }}>
                     <Typography variant="h6">
-                        {subject}
+                        {title}
                     </Typography>
                 </ListItemText>
                 {open ? <ExpandLess /> : <ExpandMore />}

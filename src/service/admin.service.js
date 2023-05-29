@@ -1,9 +1,9 @@
 import httpService from "./http.service"
 
-export const createNewTheme = async (subject, id) => {
+export const createTheme = async ({ title, id }) => {
     try {
         const { data } = await httpService.put(`/themes`, {
-            subject,
+            title,
             id,
         })
         return data;
@@ -15,7 +15,22 @@ export const createNewTheme = async (subject, id) => {
     }
 }
 
-export const deleteTheme = async (id, subject) => {
+export const updateTitleTheme = async ({ title, id }) => {
+    try {
+        const { data } = await httpService.put(`/themes`, {
+            title,
+            id,
+        })
+        return data;
+    } catch (error) {
+        console.log(error);
+        if (error.response.status === 400) {
+            throw new Error("Произошла ошибка при изменении имени темы, имя уже занято")
+        }
+    }
+}
+
+export const deleteTheme = async ({ id }) => {
     try {
         const { data } = await httpService.delete(`/themes`, {
             data: {
@@ -28,9 +43,55 @@ export const deleteTheme = async (id, subject) => {
     }
 }
 
+export const createArticle = async ({ title, id, idTheme, description }) => {
+    try {
+        const { data } = await httpService.post(`/articles/theme/${idTheme}`, {
+            title,
+        })
+        return data;
+    } catch (error) {
+        console.log(error);
+        if (error.response.status === 400) {
+            throw new Error("Произошла ошибка при создании главы, имя уже занято")
+        }
+    }
+}
+
+export const updateTitleArticle = async ({ title, id, idTheme, description }) => {
+    try {
+        const { data } = await httpService.put(`/articles/theme/${idTheme}`, {
+            title,
+            id,
+        })
+        return data;
+    } catch (error) {
+        console.log(error);
+        if (error.response.status === 400) {
+            throw new Error("Произошла ошибка при создании главы, имя уже занято")
+        }
+    }
+}
+
+export const deleteArticle = async ({ title, id, idTheme, description }) => {
+    try {
+        const { data } = await httpService.delete(`/articles/theme/${idTheme}`, {
+            data: {
+                id,
+            }
+        })
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const adminService = {
-    createNewTheme,
+    createTheme,
+    updateTitleTheme,
     deleteTheme,
+    createArticle,
+    deleteArticle,
+    updateTitleArticle,
 }
 
 export default adminService;

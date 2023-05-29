@@ -10,6 +10,7 @@ const http = axios.create({
 
 const authService = {
     login: async ({ username, password }) => {
+        localStorageService.removeTokens();
         const { data } = await httpService.post('/auth/signin', {
             username,
             password,
