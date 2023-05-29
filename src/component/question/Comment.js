@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getCommentMistake, getDataQuestion, loadingDataQuestionFromTest } from "../../store/question";
+import { getCommentMistake, loadingDataQuestionFromTest } from "../../store/question";
 import { useState } from "react";
 import { Box, Button, Modal } from "@mui/material";
 import { useParams } from "react-router";
@@ -10,7 +10,6 @@ export default function Comment() {
     const [openModal, setOpenModal] = useState(true);
     const dispatch = useDispatch();
     const { idTheme } = useParams();
-    const { id } = useSelector(getDataQuestion());
     let jsessionId = localStorageService.getSessionQuestionId();
 
 

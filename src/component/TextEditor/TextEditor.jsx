@@ -5,22 +5,27 @@ import { useEffect, useState } from 'react';
 import { IsLoading } from '../IsLoading';
 import uploadFileAdapterCKEditor from './adapterUpload';
 import { useParams } from 'react-router';
+import EditorActionBar from './EditorActionBar';
+
 
 function TextEditor(props) {
     const {
         initData,
+        id,
+        title,
     } = props;
     const [isLoading, setIsLoading] = useState(true);
     const { idArticle, idTheme, idQuestion } = useParams()
+    const [description, setDescription] = useState(initData);
 
     function uploadImageAdapter(editor) {
         editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
             return new uploadFileAdapterCKEditor(
-                loader, 
-                idTheme, 
-                idArticle, 
+                loader,
+                idTheme,
+                idArticle,
                 idQuestion
-                );
+            );
         };
     }
 
@@ -50,14 +55,20 @@ function TextEditor(props) {
                         width: '100%',
                         minHeight: '500px',
                     }}>
-                    <h2>Редактор глав</h2>
+                    <EditorActionBar 
+                        id={id}
+                        title={title}
+                        idTheme={idTheme}
+                        description={description}
+                        disable={initData === description}
+                    />
                     <CKEditor
                         editor={Editor}
                         config={editorConfiguration}
                         data={initData}
                         onChange={(event, editor) => {
                             const data = editor.getData();
-                            console.log({ data });
+                            setDescription(data)
                         }}
                         uploadComplete={() => console.log('загрузка завершена')}
                     />

@@ -72,6 +72,23 @@ export const updateTitleArticle = async ({ title, id, idTheme, description }) =>
     }
 }
 
+export const updateArticle = async ({ title, id, idTheme, description }) => {
+    console.log(idTheme)
+    try {
+        const { data } = await httpService.patch(`/articles/theme/${idTheme}`, {
+            title,
+            id,
+            description,
+        })
+        return data;
+    } catch (error) {
+        console.log(error);
+        if (error.response.status === 400) {
+            throw new Error("Произошла ошибка при создании главы, имя уже занято")
+        }
+    }
+}
+
 export const deleteArticle = async ({ title, id, idTheme, description }) => {
     try {
         const { data } = await httpService.delete(`/articles/theme/${idTheme}`, {
@@ -92,6 +109,7 @@ const adminService = {
     createArticle,
     deleteArticle,
     updateTitleArticle,
+    updateArticle,
 }
 
 export default adminService;

@@ -3,7 +3,6 @@ import { getUserId } from "../service/localStorage.service";
 import { useEffect } from "react";
 import { getInfoUser, getStatusLoadingUser } from "../store/user";
 import { getStatusLoadingThemes, loadingDataThemes } from "../store/themes";
-import { CircularProgress } from "@mui/material";
 import { IsLoading } from "./IsLoading";
 
 

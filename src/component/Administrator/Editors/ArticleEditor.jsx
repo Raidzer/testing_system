@@ -8,9 +8,8 @@ import TextEditor from "../../TextEditor/TextEditor";
 function ArticleEditor() {
     const { idArticle } = useParams();
     let articleIsLoading = useSelector(getStatusLoadingLesson());
-    const { description } = useSelector(getDataLesson());
+    const { description, id, title } = useSelector(getDataLesson());
     const dispatch = useDispatch();
-    const { idTheme } = useParams();
 
     useEffect(() => {
         dispatch(getDataArticle({
@@ -26,7 +25,8 @@ function ArticleEditor() {
                 articleIsLoading ? <IsLoading /> :
                     <TextEditor
                         initData={description}
-                        idTheme={idTheme}
+                        id={id}
+                        title={title}
                     />
             }
         </div>

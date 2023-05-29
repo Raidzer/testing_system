@@ -1,6 +1,6 @@
 import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommentMistake, getDataQuestion, getMultiAnswer, getStatusMistakeAnswer, sendAnswers, sendAnswersFromTest } from "../../store/question";
+import { getDataQuestion, getMultiAnswer, getStatusMistakeAnswer, sendAnswers, sendAnswersFromTest } from "../../store/question";
 import { useEffect, useState } from "react";
 import { nextQuestionButton } from "./styles";
 import { useParams } from "react-router";
@@ -14,7 +14,6 @@ export default function FormAnswers() {
     const [disableSendForm, setDisableSendForm] = useState(true);
     const dispatch = useDispatch();
     const { idTheme } = useParams();
-    const commentMistake = useSelector(getCommentMistake());
     const isMistake = useSelector(getStatusMistakeAnswer());
 
     useEffect(() => {
