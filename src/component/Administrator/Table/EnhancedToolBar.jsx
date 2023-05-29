@@ -1,4 +1,4 @@
-import { LibraryAdd, Mode } from "@mui/icons-material";
+import { LibraryAdd, Mode, Settings } from "@mui/icons-material";
 import {
     ClickAwayListener,
     IconButton,
@@ -95,9 +95,14 @@ export default function EnhancedTableToolbar(props) {
             )}
             {selected.length > 0 ? (
                 <>
-                    <Tooltip title={`Изменить ${lableActionButton}`}>
-                        <IconButton onClick={handleClick}>
+                    <Tooltip title={`Переименовать`}>
+                        <IconButton onClick={hundleClickOpenModal}>
                             <Mode />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title={`Настроить ${lableActionButton}`}>
+                        <IconButton onClick={handleClick}>
+                            <Settings />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={`Удалить ${lableActionButton}`}>
@@ -146,6 +151,8 @@ export default function EnhancedTableToolbar(props) {
                     openForm={openForm}
                     hundleClickCloseModal={hundleClickCloseModal}
                     modalOptions={modalOptions}
+                    selected={selected}
+                    idSelected={idSelected}
                 /> : null
             }
         </Toolbar>

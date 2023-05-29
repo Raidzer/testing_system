@@ -9,9 +9,11 @@ export default function CreateModal(props) {
         openForm,
         hundleClickCloseModal,
         modalOptions,
+        selected,
+        idSelected,
     } = props;
 
-    const [textFieldValue, setTextFieldValue] = useState('');
+    const [textFieldValue, setTextFieldValue] = useState(selected[0]);
     const [textFieldValueEmpty, setTextFieldValueEmpty] = useState(false);
     const [textFieldValueDuplicate, setTextFieldValueDuplicate] = useState(false);
     const dispatch = useDispatch();
@@ -24,9 +26,13 @@ export default function CreateModal(props) {
 
     const hundleClickCreate = async () => {
         if (textFieldValue) {
-            await modalOptions.createElement(textFieldValue)
-            await dispatch(loadingDataThemes());
-            closeModal();
+            try {
+                await modalOptions.createElement(textFieldValue, idSelected[0])
+                await dispatch(loadingDataThemes());
+                closeModal();
+            } catch (error) {
+                setTextFieldValueDuplicate(true);
+            }
         } else {
             setTextFieldValueEmpty(true)
         }
@@ -49,7 +55,12 @@ export default function CreateModal(props) {
 
     return (
         <Dialog open={openForm}>
-            <DialogTitle>{modalOptions.title}</DialogTitle>
+            <DialogTitle>
+                {idSelected[0] ?
+                    modalOptions.titleChange :
+                    modalOptions.titleNew
+                }
+            </DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     {modalOptions.contentText}
@@ -59,6 +70,7 @@ export default function CreateModal(props) {
                     autoFocus
                     margin="dense"
                     id="name"
+                    defaultValue={selected[0]}
                     label={labelErrorText()}
                     fullWidth
                     variant="standard"
@@ -67,7 +79,9 @@ export default function CreateModal(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={closeModal}>Отменить</Button>
-                <Button onClick={hundleClickCreate}>Создать</Button>
+                <Button onClick={hundleClickCreate}>
+                    {idSelected[0] ? "Изменить" : "Создать"}
+                </Button>
             </DialogActions>
         </Dialog>
     )

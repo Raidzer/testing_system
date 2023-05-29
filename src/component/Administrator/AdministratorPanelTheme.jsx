@@ -36,7 +36,8 @@ const headCells = [
 ]
 
 const modalOptions = {
-    "title": "Создание новой темы",
+    "titleNew": "Создание новой темы",
+    "titleChange": "Изменение названия темы",
     "contentText": "Введите название темы:",
     "label": "Название темы",
     "createElement": createNewTheme,
@@ -113,11 +114,11 @@ export default function AdministratorPanel() {
     const menuItems = [
         {
             to: `/administrator/theme/${idSelected}/articles`,
-            text: "Изменить главу"
+            text: "Настроить главы"
         },
         {
             to: `/administrator/theme/${idSelected}/questions`,
-            text: "Изменить вопросы"
+            text: "Настроить вопросы"
         }
     ]
 
