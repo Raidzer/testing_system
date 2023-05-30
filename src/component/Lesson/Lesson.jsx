@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
-import { getDataLesson } from "../store/lesson";
+import { getDataLesson } from "../../store/lesson";
+import "./Lesson.css";
 
-export const Lesson = () => {
+export default function Lesson() {
     const { description } = useSelector(getDataLesson());
 
     return (
