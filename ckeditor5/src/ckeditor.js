@@ -108,6 +108,7 @@ Editor.defaultConfig = {
 			'|',
 			'bold',
 			'italic',
+			'underline',
 			'link',
 			'bulletedList',
 			'numberedList',
@@ -118,7 +119,7 @@ Editor.defaultConfig = {
 			'imageUpload',
 			'blockQuote',
 			'insertTable',
-			'mediaEmbed',
+			//'mediaEmbed',
 			'undo',
 			'redo',
 			'alignment',
@@ -134,7 +135,6 @@ Editor.defaultConfig = {
 			//'htmlEmbed',
 			'sourceEditing',
 			'specialCharacters',
-			'underline'
 		]
 	},
 	language: 'ru',
