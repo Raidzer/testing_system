@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { getDataLesson } from "../../store/lesson";
-import "./Lesson.css";
+import "./style.css";
 import { Box } from "@mui/material";
 
 export default function Lesson() {

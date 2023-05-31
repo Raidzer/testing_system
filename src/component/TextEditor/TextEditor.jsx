@@ -6,6 +6,7 @@ import { IsLoading } from '../IsLoading';
 import uploadFileAdapterCKEditor from './adapterUpload';
 import { useParams } from 'react-router';
 import EditorActionBar from './EditorActionBar';
+import "./style.css";
 
 
 function TextEditor(props) {
@@ -54,8 +55,10 @@ function TextEditor(props) {
                     sx={{
                         width: '100%',
                         minHeight: '500px',
+                        minWidth: '100%',
+                        resize: 'none',
                     }}>
-                    <EditorActionBar 
+                    <EditorActionBar
                         id={id}
                         title={title}
                         idTheme={idTheme}
