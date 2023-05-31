@@ -14,6 +14,7 @@ import AdministratorPanelQuestion from "../component/Administrator/Administrator
 import TextEditor from "../component/TextEditor/TextEditor";
 import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
 import Lesson from "../component/Lesson/Lesson";
+import UserStatisticsNew from "../component/UserStatisticsNew";
 
 
 const StyledRoot = styled('div')({
@@ -63,7 +64,7 @@ export default function Main() {
                         <Route
                             path="/statistics"
                             element={
-                                <UserStatistics />
+                                <UserStatisticsNew />
                             }
                         />
                         <Route
