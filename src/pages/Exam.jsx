@@ -1,13 +1,12 @@
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { loadingDataQuestion, getInitJSessionId, getDataQuestion, getQuestionIsOver } from "../store/question";
 import localStorageService from "../service/localStorage.service";
 import QuestionLoader from "../component/Questionloader";
 import FormAnswers from "../component/question/FormAnswers";
 import ComplitedTest from "../component/question/ComplitedTest";
-import { Home } from "@mui/icons-material";
+import ButtonGoBack from "../component/ButtonGoBack";
 
 
 function Exam() {
@@ -36,25 +35,16 @@ function Exam() {
         getData();
     }, [])
 
-    const hundleClick = () => {
-        localStorageService.removeSessionQuestionId();
-
-    }
-
     return (
         <div>
             <div>
-                <Link to="/">
-                    <IconButton onClick={hundleClick}>
-                        <Home fontSize="large"/>
-                    </IconButton>
-                </Link>
+                <ButtonGoBack />
             </div>
-            <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
                 alignItems: 'center',
-                }}>
+            }}>
                 <Box sx={{
                     width: 900,
                     minHeight: 550,
@@ -73,7 +63,7 @@ function Exam() {
                             :
                             <>
                                 <h1 style={{
-                                    textAlign:'center'
+                                    textAlign: 'center'
                                 }}>Вопрос экзамена:</h1>
                                 <h4 style={{
                                     minHeight: 100,

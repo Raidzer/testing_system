@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
 import CreateModal from "../../Form/createModal";
+import ButtonGoBack from "../../ButtonGoBack";
 
 export default function EnhancedTableToolbar(props) {
     const {
@@ -141,11 +142,14 @@ export default function EnhancedTableToolbar(props) {
                     </ClickAwayListener>
                 </>
             ) : (
-                <Tooltip title={`Добавить ${lableActionButton}`}>
-                    <IconButton onClick={hundleClickOpenModal}>
-                        <LibraryAdd />
-                    </IconButton>
-                </Tooltip>
+                <>
+                    <ButtonGoBack />
+                    <Tooltip title={`Добавить ${lableActionButton}`}>
+                        <IconButton onClick={hundleClickOpenModal}>
+                            <LibraryAdd />
+                        </IconButton>
+                    </Tooltip>
+                </>
             )}
             {modalOptions ?
                 <CreateModal

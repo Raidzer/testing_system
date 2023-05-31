@@ -1,13 +1,13 @@
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import localStorageService from "../service/localStorage.service";
-import { Home } from "@mui/icons-material";
 import QuestionLoader from "../component/Questionloader";
 import { getDataQuestion, getInitJSessionId, getQuestionIsOver, loadingDataQuestion, loadingDataQuestionFromTest } from "../store/question";
 import ComplitedTest from "../component/question/ComplitedTest";
 import FormAnswers from "../component/question/FormAnswers";
 import { useEffect } from "react";
+import ButtonGoBack from "../component/ButtonGoBack";
 
 function Test() {
     const dispatch = useDispatch();
@@ -46,19 +46,10 @@ function Test() {
         getData();
     }, [])
 
-    const hundleClick = () => {
-        localStorageService.removeSessionQuestionId();
-
-    }
-
     return (
         <div>
             <div>
-                <Link to="/">
-                    <IconButton onClick={hundleClick}>
-                        <Home fontSize="large" />
-                    </IconButton>
-                </Link>
+                <ButtonGoBack />
             </div>
             <div style={{
                 display: 'flex',
