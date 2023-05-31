@@ -66,7 +66,7 @@ export default function UserStatisticsNew() {
     }
 
     return (
-        <div style={{ height: "94vh", width: "100%" }}>
+        <div style={{ height: "91vh", width: "100%" }}>
             <DataGrid
                 rows={userStatistics}
                 columns={columns}
@@ -77,7 +77,13 @@ export default function UserStatisticsNew() {
                             id: false,
                         },
                     },
+                    pagination: {
+                        paginationModel: {
+                            pageSize: 14
+                        }
+                    },
                 }}
+                pageSizeOptions={[14, 28, 56]}
             />
         </div>
     );
