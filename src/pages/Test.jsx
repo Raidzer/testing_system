@@ -7,7 +7,7 @@ import { getDataQuestion, getInitJSessionId, getQuestionIsOver, loadingDataQuest
 import ComplitedTest from "../component/question/ComplitedTest";
 import FormAnswers from "../component/question/FormAnswers";
 import { useEffect } from "react";
-import ButtonGoBack from "../component/ButtonGoBack";
+import ButtonGoBack from "../component/Button/ButtonGoBack";
 
 function Test() {
     const dispatch = useDispatch();

@@ -5,7 +5,7 @@ import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { updateArticle } from "../../service/admin.service";
-import ButtonGoBack from "../ButtonGoBack";
+import ButtonGoBack from "../Button/ButtonGoBack";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),

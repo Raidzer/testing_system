@@ -10,7 +10,7 @@ export default function Lesson() {
         <>
             {
                 description ?
-                    <Box className='lessonDiv' dangerouslySetInnerHTML={{ __html: description }
+                    <Box className="lessonDiv" dangerouslySetInnerHTML={{ __html: description }
                     } /> :
                     <div>Добро пожаловать в систему обучения персонала эксплуатации АСУ ИС!</div>
             }

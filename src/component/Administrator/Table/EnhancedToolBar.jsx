@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
 import CreateModal from "../../Form/createModal";
-import ButtonGoBack from "../../ButtonGoBack";
+import ButtonGoBack from "../../Button/ButtonGoBack";
 
 export default function EnhancedTableToolbar(props) {
     const {

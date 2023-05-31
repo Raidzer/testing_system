@@ -1,7 +1,7 @@
 import { ArrowBack } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router";
-import localStorageService from "../service/localStorage.service";
+import localStorageService from "../../service/localStorage.service";
 
 export default function ButtonGoBack() {
     const navigate = useNavigate();

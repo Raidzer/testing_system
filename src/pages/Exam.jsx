@@ -6,7 +6,8 @@ import localStorageService from "../service/localStorage.service";
 import QuestionLoader from "../component/Questionloader";
 import FormAnswers from "../component/question/FormAnswers";
 import ComplitedTest from "../component/question/ComplitedTest";
-import ButtonGoBack from "../component/ButtonGoBack";
+import ButtonGoBack from "../component/Button/ButtonGoBack";
+
 
 
 function Exam() {
