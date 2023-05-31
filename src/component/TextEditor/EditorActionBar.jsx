@@ -5,6 +5,7 @@ import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { updateArticle } from "../../service/admin.service";
+import ButtonGoBack from "../ButtonGoBack";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
@@ -36,6 +37,7 @@ export default function EditorActionBar(props) {
     return (
         <Box display="flex" alignItems="center" justifyContent="space-between">
             <h2 style={{ marginRight: 'auto' }}>Редактор глав</h2>
+            <ButtonGoBack />
             <ColorButton
                 startIcon={<Save />}
                 disabled={dataIsLoading || disable}
