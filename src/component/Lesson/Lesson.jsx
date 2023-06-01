@@ -4,7 +4,7 @@ import "./style.css";
 import { Box } from "@mui/material";
 
 export default function Lesson() {
-    const { description } = useSelector(getDataLesson());
+    const { description }  = useSelector(getDataLesson());
 
     return (
         <>
