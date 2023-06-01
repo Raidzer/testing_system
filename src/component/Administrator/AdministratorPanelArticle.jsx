@@ -10,23 +10,7 @@ import { getArticles } from "../../service/data.service";
 import { useDispatch } from "react-redux";
 import { getDataArticle } from "../../store/lesson";
 import { createArticle, deleteArticle, updateTitleArticle } from "../../service/admin.service";
-
-const headCells = [
-    {
-        id: 'name',
-        label: 'Глава',
-        minWidth: 250,
-        align: 'center',
-    },
-]
-
-const modalOptions = {
-    "title": "Создание новой главы",
-    "contentText": "Введите название главы:",
-    "label": "Название главы",
-    "createElement": createArticle,
-    "updateElement": updateTitleArticle,
-}
+import { useTranslation } from "react-i18next";
 
 function createData({ title, id }) {
     const name = title;
@@ -49,6 +33,23 @@ export default function AdministratorPanelArticle() {
     const [orderBy, setOrderBy] = useState('theme');
     const [page, setPage] = useState(0);
     const { pathname } = useLocation();
+    const {t} = useTranslation();
+    const headCells = [
+        {
+            id: 'name',
+            label: t('administrator_panel.article.name'),
+            minWidth: 250,
+            align: 'center',
+        },
+    ]
+
+    const modalOptions = {
+        "title": t('administrator_panel.article.button_new_article'),
+        "contentText": t('administrator_panel.article.name_new_article'),
+        "label": t('administrator_panel.article.label_new_article'),
+        "createElement": createArticle,
+        "updateElement": updateTitleArticle,
+    }
 
     const fetchData = async () => {
         const data = await getArticles(idTheme);
@@ -104,7 +105,7 @@ export default function AdministratorPanelArticle() {
     const menuItems = [
         {
             to: `${pathname}/${idSelected}`,
-            text: "Редактировать главу",
+            text: t('administrator_panel.article.settings_article'),
         },
     ]
 
@@ -136,8 +137,8 @@ export default function AdministratorPanelArticle() {
                 </style>
                 <EnhancedTableToolbar
                     selected={selected}
-                    title='Список созданых глав'
-                    lableActionButton='Главу'
+                    title={t('administrator_panel.article.list_articles')}
+                    lableActionButton={t('administrator_panel.article.lable_action_button')}
                     idSelected={idSelected}
                     menuItems={menuItems}
                     getData={getDataSelectedArticle}

@@ -7,10 +7,12 @@ import { LinkButton } from "../LinkButton";
 import { School } from "@mui/icons-material";
 import { getArticles } from "../../service/data.service";
 import { isEmpty } from "../../utils/utilsArray";
+import { useTranslation } from "react-i18next";
 
 export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const fetchData = async () => {
         const data = await getArticles(id);
@@ -56,7 +58,7 @@ export default function NavArticles({ id }) {
                     }
                     <LinkButton
                         link={`/test/${id}`}
-                        text={'тест по теме'}
+                        text={t('nav.title_test')}
                         startIcon={< School />}
                     />
                 </List>

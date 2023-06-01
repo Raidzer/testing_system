@@ -5,33 +5,9 @@ import dateService from "../service/date.service"
 import { Cached } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { AnimatedIcon } from "../layouts/navigator/styles";
+import { useTranslation } from "react-i18next";
 
-const columns = [
-    {
-        id: 'lastName',
-        label: 'Фамилия',
-        minWidth: 100,
-        align: 'center',
-    },
-    {
-        id: 'firstName',
-        label: 'Имя',
-        minWidth: 100,
-        align: 'center',
-    },
-    {
-        id: 'percentageOfCorrectAnswers',
-        label: 'Правильные ответы',
-        minWidth: 70,
-        align: 'center',
-    },
-    {
-        id: 'date',
-        label: 'Дата прохождения экзамена',
-        minWidth: 170,
-        align: 'center',
-    },
-];
+
 
 function createData({ count_correct_ticket, count_ticket, created_at, user_info }) {
     const allAnswers = count_ticket;
@@ -64,6 +40,32 @@ export const UserStatistics = () => {
     const [userStatistics, setUserStatistics] = useState([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(12);
+    const { t } = useTranslation();
+
+    const columns = [
+        {
+            id: 'lastName',
+            label: t('last_name'),
+            minWidth: 100,
+            align: 'center',
+        },
+        {
+            id: 'firstName',
+            label: t('first_name'),
+            minWidth: 100,
+            align: 'center',
+        },
+        {
+            field: 'percentageOfCorrectAnswers',
+            headerName: t("user_statistics.correct_answers"),
+            flex: 1,
+        },
+        {
+            field: 'date',
+            headerName: t("user_statistics.date_exam"),
+            flex: 1,
+        },
+    ];
 
     useEffect(() => {
         getUserStatistics();

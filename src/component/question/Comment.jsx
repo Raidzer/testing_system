@@ -4,12 +4,14 @@ import { useState } from "react";
 import { Box, Button, Modal } from "@mui/material";
 import { useParams } from "react-router";
 import localStorageService from "../../service/localStorage.service";
+import { useTranslation } from "react-i18next";
 
 export default function Comment() {
     const commentMistake = useSelector(getCommentMistake());
     const [openModal, setOpenModal] = useState(true);
     const dispatch = useDispatch();
     const { idTheme } = useParams();
+    const { t } = useTranslation();
     let jsessionId = localStorageService.getSessionQuestionId();
 
 
@@ -50,7 +52,7 @@ export default function Comment() {
                 aria-describedby="parent-modal-description"
             >
                 <Box sx={{ ...style, width: 500 }}>
-                    <h2 id="parent-modal-title">Неправильно!</h2>
+                    <h2 id="parent-modal-title">{t('exam_panel.no_correct_answer')}</h2>
                     <p id="parent-modal-description">
                         {commentMistake}
                     </p>
@@ -60,8 +62,7 @@ export default function Comment() {
                             mt: 2,
                         }}
                     >
-                        Следующий вопрос
-                    </Button>
+                        {t('exam_panel.next_question')} </Button>
                 </Box>
             </Modal>
         </div >

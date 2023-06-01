@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
 import CreateModal from "../../Form/createModal";
 import ButtonGoBack from "../../Button/ButtonGoBack";
+import { useTranslation } from "react-i18next";
 
 export default function EnhancedTableToolbar(props) {
     const {
@@ -34,6 +35,7 @@ export default function EnhancedTableToolbar(props) {
     const [openForm, setOpenForm] = useState(false);
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
+    const { t } = useTranslation();
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -97,17 +99,17 @@ export default function EnhancedTableToolbar(props) {
             )}
             {selected.length > 0 ? (
                 <>
-                    <Tooltip title={`Переименовать`}>
+                    <Tooltip title={t("rename")}>
                         <IconButton onClick={hundleClickOpenModal}>
                             <Mode />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title={`Настроить ${lableActionButton}`}>
+                    <Tooltip title={`${t("setting")} ${lableActionButton}`}>
                         <IconButton onClick={handleClick}>
                             <Settings />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title={`Удалить ${lableActionButton}`}>
+                    <Tooltip title={`${t('delete')} ${lableActionButton}`}>
                         <IconButton onClick={() => hundleClickDelete(idSelected)}>
                             <DeleteIcon />
                         </IconButton>
@@ -144,7 +146,7 @@ export default function EnhancedTableToolbar(props) {
             ) : (
                 <>
                     <ButtonGoBack />
-                    <Tooltip title={`Добавить ${lableActionButton}`}>
+                    <Tooltip title={`${t("add")} ${lableActionButton}`}>
                         <IconButton onClick={hundleClickOpenModal}>
                             <LibraryAdd />
                         </IconButton>

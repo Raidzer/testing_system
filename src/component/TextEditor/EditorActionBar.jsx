@@ -6,6 +6,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { updateArticle } from "../../service/admin.service";
 import ButtonGoBack from "../Button/ButtonGoBack";
+import { useTranslation } from "react-i18next";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
@@ -24,6 +25,7 @@ export default function EditorActionBar(props) {
         disable,
     } = props;
     const [dataIsLoading, setDataIsLoading] = useState(false)
+    const { t } = useTranslation();
 
     const handleClickSave = async () => {
         setDataIsLoading(true)
@@ -36,14 +38,16 @@ export default function EditorActionBar(props) {
 
     return (
         <Box display="flex" alignItems="center" justifyContent="space-between">
-            <h2 style={{ marginRight: 'auto' }}>Редактор глав</h2>
+            <h2 style={{ marginRight: 'auto' }}>
+                {t('administrator_panel.article.editor_actions')}
+            </h2>
             <ButtonGoBack />
             <ColorButton
                 startIcon={<Save />}
                 disabled={dataIsLoading || disable}
                 onClick={handleClickSave}
             >
-                Сохранить
+                {t('save')}
             </ColorButton>
         </Box>
     )

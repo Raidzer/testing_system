@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { nextQuestionButton } from "./styles";
 import { useParams } from "react-router";
 import Comment from "./Comment";
+import { useTranslation } from "react-i18next";
 
 
 export default function FormAnswers() {
@@ -15,7 +16,7 @@ export default function FormAnswers() {
     const dispatch = useDispatch();
     const { idTheme } = useParams();
     const isMistake = useSelector(getStatusMistakeAnswer());
-
+    const { t} = useTranslation();
     useEffect(() => {
         setDisableSendForm(selectedAnswers.length === 0);
     }, [selectedAnswers])
@@ -73,8 +74,7 @@ export default function FormAnswers() {
                         onClick={handleSubmit}
                         disabled={disableSendForm}
                     >
-                        Отправить ответ
-                    </Button>
+                        {t('exam_panel.send_answer')} </Button>
                 </div>
             </>
         )
