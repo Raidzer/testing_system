@@ -13,36 +13,7 @@ import EnhancedTableHead from "./Table/EnhancedTableHead";
 import AdminTableBody from "./Table/TableBody";
 import { getComparator, stableSort } from "../../utils/sortTable";
 import { createTheme, deleteTheme, updateTitleTheme } from "../../service/admin.service";
-
-const headCells = [
-    {
-        id: 'name',
-        label: 'Тема',
-        minWidth: 250,
-        align: 'center',
-    },
-    {
-        id: 'articles',
-        label: 'Кол-во глав',
-        minWidth: 250,
-        align: 'center',
-    },
-    {
-        id: 'tickets',
-        label: 'Кол-во вопросов',
-        minWidth: 250,
-        align: 'center',
-    },
-]
-
-const modalOptions = {
-    "titleNew": "Создание новой темы",
-    "titleChange": "Изменение названия темы",
-    "contentText": "Введите название темы:",
-    "label": "Название темы",
-    "createElement": createTheme,
-    "updateElement": updateTitleTheme,
-}
+import { useTranslation } from "react-i18next";
 
 function createData({ title, id }) {
     const name = title;
@@ -67,6 +38,37 @@ export default function AdministratorPanel() {
     const [rows, setRows] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(12);
     const [page, setPage] = useState(0);
+    const {t} = useTranslation();
+    
+    const headCells = [
+        {
+            id: 'name',
+            label: t('administrator_panel.theme.name'),
+            minWidth: 250,
+            align: 'center',
+        },
+        {
+            id: 'articles',
+            label: t('administrator_panel.theme.articles'),
+            minWidth: 250,
+            align: 'center',
+        },
+        {
+            id: 'tickets',
+            label: t('administrator_panel.theme.tickets'),
+            minWidth: 250,
+            align: 'center',
+        },
+    ]
+
+    const modalOptions = {
+        "titleNew": t('administrator_panel.theme.button_new_theme'),
+        "titleChange": t('administrator_panel.theme.change_theme'),
+        "contentText": t('administrator_panel.theme.name_new_theme'),
+        "label": t('administrator_panel.theme.label_new_theme'),
+        "createElement": createTheme,
+        "updateElement": updateTitleTheme,
+    }
 
     useEffect(() => {
         setRows([]);
@@ -115,11 +117,11 @@ export default function AdministratorPanel() {
     const menuItems = [
         {
             to: `/administrator/theme/${idSelected}/articles`,
-            text: "Настроить главы"
+            text: t('administrator_panel.theme.setting_articles')
         },
         {
             to: `/administrator/theme/${idSelected}/questions`,
-            text: "Настроить вопросы"
+            text: t('administrator_panel.theme.setting_questions')
         }
     ]
 
@@ -143,8 +145,8 @@ export default function AdministratorPanel() {
                 </style>
                 <EnhancedTableToolbar
                     selected={selected}
-                    title='Список созданых тем'
-                    lableActionButton='Тему'
+                    title={t('administrator_panel.theme.list_themes')}
+                    lableActionButton={t('administrator_panel.theme.lable_action_button')}
                     idSelected={idSelected}
                     menuItems={menuItems}
                     modalOptions={modalOptions}

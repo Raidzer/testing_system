@@ -8,6 +8,7 @@ import { logout } from "../../store/session";
 import { styled, alpha } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { getUserIsAdmin } from "../../store/user";
+import { useTranslation } from "react-i18next";
 
 const StyledAccount = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -22,6 +23,7 @@ export const UserInfo = (props) => {
     const userIsAdmin = useSelector(getUserIsAdmin())
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const { t } = useTranslation();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -53,7 +55,7 @@ export const UserInfo = (props) => {
                         {props.lastName}
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {userIsAdmin ? "Администратор" : "Пользователь"}
+                        {userIsAdmin ? t("nav.title_admin") : t("nav.title_user")}
                     </Typography>
                 </Box>
                 <AnimatedIcon
@@ -85,7 +87,7 @@ export const UserInfo = (props) => {
                             to="/statistics"
                             onClick={handleClose}
                         >
-                            Статистика
+                            {t("nav.statistics")}
                         </MenuItem>
                         {userIsAdmin ?
                             <MenuItem
@@ -93,10 +95,10 @@ export const UserInfo = (props) => {
                                 to="/administrator/theme"
                                 onClick={handleClose}
                             >
-                                Панель администратора
+                                {t("nav.control_panel")}
                             </MenuItem> : null
                         }
-                        <MenuItem onClick={handleLogout}>Выйти</MenuItem>
+                        <MenuItem onClick={handleLogout}>{t("exit")}</MenuItem>
                     </Menu>
                 </ClickAwayListener>
             </Box>

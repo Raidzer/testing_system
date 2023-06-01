@@ -5,6 +5,7 @@ import { createStore } from "./store/createStore";
 import { Provider } from "react-redux";
 import { ThemeProvider, createTheme } from '@mui/material';
 import { ruRU } from '@mui/material/locale';
+import './locale/index.js';
 
 const store = createStore();
 

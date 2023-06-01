@@ -1,34 +1,9 @@
 import { useEffect, useState } from "react"
 import httpService from "../service/http.service"
 import dateService from "../service/date.service"
-import { DataGrid, GridToolbar, ruRU } from '@mui/x-data-grid';
+import { DataGrid, ruRU } from '@mui/x-data-grid';
+import { useTranslation } from "react-i18next";
 
-const columns = [
-    {
-        field: 'id',
-        hideable: false,
-    },
-    {
-        field: 'lastName',
-        headerName: 'Фамилия',
-        flex: 1,
-    },
-    {
-        field: 'firstName',
-        headerName: 'Имя',
-        flex: 1,
-    },
-    {
-        field: 'percentageOfCorrectAnswers',
-        headerName: 'Правильные ответы',
-        flex: 1,
-    },
-    {
-        field: 'date',
-        headerName: 'Дата прохождения экзамена',
-        flex: 1,
-    },
-];
 
 function createData({ count_correct_ticket, count_ticket, created_at, user_info }, id) {
     const allAnswers = count_ticket;
@@ -54,15 +29,45 @@ function createData({ count_correct_ticket, count_ticket, created_at, user_info 
 
 export default function UserStatisticsNew() {
     const [userStatistics, setUserStatistics] = useState([])
+    const { t } = useTranslation();
+    const [isLoading, setIsloadig] = useState(true);
+    const columns = [
+        {
+            field: 'id',
+            hideable: false,
+        },
+        {
+            field: 'lastName',
+            headerName: t("last_name"),
+            flex: 1,
+        },
+        {
+            field: 'firstName',
+            headerName: t("first_name"),
+            flex: 1,
+        },
+        {
+            field: 'percentageOfCorrectAnswers',
+            headerName: t("user_statistics.correct_answers"),
+            flex: 1,
+        },
+        {
+            field: 'date',
+            headerName: t("user_statistics.date_exam"),
+            flex: 1,
+        },
+    ];
 
     useEffect(() => {
         getUserStatistics();
     }, [])
 
     const getUserStatistics = async () => {
+        setIsloadig(true);
         const { data } = await httpService.get('statistics');
         const newRows = data.map((statistic, index) => createData(statistic, index))
         setUserStatistics(newRows);
+        setIsloadig(false);
     }
 
     return (
@@ -84,6 +89,7 @@ export default function UserStatisticsNew() {
                     },
                 }}
                 pageSizeOptions={[14, 28, 56]}
+                loading={isLoading}
             />
         </div>
     );

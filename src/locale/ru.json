@@ -1,0 +1,39 @@
+{
+  "welcome": "Добро пожаловать в систему обучения персонала эксплуатации АСУ ИС!",
+  "exit": "Выход",
+  "back": "Назад",
+  "first_name": "Имя",
+  "last_name": "Фамилия",
+  "nav": {
+    "title_theme": "Темы для изучения",
+    "title_exam": "Пройти экзамен",
+    "title_admin": "Администратор",
+    "title_user": "Пользователь",
+    "statistics": "Статистика",
+    "control_panel": "Панель администратора"
+  },
+  "user_statistics": {
+    "correct_answers": "Правильные ответы",
+    "date_exam": "Дата прохождения экзамена"
+  },
+  "not_found": {
+    "title": "Страница не найдена",
+    "message": "Но вы можете перейти",
+    "link_text": "на главную страницу"
+  },
+  "administrator_panel": {
+    "theme": {
+      "name": "Тема",
+      "articles": "Кол-во главы",
+      "tickets": "Кол-во вопросов",
+      "button_new_theme": "Создание новой темы",
+      "change_theme": "Изменение названия темы",
+      "name_new_theme": "Введите название темы:",
+      "label_new_theme": "Название темы",
+      "setting_articles": "Настроить главы",
+      "setting_questions": "Настроить вопросы",
+      "list_themes": "Список созданых тем",
+      "lable_action_button": "Тему"
+    }
+  }
+}

@@ -5,6 +5,7 @@ import NavThemes from '../../component/nav-section/NavThemes';
 import { School } from '@mui/icons-material';
 import { LinkButton } from '../../component/LinkButton';
 import { UserInfo } from '../../component/nav-section/UserInfo';
+import { useTranslation } from 'react-i18next';
 
 const NAV_WIDTH = 350;
 
@@ -12,7 +13,7 @@ export default function Nav() {
     const firstName = useSelector(getFirstName());
     const lastName = useSelector(getLastName());
     const isLoadingUserInfo = useSelector(getStatusLoadingUser());
-
+    const { t } = useTranslation()
     const renderContent = (
         <Box>
             <Box sx={{ mb: 5, mx: 5 }}>
@@ -26,14 +27,14 @@ export default function Nav() {
                     textAlign: 'center'
                 }}
             >
-                
-                Темы для изучения
+
+                {t("nav.title_theme")}
             </Typography>
             <NavThemes />
             <Box>
                 <LinkButton
                     link={'/exam'}
-                    text={'Пройти экзамен'}
+                    text={t("nav.title_exam")}
                     startIcon={< School />}
                 />
             </Box>
