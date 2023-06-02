@@ -2,6 +2,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../store/themes";
+import utilsString from "../../utils/utilsString";
+import { useTranslation } from "react-i18next";
 
 
 export default function CreateModal(props) {
@@ -18,7 +20,7 @@ export default function CreateModal(props) {
     const [textFieldValueEmpty, setTextFieldValueEmpty] = useState(false);
     const [textFieldValueDuplicate, setTextFieldValueDuplicate] = useState(false);
     const dispatch = useDispatch();
-
+    const { t } = useTranslation();
 
     const closeModal = () => {
         hundleClickCloseModal();
@@ -27,7 +29,7 @@ export default function CreateModal(props) {
     }
 
     const hundleClickCreate = async () => {
-        if (textFieldValue) {
+        if (!utilsString.isEmptyString(textFieldValue)) {
             try {
                 await modalOptions
                     .createElement({
@@ -46,7 +48,7 @@ export default function CreateModal(props) {
     }
 
     const hundleClickUpdate = async () => {
-        if (textFieldValue) {
+        if (!utilsString.isEmptyString(textFieldValue)) {
             try {
                 await modalOptions
                     .updateElement({
@@ -70,9 +72,9 @@ export default function CreateModal(props) {
 
     const labelErrorText = () => {
         if (textFieldValueEmpty) {
-            return "Введите название!"
+            return t('modal_window.error.empty_text')
         } else if (textFieldValueDuplicate) {
-            return "Такое имя уже существует!"
+            return t('modal_window.error.duplicate_text')
         } else {
             return modalOptions.label;
         }
@@ -103,11 +105,11 @@ export default function CreateModal(props) {
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={closeModal}>Отменить</Button>
+                <Button onClick={closeModal}>{t("cancel")}</Button>
                 <Button onClick={
                     idSelected[0] ? hundleClickUpdate : hundleClickCreate
                 }>
-                    {idSelected[0] ? "Изменить" : "Создать"}
+                    {idSelected[0] ? t('change') : t("save")}
                 </Button>
             </DialogActions>
         </Dialog>
