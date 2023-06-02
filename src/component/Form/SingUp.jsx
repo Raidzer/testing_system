@@ -19,6 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, getStatusRegistration } from '../../store/register';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const theme = createTheme();
 
@@ -27,6 +28,7 @@ export default function SignUp() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const registerIsSuccessful = useSelector(getStatusRegistration())
+    const { t } = useTranslation();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -74,7 +76,7 @@ export default function SignUp() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Регистрация в системе
+                        {t('register_in_system')}
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -85,7 +87,7 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     id="firstName"
-                                    label="Имя"
+                                    label={t('first_name')}
                                     autoFocus
                                 />
                             </Grid>
@@ -94,7 +96,7 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     id="lastName"
-                                    label="Фамилия"
+                                    label={t('last_name')}
                                     name="lastName"
                                     autoComplete="family-name"
                                 />
@@ -104,7 +106,7 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     id="username"
-                                    label="Имя пользователя"
+                                    label={t('login')}
                                     name="username"
                                     autoComplete="login"
                                 />
@@ -114,7 +116,7 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Пароль"
+                                    label={t('password')}
                                     type={showPassword ? 'text' : 'password'}
                                     id="password"
                                     autoComplete="new-password"
@@ -141,12 +143,12 @@ export default function SignUp() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Зарегистрироваться
+                            {t('register')}
                         </Button>
                         <Grid container justifyContent="center">
                             <Grid item>
                                 <NavLink to="/login" variant="body2">
-                                    Уже есть аккаунт? Войдите
+                                    {t('have_account')}
                                 </NavLink>
                             </Grid>
                         </Grid>
