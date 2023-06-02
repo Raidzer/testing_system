@@ -29,11 +29,18 @@ const userSlice = createSlice({
         authRequestInProcess: (state) => {
             state.authInProcess = true;
         },
+        setError: (state, action) => {
+            const errorText = action.payload;
+            state.error = errorText;
+        },
+        resetError: (state) => {
+            state.error = null;
+        }
     }
 })
 
 const { reducer: sessionReducer, actions } = userSlice;
-const { setAuth, resetAuth, authRequestInProcess } = actions;
+const { setAuth, resetAuth, authRequestInProcess, setError, resetError } = actions;
 
 export const login =
     ({ payload }) =>
@@ -45,17 +52,15 @@ export const login =
                     username,
                     password
                 })
-                if (data.status === 401) {
-                    throw new Error(data.error);
-                }
                 const { user_info } = data;
                 const { first_name, last_name, roles } = user_info;
                 dispatch(setInfoUser({ first_name, last_name, roles }))
                 localStorageService.setTokens(data);
                 dispatch(setAuth());
+                dispatch(resetError());
             } catch (error) {
-                console.log(error)
-                dispatch(resetAuth())
+                dispatch(resetAuth());
+                dispatch(setError(error.message));
             }
         }
 
@@ -63,5 +68,6 @@ export const logout = () => (dispatch) => dispatch(resetAuth());
 
 export const getAuthStatus = () => (state) => state.session.auth;
 export const getProcessAuthStatus = () => (state) => state.session.authInProcess;
+export const getErrorText = () => (state) => state.session.error;
 
 export default sessionReducer;

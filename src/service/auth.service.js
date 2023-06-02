@@ -11,11 +11,18 @@ const http = axios.create({
 const authService = {
     login: async ({ username, password }) => {
         localStorageService.removeTokens();
-        const { data } = await httpService.post('/auth/signin', {
-            username,
-            password,
-        });
-        return data;
+        try {
+            const { data } = await httpService.post('/auth/signin', {
+                username,
+                password,
+            });
+            return data;
+        } catch (error) {
+            if (error.response.status === 401) {
+                throw new Error("Неверное имя пользователя или пароль");
+            }
+        }
+
     },
     refresh: async () => {
 

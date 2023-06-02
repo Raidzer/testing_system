@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../Copyright';
-import { login, getProcessAuthStatus } from '../../store/session';
+import { login, getProcessAuthStatus, getErrorText } from '../../store/session';
 import { NavLink } from "react-router-dom";
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
@@ -20,27 +20,44 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import { resetSuccessfull } from '../../store/register';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import utilsString from '../../utils/utilsString';
+import AlertClose from '../Alert/AlertClose';
 
 const theme = createTheme();
 
 export function SignIn() {
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
-    const authInProcess = useSelector(getProcessAuthStatus())
+    const authInProcess = useSelector(getProcessAuthStatus());
+    const [userName, setUserName] = useState('');
+    const [emptyUserName, setEmptyUserName] = useState(false);
+    const [emptyPassword, setEmptyPassword] = useState(false);
+    const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const { t } = useTranslation();
+    const errorText = useSelector(getErrorText());
 
-    const handleSubmit = (event) => {
+    const validate = async (userName, password) => {
+        setEmptyUserName(utilsString.isEmptyString(userName));
+        setEmptyPassword(utilsString.isEmptyString(password));
+        return !utilsString.isEmptyString(userName) &&
+            !utilsString.isEmptyString(password);
+    }
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const username = data.get('login');
-        const password = data.get('password')
-
-        dispatch(login({
-            payload:
-            {
-                username,
-                password,
-            }
-        }))
+        setIsLoading(true);
+        const valid = await validate(userName, password);
+        if (valid) {
+            dispatch(login({
+                payload:
+                {
+                    username: userName,
+                    password,
+                }
+            }))
+        }
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -49,9 +66,11 @@ export function SignIn() {
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+    const handleMouseDownPassword = (e) => e.preventDefault();
+
+    const hundleChangeLogin = (e) => setUserName(e.target.value);
+
+    const hundleChangePassword = (e) => setPassword(e.target.value);
 
     return (
         <ThemeProvider theme={theme}>
@@ -69,30 +88,38 @@ export function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Войти в систему обучения персонала эксплуатации АСУ ИС
+                        {t('to_come_in_title')}
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        {errorText && !isLoading ?
+                            <AlertClose text={errorText} /> : null}
                         <TextField
                             margin="normal"
+                            error={emptyUserName}
+                            helperText={emptyUserName ? t('modal_window.error.empty_text') : ""}
                             required
                             fullWidth
                             id="login"
-                            label="Имя пользователя"
+                            label={t('login')}
                             name="login"
                             autoComplete="login"
                             autoFocus
                             disabled={authInProcess}
+                            onChange={hundleChangeLogin}
                         />
                         <TextField
                             margin="normal"
+                            error={emptyPassword}
+                            helperText={emptyPassword ? t('modal_window.error.empty_text') : ""}
                             required
                             fullWidth
                             name="password"
-                            label="Пароль"
+                            label={t('password')}
                             type={showPassword ? 'text' : 'password'}
                             id="password"
                             autoComplete="current-password"
                             disabled={authInProcess}
+                            onChange={hundleChangePassword}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -116,12 +143,12 @@ export function SignIn() {
                             sx={{ mt: 3, mb: 2 }}
                             disabled={authInProcess}
                         >
-                            Войти
+                            {t('to_come_in')}
                         </Button>
                         <Grid container justifyContent="center">
                             <Grid item>
                                 <NavLink to="/register" variant="body2">
-                                    {"Зарегистрироваться"}
+                                    {t('register')}
                                 </NavLink>
                             </Grid>
                         </Grid>
