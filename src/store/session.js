@@ -45,7 +45,8 @@ const {
     resetAuth, 
     authRequestInProcess, 
     setError, 
-    resetError } = actions;
+    resetError, 
+} = actions;
 
 export const login =
     ({ payload }) =>

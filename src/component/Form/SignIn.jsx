@@ -40,8 +40,11 @@ export function SignIn() {
         const data = new FormData(event.currentTarget);
         const username = data.get('username');
         const password = data.get('password');
+        const valid =
+            !utilsString.isEmptyString(username) &&
+            !utilsString.isEmptyString(password);
 
-        if (!utilsString.isEmptyString(username) && !utilsString.isEmptyString(password)) {
+        if (valid) {
             dispatch(login({
                 payload:
                 {
@@ -52,6 +55,7 @@ export function SignIn() {
         } else {
             dispatch(resetTextError())
         }
+        
         setTimeout(() => {
             setIsLoading(false);
         }, 100)

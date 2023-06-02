@@ -23,11 +23,25 @@ const registerSlice = createSlice({
         resetRegisterInProcess: (state) => {
             state.registerInProcess = false;
         },
+        setError: (state, action) => {
+            const errorText = action.payload;
+            state.error = errorText;
+        },
+        resetError: (state) => {
+            state.error = null;
+        }
     }
 })
 
 const { reducer: registerReduser, actions } = registerSlice;
-const { setRegisterSuccessful, setRegisterInProcess, resetRegisterInProcess, resetRegisterSuccessful } = actions;
+const {
+    setRegisterSuccessful,
+    setRegisterInProcess,
+    resetRegisterInProcess,
+    resetRegisterSuccessful,
+    setError,
+    resetError,
+} = actions;
 
 export const register =
     ({ payload }) =>
@@ -45,13 +59,16 @@ export const register =
                 dispatch(setRegisterSuccessful());
             } catch (error) {
                 dispatch(resetRegisterInProcess());
-                console.log(error);
+                dispatch(setError(error.message));
+                console.log(error.message)
             }
         }
 
 export const resetSuccessfull = () => (dispatch) => dispatch(resetRegisterSuccessful());
+export const resetTextError = () => (dispatch) => dispatch(resetError());
 
 export const getRegisterInProcess = () => (state) => state.register.registerInProcess;
 export const getStatusRegistration = () => (state) => state.register.registerSuccessful;
+export const getErrorText = () => (state) => state.register.error;
 
 export default registerReduser;

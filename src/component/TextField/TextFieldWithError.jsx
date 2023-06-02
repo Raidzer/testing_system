@@ -13,6 +13,7 @@ export default function TextFieldWithError(props) {
         disabled,
         sendField,
         autoFocus,
+        required,
         InputProps,
         type,
     } = props
@@ -39,7 +40,7 @@ export default function TextFieldWithError(props) {
             margin="normal"
             error={isEmpty}
             helperText={isEmpty ? t('modal_window.error.empty_text') : ""}
-            required
+            required={required}
             fullWidth
             id={id}
             label={label}

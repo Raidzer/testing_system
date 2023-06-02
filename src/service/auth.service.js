@@ -51,14 +51,20 @@ const authService = {
         return data;
     },
     register: async ({ firstName, lastName, username, password, role = ["user"] }) => {
-        const { data } = await httpService.post('/auth/signup', {
-            "first_name": firstName,
-            "last_name": lastName,
-            username,
-            password,
-            role,
-        })
-        return data;
+        try {
+            const { data } = await httpService.post('/auth/signup', {
+                "first_name": firstName,
+                "last_name": lastName,
+                username,
+                password,
+                role,
+            })
+            return data;
+        } catch (error) {
+            if (error.response.status === 400) {
+                throw new Error("Пользователь с таким именем уже существует");
+            }
+        }
     }
 }
 

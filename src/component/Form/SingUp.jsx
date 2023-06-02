@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -17,9 +16,12 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, getStatusRegistration } from '../../store/register';
+import { register, getStatusRegistration, getErrorText, resetTextError } from '../../store/register';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import TextFieldWithError from '../TextField/TextFieldWithError';
+import utilsString from '../../utils/utilsString';
+import AlertClose from '../Alert/AlertClose';
 
 const theme = createTheme();
 
@@ -28,24 +30,40 @@ export default function SignUp() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const registerIsSuccessful = useSelector(getStatusRegistration())
+    const [isLoading, setIsLoading] = useState(false);
     const { t } = useTranslation();
+    const errorText = useSelector(getErrorText());
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true);
         const data = new FormData(event.currentTarget);
         const firstName = data.get('firstName');
         const lastName = data.get('lastName')
         const username = data.get('username');
         const password = data.get('password');
+        const valid =
+            !utilsString.isEmptyString(firstName) &&
+            !utilsString.isEmptyString(lastName) &&
+            !utilsString.isEmptyString(username) &&
+            !utilsString.isEmptyString(password);
 
-        dispatch(register({
-            payload: {
-                firstName,
-                lastName,
-                username,
-                password,
-            }
-        }))
+        if (valid) {
+            dispatch(register({
+                payload: {
+                    firstName,
+                    lastName,
+                    username,
+                    password,
+                }
+            }))
+        } else {
+            dispatch(resetTextError())
+        }
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 100)
     };
 
     useEffect(() => {
@@ -78,48 +96,52 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         {t('register_in_system')}
                     </Typography>
+                    {errorText && !isLoading ?
+                        <AlertClose text={errorText} /> : null}
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
-                                    required
-                                    fullWidth
+                                <TextFieldWithError
                                     id="firstName"
                                     label={t('first_name')}
-                                    autoFocus
-                                />
+                                    name="firstName"
+                                    sendField={isLoading}
+                                    autoFocus={true}
+                                    autoComplete="given-name"
+                                >
+                                </TextFieldWithError>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
+                                <TextFieldWithError
                                     id="lastName"
                                     label={t('last_name')}
                                     name="lastName"
+                                    sendField={isLoading}
+                                    autoFocus={true}
                                     autoComplete="family-name"
-                                />
+                                >
+                                </TextFieldWithError>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
+                                <TextFieldWithError
                                     id="username"
                                     label={t('login')}
                                     name="username"
+                                    sendField={isLoading}
+                                    autoFocus={true}
                                     autoComplete="login"
-                                />
+                                >
+                                </TextFieldWithError>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label={t('password')}
-                                    type={showPassword ? 'text' : 'password'}
+                                <TextFieldWithError
                                     id="password"
+                                    label={t('password')}
+                                    name="password"
+                                    sendField={isLoading}
+                                    autoFocus={true}
                                     autoComplete="new-password"
+                                    type={showPassword ? 'text' : 'password'}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -134,7 +156,8 @@ export default function SignUp() {
                                             </InputAdornment>
                                         )
                                     }}
-                                />
+                                >
+                                </TextFieldWithError>
                             </Grid>
                         </Grid>
                         <Button
