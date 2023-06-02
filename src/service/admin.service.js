@@ -59,7 +59,7 @@ export const createArticle = async ({ title, id, idTheme, description }) => {
 
 export const updateTitleArticle = async ({ title, id, idTheme, description }) => {
     try {
-        const { data } = await httpService.put(`/articles/theme/${idTheme}`, {
+        const { data } = await httpService.patch(`/articles/theme/${idTheme}`, {
             title,
             id,
         })
@@ -74,7 +74,7 @@ export const updateTitleArticle = async ({ title, id, idTheme, description }) =>
 
 export const updateArticle = async ({ title, id, idTheme, description }) => {
     try {
-        const { data } = await httpService.patch(`/articles/theme/${idTheme}`, {
+        const { data } = await httpService.put(`/articles/theme/${idTheme}`, {
             title,
             id,
             description,
