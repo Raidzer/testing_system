@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../Copyright';
-import { login, getProcessAuthStatus, getErrorText } from '../../store/session';
+import { login, getProcessAuthStatus, getErrorText, resetTextError } from '../../store/session';
 import { NavLink } from "react-router-dom";
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
@@ -23,6 +23,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import utilsString from '../../utils/utilsString';
 import AlertClose from '../Alert/AlertClose';
+import TextFieldWithError from '../TextField/TextFieldWithError';
 
 const theme = createTheme();
 
@@ -30,34 +31,31 @@ export function SignIn() {
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const authInProcess = useSelector(getProcessAuthStatus());
-    const [userName, setUserName] = useState('');
-    const [emptyUserName, setEmptyUserName] = useState(false);
-    const [emptyPassword, setEmptyPassword] = useState(false);
-    const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const { t } = useTranslation();
     const errorText = useSelector(getErrorText());
 
-    const validate = async (userName, password) => {
-        setEmptyUserName(utilsString.isEmptyString(userName));
-        setEmptyPassword(utilsString.isEmptyString(password));
-        return !utilsString.isEmptyString(userName) &&
-            !utilsString.isEmptyString(password);
-    }
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);
-        const valid = await validate(userName, password);
-        if (valid) {
+        const data = new FormData(event.currentTarget);
+        const username = data.get('username');
+        const password = data.get('password');
+
+        if (!utilsString.isEmptyString(username) && !utilsString.isEmptyString(password)) {
             dispatch(login({
                 payload:
                 {
-                    username: userName,
+                    username,
                     password,
                 }
             }))
+        } else {
+            dispatch(resetTextError())
         }
-        setIsLoading(false);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 100)
     };
 
     useEffect(() => {
@@ -67,10 +65,6 @@ export function SignIn() {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (e) => e.preventDefault();
-
-    const hundleChangeLogin = (e) => setUserName(e.target.value);
-
-    const hundleChangePassword = (e) => setPassword(e.target.value);
 
     return (
         <ThemeProvider theme={theme}>
@@ -93,33 +87,23 @@ export function SignIn() {
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         {errorText && !isLoading ?
                             <AlertClose text={errorText} /> : null}
-                        <TextField
-                            margin="normal"
-                            error={emptyUserName}
-                            helperText={emptyUserName ? t('modal_window.error.empty_text') : ""}
-                            required
-                            fullWidth
-                            id="login"
+                        <TextFieldWithError
+                            id="username"
                             label={t('login')}
-                            name="login"
-                            autoComplete="login"
-                            autoFocus
+                            name="username"
                             disabled={authInProcess}
-                            onChange={hundleChangeLogin}
-                        />
-                        <TextField
-                            margin="normal"
-                            error={emptyPassword}
-                            helperText={emptyPassword ? t('modal_window.error.empty_text') : ""}
-                            required
-                            fullWidth
-                            name="password"
-                            label={t('password')}
-                            type={showPassword ? 'text' : 'password'}
+                            sendField={isLoading}
+                            autoFocus={true}
+                        >
+                        </TextFieldWithError>
+                        <TextFieldWithError
                             id="password"
-                            autoComplete="current-password"
+                            label={t('password')}
+                            name="password"
                             disabled={authInProcess}
-                            onChange={hundleChangePassword}
+                            sendField={isLoading}
+                            autoFocus={false}
+                            type={showPassword ? 'text' : 'password'}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -135,7 +119,8 @@ export function SignIn() {
                                     </InputAdornment>
                                 )
                             }}
-                        />
+                        >
+                        </TextFieldWithError>
                         <Button
                             type="submit"
                             fullWidth

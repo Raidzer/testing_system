@@ -40,7 +40,12 @@ const userSlice = createSlice({
 })
 
 const { reducer: sessionReducer, actions } = userSlice;
-const { setAuth, resetAuth, authRequestInProcess, setError, resetError } = actions;
+const { 
+    setAuth, 
+    resetAuth, 
+    authRequestInProcess, 
+    setError, 
+    resetError } = actions;
 
 export const login =
     ({ payload }) =>
@@ -65,6 +70,7 @@ export const login =
         }
 
 export const logout = () => (dispatch) => dispatch(resetAuth());
+export const resetTextError = () => (dispatch) => dispatch(resetError());
 
 export const getAuthStatus = () => (state) => state.session.auth;
 export const getProcessAuthStatus = () => (state) => state.session.authInProcess;
