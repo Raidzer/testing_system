@@ -14,9 +14,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
-import CreateModal from "../../Form/createModal";
+import CreateModal from "../../Form/CreateModal";
 import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
+import DeleteModal from "../../Form/DeleteModal";
 
 export default function EnhancedTableToolbar(props) {
     const {
@@ -33,6 +34,7 @@ export default function EnhancedTableToolbar(props) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [openForm, setOpenForm] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
     const { t } = useTranslation();
@@ -58,6 +60,14 @@ export default function EnhancedTableToolbar(props) {
 
     const hundleClickCloseModal = () => {
         setOpenForm(false);
+    }
+
+    const hundleClickOpenDeleteModal = () => {
+        setOpenDeleteModal(true)
+    }
+
+    const hundleClickCloseDeleteModal = () => {
+        setOpenDeleteModal(false);
     }
 
     const hundleClickDelete = async (idSelected) => {
@@ -110,7 +120,7 @@ export default function EnhancedTableToolbar(props) {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={`${t('delete')} ${lableActionButton}`}>
-                        <IconButton onClick={() => hundleClickDelete(idSelected)}>
+                        <IconButton onClick={hundleClickOpenDeleteModal}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
@@ -163,6 +173,11 @@ export default function EnhancedTableToolbar(props) {
                     idTheme={idTheme}
                 /> : null
             }
+            <DeleteModal
+                open={openDeleteModal}
+                hundleClickCloseDeleteModal={hundleClickCloseDeleteModal}
+                confirmDelete={() => hundleClickDelete(idSelected)}
+            />
         </Toolbar>
     );
 }
