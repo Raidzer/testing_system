@@ -16,6 +16,7 @@ export default function TextFieldWithError(props) {
         required,
         InputProps,
         type,
+        defaultValue,
     } = props
     const [isEmpty, setIsEmpty] = useState(false);
     const [text, setText] = useState('');
@@ -27,12 +28,20 @@ export default function TextFieldWithError(props) {
         }
     }, [sendField])
 
+    useEffect(() => {
+        setText(defaultValue)
+    }, [defaultValue])
+
     const checkEmptyField = (str) => {
         setIsEmpty(utilsString.isEmptyString(str))
     }
 
     const hundleChange = (e) => {
-        setText(e.target.value);
+        const value = e.target.value;
+        setText(value);
+        if (props.onChange) {
+            props.onChange(value);
+        }
     }
 
     return (
@@ -51,6 +60,7 @@ export default function TextFieldWithError(props) {
             onChange={hundleChange}
             InputProps={InputProps}
             type={type}
+            defaultValue={defaultValue}
         />
     )
 }

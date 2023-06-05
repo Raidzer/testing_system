@@ -1,10 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../store/themes";
 import utilsString from "../../utils/utilsString";
 import { useTranslation } from "react-i18next";
-
+import AlertClose from "../Alert/AlertClose";
+import TextFieldWithError from "../TextField/TextFieldWithError";
 
 export default function CreateModal(props) {
     const {
@@ -19,8 +20,13 @@ export default function CreateModal(props) {
     const [textFieldValue, setTextFieldValue] = useState(selected[0]);
     const [textFieldValueEmpty, setTextFieldValueEmpty] = useState(false);
     const [textFieldValueDuplicate, setTextFieldValueDuplicate] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setTextFieldValue(selected[0])
+    }, [selected[0]])
 
     const closeModal = () => {
         hundleClickCloseModal();
@@ -29,6 +35,7 @@ export default function CreateModal(props) {
     }
 
     const hundleClickCreate = async () => {
+        setIsLoading(true);
         if (!utilsString.isEmptyString(textFieldValue)) {
             try {
                 await modalOptions
@@ -45,9 +52,13 @@ export default function CreateModal(props) {
         } else {
             setTextFieldValueEmpty(true)
         }
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 100)
     }
 
     const hundleClickUpdate = async () => {
+        setIsLoading(true);
         if (!utilsString.isEmptyString(textFieldValue)) {
             try {
                 await modalOptions
@@ -62,12 +73,16 @@ export default function CreateModal(props) {
                 setTextFieldValueDuplicate(true);
             }
         } else {
+            setTextFieldValueDuplicate(false);
             setTextFieldValueEmpty(true)
         }
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 100)
     }
 
-    const hundleChangeTextModal = (event) => {
-        setTextFieldValue(event.target.value)
+    const hundleChangeTextModal = (value) => {
+        setTextFieldValue(value)
     }
 
     const labelErrorText = () => {
@@ -92,16 +107,16 @@ export default function CreateModal(props) {
                 <DialogContentText>
                     {modalOptions.contentText}
                 </DialogContentText>
-                <TextField
-                    error={textFieldValueDuplicate || textFieldValueEmpty}
-                    autoFocus
-                    margin="dense"
+                {textFieldValueDuplicate ?
+                    <AlertClose text={labelErrorText()} /> : null}
+                <TextFieldWithError
                     id="name"
+                    label={modalOptions.label}
+                    name="name"
+                    autoFocus={true}
                     defaultValue={selected[0]}
-                    label={labelErrorText()}
-                    fullWidth
-                    variant="standard"
                     onChange={hundleChangeTextModal}
+                    sendField={isLoading}
                 />
             </DialogContent>
             <DialogActions>
