@@ -14,10 +14,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadingDataThemes } from "../../../store/themes";
-import CreateModal from "../../Form/CreateModal";
+import CreateModal from "../../Modal/CreateModal";
 import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
-import DeleteModal from "../../Form/DeleteModal";
+import DeleteModal from "../../Modal/DeleteModal";
 
 export default function EnhancedTableToolbar(props) {
     const {
