@@ -1,13 +1,24 @@
-import { useSelector } from "react-redux";
-import { getDataLesson } from "../../store/lesson";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataArticle, getDataLesson } from "../../store/lesson";
 import "./style.css";
 import { Box } from "@mui/material";
-import { useTranslation } from 'react-i18next';
+import Welcome from "../Welcome";
+import { useEffect } from "react";
+import { useParams } from "react-router";
 
 
 export default function Lesson() {
     const { description } = useSelector(getDataLesson());
-    const { t } = useTranslation();
+    const { idTheme } = useParams();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getDataArticle({
+            payload: {
+                id: idTheme,
+            }
+        }));
+    }, [idTheme])
 
     return (
         <>
@@ -18,9 +29,7 @@ export default function Lesson() {
                         dangerouslySetInnerHTML={{ __html: description }
                         }
                     /> :
-                    <div>
-                        {t("welcome")}
-                    </div>
+                    <Welcome />
             }
         </>
     )

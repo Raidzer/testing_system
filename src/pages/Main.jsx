@@ -13,7 +13,8 @@ import AdministratorPanelQuestion from "../component/Administrator/Administrator
 import TextEditor from "../component/TextEditor/TextEditor";
 import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
 import Lesson from "../component/Lesson/Lesson";
-import UserStatistics  from "../component/UserStatistics";
+import UserStatistics from "../component/UserStatistics";
+import Welcome from "../component/Welcome";
 
 
 const StyledRoot = styled('div')({
@@ -42,7 +43,7 @@ const StyledNav = styled(Box)(({ theme }) => ({
 }));
 
 export default function Main() {
-    const userIsAdmin = useSelector(getUserIsAdmin())
+    const userIsAdmin = useSelector(getUserIsAdmin());
 
     return (
         <AppLoader>
@@ -56,6 +57,12 @@ export default function Main() {
                     <Routes>
                         <Route
                             path="/"
+                            element={
+                                <Welcome />
+                            }
+                        />
+                        <Route
+                            path="/:idTheme"
                             element={
                                 <Lesson />
                             }
