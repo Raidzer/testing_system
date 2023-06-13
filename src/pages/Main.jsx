@@ -5,7 +5,6 @@ import { Box } from '@mui/material';
 import AppLoader from "../component/Apploader";
 import { Route, Routes } from "react-router";
 import NotFound from "./NotFound";
-import { UserStatistics } from "../component/UserStatistics";
 import { useSelector } from "react-redux";
 import { getUserIsAdmin } from "../store/user";
 import AdministratorPanelTheme from "../component/Administrator/AdministratorPanelTheme";
@@ -14,7 +13,7 @@ import AdministratorPanelQuestion from "../component/Administrator/Administrator
 import TextEditor from "../component/TextEditor/TextEditor";
 import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
 import Lesson from "../component/Lesson/Lesson";
-import UserStatisticsNew from "../component/UserStatisticsNew";
+import UserStatistics  from "../component/UserStatistics";
 
 
 const StyledRoot = styled('div')({
@@ -64,7 +63,7 @@ export default function Main() {
                         <Route
                             path="/statistics"
                             element={
-                                <UserStatisticsNew />
+                                <UserStatistics />
                             }
                         />
                         <Route
@@ -91,7 +90,7 @@ export default function Main() {
                                     <NotFound />
                             }
                         />
-                        <Route 
+                        <Route
                             path="/administrator/theme/:idTheme/articles/:idArticle"
                             element={
                                 userIsAdmin ?
