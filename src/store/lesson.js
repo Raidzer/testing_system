@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import httpService from "../service/http.service";
+import { removeSessionQuestionId } from "../service/localStorage.service";
 
 
 const initialState = {
@@ -34,6 +35,7 @@ const { setIsLoading, resetIsLoading, setData } = actions;
 export const getDataArticle =
     ({ payload }) =>
         async (dispatch) => {
+            removeSessionQuestionId();
             const { id } = payload;
             dispatch(setIsLoading());
             try {
