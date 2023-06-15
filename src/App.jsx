@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { getAuthStatus } from './store/session';
 import Exam from './pages/Exam';
 import Test from './pages/Test';
+import QuestionEditor from './component/Administrator/Editors/QuestionEditor';
 
 export function App() {
   const isAuthenticated = useSelector(getAuthStatus());
@@ -21,6 +22,12 @@ export function App() {
     <div className="m-auto max-w-screen-2xl flex-auto w-full items-center">
       <Router>
         <Routes>
+          <Route
+            path="/test"
+            element={
+              <QuestionEditor />
+            }
+          />
           <Route
             path="/*"
             element={

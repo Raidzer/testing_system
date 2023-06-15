@@ -16,6 +16,7 @@ export default function DeleteModal(props) {
         open,
         hundleClickCloseDeleteModal,
         confirmDelete,
+        titleText,
     } = props;
 
     const closeModal = () => {
@@ -35,7 +36,7 @@ export default function DeleteModal(props) {
                 onClose={closeModal}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>Вы уверены что хотите удалить эту тему?</DialogTitle>
+                <DialogTitle>{titleText}</DialogTitle>
                 <DialogActions style={{ justifyContent: 'space-between' }}>
                     <div>
                         <Button onClick={hundleClickConfirmDelete}>Да</Button>

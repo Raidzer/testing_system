@@ -2,7 +2,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Box } from '@mui/material';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { useEffect, useState } from 'react';
-import { IsLoading } from '../IsLoading';
+import { IsLoading } from '../../IsLoading';
 import uploadFileAdapterCKEditor from './adapterUpload';
 import { useParams } from 'react-router';
 import EditorActionBar from './EditorActionBar';

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { IsLoading } from "../../IsLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataArticle, getDataLesson, getStatusLoadingLesson } from "../../../store/lesson";
-import TextEditor from "../../TextEditor/TextEditor";
+import TextEditor from "../../TextEditor/EditorArticles/TextEditor";
 
 function ArticleEditor() {
     const { idArticle } = useParams();

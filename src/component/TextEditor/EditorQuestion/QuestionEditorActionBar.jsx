@@ -4,9 +4,9 @@ import { Button } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { updateArticle } from "../../service/admin.service";
-import ButtonGoBack from "../Button/ButtonGoBack";
+import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
+import { updateArticle } from "../../../service/admin.service";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
@@ -16,7 +16,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-export default function EditorActionBar(props) {
+export default function QuestionEditorActionBar(props) {
     const {
         id,
         title,
@@ -39,7 +39,7 @@ export default function EditorActionBar(props) {
     return (
         <Box display="flex" alignItems="center" justifyContent="space-between">
             <h2 style={{ marginRight: 'auto' }}>
-                {t('administrator_panel.article.editor_actions')}
+                {t('administrator_panel.question.editor')}
             </h2>
             <ButtonGoBack />
             <ColorButton

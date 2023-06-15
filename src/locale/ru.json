@@ -41,7 +41,8 @@
       "setting_articles": "Настроить главы",
       "setting_questions": "Настроить вопросы",
       "list_themes": "Список созданых тем",
-      "lable_action_button": "Тему"
+      "lable_action_button": "Тему",
+      "title_delete_modal": "Вы уверены что хотите удалить выбранную тему?"
     },
     "article": {
       "name": "Глава",
@@ -51,7 +52,11 @@
       "settings_article": "Редактировать главу",
       "list_articles": "Список созданых глав",
       "lable_action_button": "Главу",
-      "editor_actions": "Редактор глав"
+      "editor_actions": "Редактор глав",
+      "title_delete_modal": "Вы уверены что хотите удалить выбранную главу?"
+    },
+    "question": {
+      "editor": "Редактор вопроса"
     }
   },
   "exam_panel": {

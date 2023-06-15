@@ -33,7 +33,7 @@ export default function AdministratorPanelArticle() {
     const [orderBy, setOrderBy] = useState('theme');
     const [page, setPage] = useState(0);
     const { pathname } = useLocation();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const headCells = [
         {
             id: 'name',
@@ -145,6 +145,7 @@ export default function AdministratorPanelArticle() {
                     modalOptions={modalOptions}
                     idTheme={idTheme}
                     deleteElement={deleteArticle}
+                    titleDeleteModalText={t('administrator_panel.article.title_delete_modal')}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table

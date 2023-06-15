@@ -151,6 +151,7 @@ export default function AdministratorPanel() {
                     menuItems={menuItems}
                     modalOptions={modalOptions}
                     deleteElement={deleteTheme}
+                    titleDeleteModalText={t('administrator_panel.theme.title_delete_modal')}
                 />
                 <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                     <Table

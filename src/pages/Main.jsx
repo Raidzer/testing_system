@@ -10,7 +10,6 @@ import { getUserIsAdmin } from "../store/user";
 import AdministratorPanelTheme from "../component/Administrator/AdministratorPanelTheme";
 import AdministratorPanelArticle from "../component/Administrator/AdministratorPanelArticle";
 import AdministratorPanelQuestion from "../component/Administrator/AdministratorPanelQuestion";
-import TextEditor from "../component/TextEditor/TextEditor";
 import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
 import Lesson from "../component/Lesson/Lesson";
 import UserStatistics from "../component/UserStatistics";
@@ -103,12 +102,6 @@ export default function Main() {
                                 userIsAdmin ?
                                     <ArticleEditor /> :
                                     <NotFound />
-                            }
-                        />
-                        <Route
-                            path="/test"
-                            element={
-                                <TextEditor />
                             }
                         />
                         <Route

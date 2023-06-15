@@ -1,4 +1,4 @@
-import httpService from "../../service/http.service";
+import httpService from "../../../service/http.service";
 
 class uploadFileAdapterCKEditor {
     constructor(loader, idTheme, idArticle, idQuestion) {

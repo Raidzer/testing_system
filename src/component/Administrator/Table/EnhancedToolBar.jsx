@@ -30,6 +30,7 @@ export default function EnhancedTableToolbar(props) {
         modalOptions,
         deleteElement,
         idTheme,
+        titleDeleteModalText,
     } = props;
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -177,6 +178,7 @@ export default function EnhancedTableToolbar(props) {
                 open={openDeleteModal}
                 hundleClickCloseDeleteModal={hundleClickCloseDeleteModal}
                 confirmDelete={() => hundleClickDelete(idSelected)}
+                titleText={titleDeleteModalText}
             />
         </Toolbar>
     );
