@@ -23,17 +23,20 @@ export default function QuestionEditorActionBar(props) {
         idTheme,
         description,
         disable,
+        answers,
     } = props;
     const [dataIsLoading, setDataIsLoading] = useState(false)
     const { t } = useTranslation();
 
     const handleClickSave = async () => {
+        console.log(answers)
+        /*
         setDataIsLoading(true)
         await updateArticle({ id, title, idTheme, description })
         setTimeout(() => {
             setDataIsLoading(false)
         }, 3000);
-
+*/
     }
 
     return (

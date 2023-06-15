@@ -1,7 +1,6 @@
-import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, Typography } from "@mui/material";
+import { Box, Button, Checkbox, Grid, IconButton, Input, Typography } from "@mui/material";
 import QuestionTextEditor from "../../TextEditor/EditorQuestion/QuestionTextEditor";
-import { useEffect, useState } from "react";
-import utilsArray from "../../../utils/utilsArray";
+import { useState } from "react";
 import utilsString from "../../../utils/utilsString";
 import { Add, Delete, Mode } from "@mui/icons-material";
 import DeleteModal from "../../Modal/DeleteModal";
@@ -9,7 +8,6 @@ import DeleteModal from "../../Modal/DeleteModal";
 export default function QuestionEditor() {
     const [answers, setAnswers] = useState([]);
     const [newAnswer, setNewAnswers] = useState("");
-    const [changeAnswer, setChangeAnswer] = useState({});
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     const addTextField = () => {
@@ -24,7 +22,7 @@ export default function QuestionEditor() {
         setAnswers(newAnswers);
     }
 
-    const hundleChangeNewAnswer = (event) => {
+    const hundleAddNewAnswer = (event) => {
         const value = event.target.value;
         setNewAnswers(value);
     }
@@ -113,7 +111,9 @@ export default function QuestionEditor() {
 
     return (
         <Box>
-            <QuestionTextEditor />
+            <QuestionTextEditor
+                answers={answers}
+            />
             <Box
                 sx={{
                     display: 'flex',
@@ -134,7 +134,7 @@ export default function QuestionEditor() {
                     <Input
                         placeholder="Текст ответа"
                         value={newAnswer}
-                        onChange={hundleChangeNewAnswer}
+                        onChange={hundleAddNewAnswer}
                         onKeyDown={handleKeyDown}
                         sx={{ width: '100%' }}
                     />

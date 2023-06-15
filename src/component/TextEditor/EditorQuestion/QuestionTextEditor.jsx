@@ -14,6 +14,7 @@ function QuestionTextEditor(props) {
         initData,
         id,
         title,
+        answers,
     } = props;
     const [isLoading, setIsLoading] = useState(true);
     const { idArticle, idTheme, idQuestion } = useParams()
@@ -63,7 +64,7 @@ function QuestionTextEditor(props) {
                         title={title}
                         idTheme={idTheme}
                         description={description}
-                        disable={initData === description}
+                        answers={answers}
                     />
                     <CKEditor
                         editor={Editor}
