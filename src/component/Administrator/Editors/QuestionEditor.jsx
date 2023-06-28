@@ -12,7 +12,7 @@ export default function QuestionEditor() {
     const [answers, setAnswers] = useState([]);
     const [newAnswer, setNewAnswers] = useState("");
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const { idQuestion, idTheme } = useParams();
+    const { idQuestion } = useParams();
     const [dataQuestion, setDataQuestion] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 

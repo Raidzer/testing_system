@@ -7,6 +7,7 @@ import { useState } from "react";
 import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
 import { updateArticle, updateQuestion, updateQuestionTest } from "../../../service/admin.service";
+import utilsArray from "../../../utils/utilsArray";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
@@ -33,9 +34,11 @@ export default function QuestionEditorActionBar(props) {
 
     const handleClickSave = async () => {
         setDataIsLoading(true);
+        utilsArray.isMultiAnswers(answers)
         let newDataQuestion = dataQuestion;
         newDataQuestion.quest = quest;
         newDataQuestion.answers = answers;
+        newDataQuestion.multi_answer = utilsArray.isMultiAnswers(answers);
         await updateQuestion(newDataQuestion);
         setDataIsLoading(false);
     }
