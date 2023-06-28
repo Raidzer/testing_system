@@ -38,11 +38,11 @@ export default function AdminTableBody(props) {
                                 }}
                             />
                         </TableCell>
-                        {headCells.map((cell) => {
-                            const value = row[cell.id]
+                        {headCells.map((cell, index) => {
+                            const value = row[cell.id];
                             return (
                                 <TableCell
-                                    key={cell.id}
+                                    key={index}
                                     align="center"
                                 >
                                     {value}

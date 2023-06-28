@@ -52,7 +52,7 @@ export const createArticle = async ({ title, id, idTheme, description }) => {
     } catch (error) {
         console.log(error);
         if (error.response.status === 400) {
-            throw new Error("Произошла ошибка при создании главы, имя уже занято")
+            throw new Error("Произошла ошибка при создании главы, имя уже занято");
         }
     }
 }
@@ -62,12 +62,12 @@ export const updateTitleArticle = async ({ title, id, idTheme, description }) =>
         const { data } = await httpService.patch(`/articles/theme/${idTheme}`, {
             title,
             id,
-        })
+        });
         return data;
     } catch (error) {
         console.log(error);
         if (error.response.status === 400) {
-            throw new Error("Произошла ошибка при создании главы, имя уже занято")
+            throw new Error("Произошла ошибка при создании главы, имя уже занято");
         }
     }
 }
@@ -78,12 +78,12 @@ export const updateArticle = async ({ title, id, idTheme, description }) => {
             title,
             id,
             description,
-        })
+        });
         return data;
     } catch (error) {
         console.log(error);
         if (error.response.status === 400) {
-            throw new Error("Произошла ошибка при создании главы, имя уже занято")
+            throw new Error("Произошла ошибка при создании главы, имя уже занято");
         }
     }
 }
@@ -94,7 +94,33 @@ export const deleteArticle = async ({ title, id, idTheme, description }) => {
             data: {
                 id,
             }
-        })
+        });
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const createQuestion = async ({ title, idTheme }) => {
+    try {
+        const { data } = await httpService.put(`/tickets`, {
+            title,
+            'theme_id': idTheme
+        });
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updateQuestion = async ({ id, title, idTheme }) => {
+    console.log(id, title)
+    try {
+        const { data } = await httpService.put(`/tickets`, {
+            id,
+            title,
+            'theme_id': idTheme,
+        });
         return data;
     } catch (error) {
         console.log(error);
@@ -109,6 +135,7 @@ const adminService = {
     deleteArticle,
     updateTitleArticle,
     updateArticle,
+    createQuestion,
 }
 
 export default adminService;

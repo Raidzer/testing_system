@@ -9,8 +9,17 @@ export const getArticles = async (id) => {
     }
 }
 
+export const getQuestions = async (id) => {
+    try {
+        const {data} = await httpService.get(`/tickets/theme/${id}`);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 const dataService = {
     getArticles,
+    getQuestions,
 }
 
 export default dataService;
