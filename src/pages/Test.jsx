@@ -79,7 +79,10 @@ function Test() {
                                 <h4 style={{
                                     minHeight: 100,
                                     height: '100%',
-                                }}>{quest}</h4>
+                                }}
+                                    dangerouslySetInnerHTML={{ __html: quest }
+                                    }
+                                ></h4>
                                 <FormAnswers />
                             </>
                         }
