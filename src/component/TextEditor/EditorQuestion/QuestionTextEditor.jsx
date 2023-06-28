@@ -15,8 +15,8 @@ function QuestionTextEditor(props) {
         id,
         title,
         answers,
+        dataQuestion,
     } = props;
-    const [isLoading, setIsLoading] = useState(true);
     const { idArticle, idTheme, idQuestion } = useParams()
     const [description, setDescription] = useState(initData);
 
@@ -43,43 +43,36 @@ function QuestionTextEditor(props) {
         }
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
-    }, []);
-
     return (
         <>
-            {isLoading ? <IsLoading /> :
-                <Box
-                    sx={{
-                        width: '100%',
-                        minHeight: '500px',
-                        minWidth: '100%',
-                        resize: 'none',
-                    }}>
-                    <QuestionEditorActionBar
-                        id={id}
-                        title={title}
-                        idTheme={idTheme}
-                        description={description}
-                        answers={answers}
-                    />
-                    <CKEditor
-                        editor={Editor}
-                        config={editorConfiguration}
-                        data={initData}
-                        onChange={(event, editor) => {
-                            const data = editor.getData();
-                            setDescription(data)
-                        }}
-                        uploadComplete={() => console.log('загрузка завершена')}
-                    />
-                </Box>
-            }
+            <Box
+                sx={{
+                    width: '100%',
+                    minHeight: '500px',
+                    minWidth: '100%',
+                    resize: 'none',
+                }}>
+                <QuestionEditorActionBar
+                    id={id}
+                    title={title}
+                    idTheme={idTheme}
+                    description={description}
+                    answers={answers}
+                    quest={description}
+                    dataQuestion={dataQuestion}
+                />
+                <CKEditor
+                    editor={Editor}
+                    config={editorConfiguration}
+                    data={initData}
+                    onChange={(event, editor) => {
+                        const data = editor.getData();
+                        setDescription(data)
+                    }}
+                    uploadComplete={() => console.log('загрузка завершена')}
+                />
+            </Box>
         </>
-
     )
 }
 

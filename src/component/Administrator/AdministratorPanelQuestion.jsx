@@ -8,7 +8,7 @@ import EnhancedTableHead from "./Table/EnhancedTableHead";
 import AdminTableBody from "./Table/TableBody";
 import { getComparator, stableSort } from "../../utils/sortTable";
 import { getQuestions } from "../../service/data.service";
-import { createQuestion, updateQuestion } from "../../service/admin.service";
+import { createQuestion, deleteQuestion, updateQuestion } from "../../service/admin.service";
 
 function createData({ title, id }) {
     const name = title;
@@ -84,7 +84,6 @@ export default function AdministratorPanelQuestion() {
     );
 
     const handleClick = (event, name, id) => {
-        console.log(rows)
         if (isSelected(name)) {
             setSelected([])
             setIdSelected([])
@@ -135,7 +134,7 @@ export default function AdministratorPanelQuestion() {
                 getData={getDataSelectedArticle}
                 modalOptions={modalOptions}
                 idTheme={idTheme}
-                //deleteElement={deleteArticle}
+                deleteElement={deleteQuestion}
                 titleDeleteModalText="Вы уверены что хотите удалить выбранный вопрос?"
             />
             <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>

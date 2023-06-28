@@ -14,6 +14,7 @@ import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
 import Lesson from "../component/Lesson/Lesson";
 import UserStatistics from "../component/UserStatistics";
 import Welcome from "../component/Welcome";
+import QuestionEditor from "../component/Administrator/Editors/QuestionEditor";
 
 
 const StyledRoot = styled('div')({
@@ -102,6 +103,12 @@ export default function Main() {
                                 userIsAdmin ?
                                     <ArticleEditor /> :
                                     <NotFound />
+                            }
+                        />
+                        <Route
+                            path="/administrator/theme/:idTheme/questions/:idQuestion"
+                            element={
+                                <QuestionEditor />
                             }
                         />
                         <Route

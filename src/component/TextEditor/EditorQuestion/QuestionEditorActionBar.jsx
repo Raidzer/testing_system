@@ -6,7 +6,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
-import { updateArticle } from "../../../service/admin.service";
+import { updateArticle, updateQuestion, updateQuestionTest } from "../../../service/admin.service";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
@@ -24,19 +24,20 @@ export default function QuestionEditorActionBar(props) {
         description,
         disable,
         answers,
+        quest,
+        idQuestion,
+        dataQuestion,
     } = props;
     const [dataIsLoading, setDataIsLoading] = useState(false)
     const { t } = useTranslation();
 
     const handleClickSave = async () => {
-        console.log(answers)
-        /*
-        setDataIsLoading(true)
-        await updateArticle({ id, title, idTheme, description })
-        setTimeout(() => {
-            setDataIsLoading(false)
-        }, 3000);
-*/
+        setDataIsLoading(true);
+        let newDataQuestion = dataQuestion;
+        newDataQuestion.quest = quest;
+        newDataQuestion.answers = answers;
+        await updateQuestion(newDataQuestion);
+        setDataIsLoading(false);
     }
 
     return (

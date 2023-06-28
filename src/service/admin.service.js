@@ -113,13 +113,21 @@ export const createQuestion = async ({ title, idTheme }) => {
     }
 }
 
-export const updateQuestion = async ({ id, title, idTheme }) => {
-    console.log(id, title)
+export const updateQuestion = async (question) => {
     try {
-        const { data } = await httpService.put(`/tickets`, {
-            id,
-            title,
-            'theme_id': idTheme,
+        const { data } = await httpService.put(`/tickets`, question);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteQuestion = async ({ id }) => {
+    try {
+        const { data } = await httpService.delete(`/tickets`, {
+            data: {
+                id,
+            }
         });
         return data;
     } catch (error) {
@@ -136,6 +144,7 @@ const adminService = {
     updateTitleArticle,
     updateArticle,
     createQuestion,
+    deleteQuestion,
 }
 
 export default adminService;
