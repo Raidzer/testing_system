@@ -28,6 +28,7 @@ export default function QuestionEditorActionBar(props) {
         quest,
         idQuestion,
         dataQuestion,
+        comment,
     } = props;
     const [dataIsLoading, setDataIsLoading] = useState(false)
     const { t } = useTranslation();
@@ -39,6 +40,7 @@ export default function QuestionEditorActionBar(props) {
         newDataQuestion.quest = quest;
         newDataQuestion.answers = answers;
         newDataQuestion.multi_answer = utilsArray.isMultiAnswers(answers);
+        newDataQuestion.comment = comment;
         await updateQuestion(newDataQuestion);
         setDataIsLoading(false);
     }

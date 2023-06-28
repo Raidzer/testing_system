@@ -26,8 +26,7 @@ export default function Lesson() {
                 description ?
                     <Box
                         className="lessonDiv"
-                        dangerouslySetInnerHTML={{ __html: description }
-                        }
+                        dangerouslySetInnerHTML={{ __html: description }}
                     /> :
                     <Welcome />
             }

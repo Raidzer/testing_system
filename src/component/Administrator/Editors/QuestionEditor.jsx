@@ -145,6 +145,7 @@ export default function QuestionEditor() {
                         answers={answers}
                         initData={dataQuestion.quest}
                         dataQuestion={dataQuestion}
+                        initComment={dataQuestion.comment}
                     />
                     <Box
                         sx={{

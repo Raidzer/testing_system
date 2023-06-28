@@ -53,8 +53,10 @@ export default function Comment() {
             >
                 <Box sx={{ ...style, width: 500 }}>
                     <h2 id="parent-modal-title">{t('exam_panel.no_correct_answer')}</h2>
-                    <p id="parent-modal-description">
-                        {commentMistake}
+                    <p
+                        id="parent-modal-description"
+                        dangerouslySetInnerHTML={{ __html: commentMistake }}
+                    >
                     </p>
                     <Button
                         onClick={() => handleClose()}

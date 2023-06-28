@@ -16,9 +16,11 @@ function QuestionTextEditor(props) {
         title,
         answers,
         dataQuestion,
+        initComment,
     } = props;
     const { idArticle, idTheme, idQuestion } = useParams()
     const [description, setDescription] = useState(initData);
+    const [comment, setComment] = useState(initComment);
 
     function uploadImageAdapter(editor) {
         editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -60,7 +62,9 @@ function QuestionTextEditor(props) {
                     answers={answers}
                     quest={description}
                     dataQuestion={dataQuestion}
+                    comment={comment}
                 />
+                <h1>Вопрос:</h1>
                 <CKEditor
                     editor={Editor}
                     config={editorConfiguration}
@@ -68,6 +72,17 @@ function QuestionTextEditor(props) {
                     onChange={(event, editor) => {
                         const data = editor.getData();
                         setDescription(data)
+                    }}
+                    uploadComplete={() => console.log('загрузка завершена')}
+                />
+                <h1>Подсказка:</h1>
+                <CKEditor
+                    editor={Editor}
+                    config={editorConfiguration}
+                    data={initComment}
+                    onChange={(event, editor) => {
+                        const data = editor.getData();
+                        setComment(data)
                     }}
                     uploadComplete={() => console.log('загрузка завершена')}
                 />
