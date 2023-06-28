@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Save } from "@mui/icons-material";
+import { Alarm, Save } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
@@ -41,7 +41,16 @@ export default function QuestionEditorActionBar(props) {
         newDataQuestion.answers = answers;
         newDataQuestion.multi_answer = utilsArray.isMultiAnswers(answers);
         newDataQuestion.comment = comment;
-        await updateQuestion(newDataQuestion);
+
+        if (!newDataQuestion.quest) {
+            alert('Введите текст вопроса!')
+        } else if (utilsArray.isEmpty(newDataQuestion.answers)) {
+            alert('Добавьте хотя бы один ответ!')
+        } else if (!utilsArray.haveTrueAnswer(newDataQuestion.answers)) {
+            alert('Хотя бы один из ответов должен быть верным!')
+        } else {
+            await updateQuestion(newDataQuestion);
+        }
         setDataIsLoading(false);
     }
 

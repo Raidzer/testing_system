@@ -181,9 +181,6 @@ export default function QuestionEditor() {
                         <Box>
                             {arrayAnswers()}
                         </Box>
-                        <Box>
-                            <Button onClick={test}>Узнать ответы</Button>
-                        </Box>
                     </Box>
                 </Box>
             }
