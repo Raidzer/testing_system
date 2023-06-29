@@ -8,6 +8,7 @@ import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
 import {  updateQuestion } from "../../../service/admin.service";
 import utilsArray from "../../../utils/utilsArray";
+import ErrorModal from "../../Modal/ErrorModal";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
@@ -26,8 +27,15 @@ export default function QuestionEditorActionBar(props) {
         comment,
         reloadAnswer,
     } = props;
-    const [dataIsLoading, setDataIsLoading] = useState(false)
+    const [dataIsLoading, setDataIsLoading] = useState(false);
+    const [textError, setTextError] = useState('');
+    const [loadDataError, setLoadDataError] = useState(false);
     const { t } = useTranslation();
+
+    const resetUploadDataError = () => {
+        setTextError('');
+        setLoadDataError(false);
+    }
 
     const handleClickSave = async () => {
         setDataIsLoading(true);
@@ -39,14 +47,18 @@ export default function QuestionEditorActionBar(props) {
         newDataQuestion.comment = comment;
 
         if (!newDataQuestion.question) {
-            alert('Введите текст вопроса!')
+            setTextError('Введите текст вопроса!');
+            setLoadDataError(true);
         } else if (utilsArray.isEmpty(newDataQuestion.answers)) {
-            alert('Добавьте хотя бы один ответ!')
+            setTextError('Добавьте хотя бы один ответ!');
+            setLoadDataError(true);
         } else if (!utilsArray.haveTrueAnswer(newDataQuestion.answers)) {
-            alert('Хотя бы один из ответов должен быть верным!')
+            setTextError('Хотя бы один из ответов должен быть верным!');
+            setLoadDataError(true);
         } else {
             await updateQuestion(newDataQuestion);
             reloadAnswer();
+            resetUploadDataError();
         }
         setDataIsLoading(false);
     }
@@ -64,6 +76,11 @@ export default function QuestionEditorActionBar(props) {
             >
                 {t('save')}
             </ColorButton>
+            <ErrorModal
+                    hundleClickCloseErrorModal={resetUploadDataError}
+                    titleText={textError}
+                    open={loadDataError}
+            />
         </Box>
     )
 }
