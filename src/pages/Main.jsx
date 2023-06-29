@@ -4,7 +4,6 @@ import Nav from "../layouts/navigator/nav";
 import { Box } from '@mui/material';
 import AppLoader from "../component/Apploader";
 import { Route, Routes } from "react-router";
-import NotFound from "./NotFound";
 import { useSelector } from "react-redux";
 import { getUserIsAdmin } from "../store/user";
 import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
@@ -15,6 +14,7 @@ import QuestionEditor from "../component/Administrator/Editors/QuestionEditor";
 import AdministratorPanelQuestion from "../component/Administrator/Panel/AdministratorPanelQuestion";
 import AdministratorPanelArticle from "../component/Administrator/Panel/AdministratorPanelArticle";
 import AdministratorPanelTheme from "../component/Administrator/Panel/AdministratorPanelTheme";
+import NotFound from "../component/NotFound/NotFound";
 
 
 const StyledRoot = styled('div')({
