@@ -18,7 +18,9 @@ export default function NavArticles({ id }) {
         try {
             const data = await getArticles(id);
             setArticles(data);
-            setIsLoadingArticles(false);
+            setTimeout(() => {
+                setIsLoadingArticles(false);
+            }, 500)
         } catch (error) {
             console.log(error)
         }
