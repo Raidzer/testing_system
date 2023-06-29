@@ -16,6 +16,7 @@ function QuestionTextEditor(props) {
         answers,
         dataQuestion,
         initComment,
+        reloadAnswer,
     } = props;
     const { idArticle, idTheme, idQuestion } = useParams()
     const [description, setDescription] = useState(initData);
@@ -62,6 +63,7 @@ function QuestionTextEditor(props) {
                     question={description}
                     dataQuestion={dataQuestion}
                     comment={comment}
+                    reloadAnswer={reloadAnswer}
                 />
                 <h1>Вопрос:</h1>
                 <CKEditor

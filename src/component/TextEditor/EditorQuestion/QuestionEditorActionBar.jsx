@@ -24,6 +24,7 @@ export default function QuestionEditorActionBar(props) {
         question,
         dataQuestion,
         comment,
+        reloadAnswer,
     } = props;
     const [dataIsLoading, setDataIsLoading] = useState(false)
     const { t } = useTranslation();
@@ -45,6 +46,7 @@ export default function QuestionEditorActionBar(props) {
             alert('Хотя бы один из ответов должен быть верным!')
         } else {
             await updateQuestion(newDataQuestion);
+            reloadAnswer();
         }
         setDataIsLoading(false);
     }

@@ -1,4 +1,5 @@
-import { Box, Button, Checkbox, Grid, IconButton, Input, Typography } from "@mui/material";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Checkbox, Grid, IconButton, Input, Typography } from "@mui/material";
 import QuestionTextEditor from "../../TextEditor/EditorQuestion/QuestionTextEditor";
 import { useEffect, useState } from "react";
 import utilsString from "../../../utils/utilsString";
@@ -75,10 +76,6 @@ export default function QuestionEditor() {
         setOpenDeleteModal(false);
     }
 
-    const test = () => {
-        console.log(answers);
-    }
-
     const arrayAnswers = () => {
         return (
             <Grid item xs={6}>
@@ -146,6 +143,7 @@ export default function QuestionEditor() {
                         initData={dataQuestion.question}
                         dataQuestion={dataQuestion}
                         initComment={dataQuestion.comment}
+                        reloadAnswer={fetchDataQuestion}
                     />
                     <Box
                         sx={{
