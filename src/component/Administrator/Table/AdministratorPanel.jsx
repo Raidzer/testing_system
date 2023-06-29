@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Paper, Table, TableContainer, TablePagination } from "@mui/material";
 import EnhancedTableToolbar from "./EnhancedToolBar";
 import { useEffect, useMemo, useState } from "react";
@@ -5,7 +6,6 @@ import { useLocation, useParams } from "react-router";
 import EnhancedTableHead from "./EnhancedTableHead";
 import AdminTableBody from "./TableBody";
 import { getComparator, stableSort } from "../../../utils/sortTable";
-import { getQuestions } from "../../../service/data.service";
 import { IsLoading } from "../../IsLoading";
 
 export default function AdministratorPanel(props) {

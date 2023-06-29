@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import { Alarm, Save } from "@mui/icons-material";
+import { Save } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
-import { updateArticle, updateQuestion, updateQuestionTest } from "../../../service/admin.service";
+import {  updateQuestion } from "../../../service/admin.service";
 import utilsArray from "../../../utils/utilsArray";
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -19,14 +19,9 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 export default function QuestionEditorActionBar(props) {
     const {
-        id,
-        title,
-        idTheme,
-        description,
         disable,
         answers,
         question,
-        idQuestion,
         dataQuestion,
         comment,
     } = props;

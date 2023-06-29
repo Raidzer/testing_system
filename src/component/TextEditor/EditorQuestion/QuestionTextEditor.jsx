@@ -1,8 +1,7 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Box } from '@mui/material';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
-import { useEffect, useState } from 'react';
-import { IsLoading } from '../../IsLoading';
+import {  useState } from 'react';
 import uploadFileAdapterCKEditor from './adapterQuestionUpload';
 import { useParams } from 'react-router';
 import "./style.css";
