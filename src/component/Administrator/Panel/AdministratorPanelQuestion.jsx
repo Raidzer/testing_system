@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { createQuestion, deleteQuestion, updateQuestion } from "../../service/admin.service";
-import AdministratorPanel from "./Table/AdministratorPanel";
-import { getQuestions } from "../../service/data.service";
+import { createQuestion, deleteQuestion, updateQuestion } from "../../../service/admin.service";
+import AdministratorPanel from "../Table/AdministratorPanel";
+import { getQuestions } from "../../../service/data.service";
 
 export default function AdministratorPanelQuestion() {
     const { t } = useTranslation();

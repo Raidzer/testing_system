@@ -7,14 +7,14 @@ import { Route, Routes } from "react-router";
 import NotFound from "./NotFound";
 import { useSelector } from "react-redux";
 import { getUserIsAdmin } from "../store/user";
-import AdministratorPanelTheme from "../component/Administrator/AdministratorPanelTheme";
-import AdministratorPanelArticle from "../component/Administrator/AdministratorPanelArticle";
-import AdministratorPanelQuestion from "../component/Administrator/AdministratorPanelQuestion";
 import ArticleEditor from "../component/Administrator/Editors/ArticleEditor";
 import Lesson from "../component/Lesson/Lesson";
 import UserStatistics from "../component/UserStatistics";
 import Welcome from "../component/Welcome";
 import QuestionEditor from "../component/Administrator/Editors/QuestionEditor";
+import AdministratorPanelQuestion from "../component/Administrator/Panel/AdministratorPanelQuestion";
+import AdministratorPanelArticle from "../component/Administrator/Panel/AdministratorPanelArticle";
+import AdministratorPanelTheme from "../component/Administrator/Panel/AdministratorPanelTheme";
 
 
 const StyledRoot = styled('div')({

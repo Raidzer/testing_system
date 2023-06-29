@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { createQuestion, createTheme, deleteQuestion, deleteTheme, updateQuestion, updateTitleTheme } from "../../service/admin.service";
-import AdministratorPanel from "./Table/AdministratorPanel";
-import { getThemes } from "../../service/data.service";
+import { createQuestion, createTheme, deleteQuestion, deleteTheme, updateQuestion, updateTitleTheme } from "../../../service/admin.service";
+import AdministratorPanel from "../Table/AdministratorPanel";
+import { getThemes } from "../../../service/data.service";
 
 export default function AdministratorPanelTheme() {
     const { t } = useTranslation();

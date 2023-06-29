@@ -5,7 +5,6 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import Main from './pages/main';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Register from './pages/Register';
@@ -13,6 +12,7 @@ import { useSelector } from "react-redux";
 import { getAuthStatus } from './store/session';
 import Exam from './pages/Exam';
 import Test from './pages/Test';
+import Main from './pages/Main';
 
 export function App() {
   const isAuthenticated = useSelector(getAuthStatus());

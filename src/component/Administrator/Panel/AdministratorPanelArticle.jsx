@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import AdministratorPanel from "./Table/AdministratorPanel";
-import { createArticle, deleteArticle, updateTitleArticle } from "../../service/admin.service";
-import { getArticles } from "../../service/data.service";
+import AdministratorPanel from "../Table/AdministratorPanel";
+import { createArticle, deleteArticle, updateTitleArticle } from "../../../service/admin.service";
+import { getArticles } from "../../../service/data.service";
 
 export default function AdministratorPanelArticle() {
     const { t } = useTranslation();
