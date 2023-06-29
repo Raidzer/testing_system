@@ -32,7 +32,7 @@ export default function AdministratorPanelQuestion() {
     const headCells = [
         {
             id: 'name',
-            label: "Вопрос",
+            label: t('administrator_panel.question.quest'),
             minWidth: 250,
             align: 'center',
         },
@@ -40,13 +40,13 @@ export default function AdministratorPanelQuestion() {
     const menuItems = [
         {
             to: `${pathname}/${idSelected}`,
-            text: "Редактировать вопрос",
+            text: t('administrator_panel.question.editor_quest'),
         },
     ]
     const modalOptions = {
-        "title": "Создание нового вопроса",
-        "contentText": "Введите название вопроса:",
-        "label": "Название вопроса",
+        "title": t('administrator_panel.question.create_question'),
+        "contentText": t('administrator_panel.question.create_name_question'),
+        "label": t('administrator_panel.question.name_question'),
         "createElement": createQuestion,
         "updateElement": updateQuestion,
     }
@@ -116,14 +116,14 @@ export default function AdministratorPanelQuestion() {
             </style>
             <EnhancedTableToolbar
                 selected={selected}
-                title="Список созданных вопросов"
-                lableActionButton="Вопрос"
+                title={t('administrator_panel.question.list_question')}
+                lableActionButton={t('administrator_panel.question.quest')}
                 idSelected={idSelected}
                 menuItems={menuItems}
                 modalOptions={modalOptions}
                 idTheme={idTheme}
                 deleteElement={deleteQuestion}
-                titleDeleteModalText="Вы уверены что хотите удалить выбранный вопрос?"
+                titleDeleteModalText={t('administrator_panel.question.confirm_delete_question')}
             />
             <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
                 <Table
