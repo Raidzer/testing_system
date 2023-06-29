@@ -9,11 +9,19 @@ import { useTranslation } from "react-i18next";
 
 export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
+    const [isLoadingArticles, setIsLoadingArticles] = useState(true)
     const { t } = useTranslation();
 
     const fetchData = async () => {
-        const data = await getArticles(id);
-        setArticles(data);
+        setIsLoadingArticles(true);
+        setArticles([]);
+        try {
+            const data = await getArticles(id);
+            setArticles(data);
+            setIsLoadingArticles(false);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
@@ -23,7 +31,7 @@ export default function NavArticles({ id }) {
 
     return (
         <>
-            {isEmpty(articles) ?
+            {isLoadingArticles ?
                 <Skeleton sx={{ height: 50 }} animation="wave" /> :
                 <List>
                     {

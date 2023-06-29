@@ -6,6 +6,7 @@ export const getArticles = async (id) => {
         return data;
     } catch (error) {
         console.log(error)
+        throw new Error();
     }
 }
 
@@ -15,6 +16,7 @@ export const getQuestions = async (id) => {
         return data;
     } catch (error) {
         console.log(error);
+        throw new Error();
     }
 }
 
@@ -24,6 +26,7 @@ export const getDataQuestion = async ({ idQuestion, idTheme }) => {
         return data;
     } catch (error) {
         console.log(error)
+        throw new Error();
     }
 }
 const dataService = {
