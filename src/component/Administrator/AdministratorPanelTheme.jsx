@@ -1,43 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
-import { getDataThemes, getStatusLoadingThemes } from "../../store/themes";
-import {
-    Paper,
-    Table,
-    TableContainer,
-    TablePagination,
-} from "@mui/material";
-import { IsLoading } from "../IsLoading";
-import EnhancedTableToolbar from "./Table/EnhancedToolBar";
-import EnhancedTableHead from "./Table/EnhancedTableHead";
-import AdminTableBody from "./Table/TableBody";
-import { getComparator, stableSort } from "../../utils/sortTable";
-import { createTheme, deleteTheme, updateTitleTheme } from "../../service/admin.service";
 import { useTranslation } from "react-i18next";
+import { createQuestion, createTheme, deleteQuestion, deleteTheme, updateQuestion, updateTitleTheme } from "../../service/admin.service";
+import AdministratorPanel from "./Table/AdministratorPanel";
+import { getThemes } from "../../service/data.service";
 
-function createData({ title, id }) {
-    const name = title;
-    const articles = id;
-    const tickets = 10 + id;
-
-    return {
-        name,
-        articles,
-        tickets,
-        id,
-    };
-}
-
-export default function AdministratorPanel() {
-    const themes = useSelector(getDataThemes());
-    const themesIsLoading = useSelector(getStatusLoadingThemes());
-    const [selected, setSelected] = useState([]);
-    const [idSelected, setIdSelected] = useState([]);
-    const [order, setOrder] = useState('asc');
-    const [orderBy, setOrderBy] = useState('theme');
-    const [rows, setRows] = useState([]);
-    const [rowsPerPage, setRowsPerPage] = useState(12);
-    const [page, setPage] = useState(0);
+export default function AdministratorPanelTheme() {
     const { t } = useTranslation();
 
     const headCells = [
@@ -70,123 +36,47 @@ export default function AdministratorPanel() {
         "updateElement": updateTitleTheme,
     }
 
-    useEffect(() => {
-        setRows([]);
-        themes.forEach((theme, index) => {
-            setRows((prevRows) => [...prevRows, createData(theme, index)]);
-        });
-    }, [themes])
-
-    const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const handleClick = (event, name, id) => {
-        if (isSelected(id)) {
-            setSelected([])
-            setIdSelected([])
-        } else {
-            setSelected([name])
-            setIdSelected([id])
-        }
+    const toolbarOptions = {
+        "title": t('administrator_panel.theme.list_themes'),
+        "lableActionButton": t('administrator_panel.theme.lable_action_button'),
+        "deleteElement": deleteTheme,
+        "titleDeleteModalText": t('administrator_panel.theme.title_delete_modal'),
     }
 
-    const isSelected = (id) => idSelected.indexOf(id) !== -1;
-    const isLoading = () => rows.length !== themes.length;
 
-    const visibleRows = useMemo(
-        () =>
-            stableSort(rows, getComparator(order, orderBy)).slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage,
-            ),
-        [order, orderBy, page, rowsPerPage, rows],
-    );
-
-    const menuItems = [
+    const menuItemsOption = [
         {
-            to: `/administrator/theme/${idSelected}/articles`,
+            to: `/articles`,
             text: t('administrator_panel.theme.setting_articles')
         },
         {
-            to: `/administrator/theme/${idSelected}/questions`,
+            to: `/questions`,
             text: t('administrator_panel.theme.setting_questions')
         }
     ]
 
-    return isLoading() ? <IsLoading /> :
-        (
-            <Paper
-                sx={{
-                    width: '100%',
-                    mb: 2,
-                }}
-            >
-                <style>
-                    {`
-        .MuiTablePagination-root {
-            background-color: #f0f0f0;
-        }
-        .MuiTableHead-root {
-            background-color: #f0f0f0; 
-        }
-        `}
-                </style>
-                <EnhancedTableToolbar
-                    selected={selected}
-                    title={t('administrator_panel.theme.list_themes')}
-                    lableActionButton={t('administrator_panel.theme.lable_action_button')}
-                    idSelected={idSelected}
-                    menuItems={menuItems}
-                    modalOptions={modalOptions}
-                    deleteElement={deleteTheme}
-                    titleDeleteModalText={t('administrator_panel.theme.title_delete_modal')}
-                />
-                <TableContainer sx={{ minHeight: 759, maxHeight: 759 }}>
-                    <Table
-                        sx={{
-                            minWidth: 750,
-                        }}
-                        aria-labelledby="tableTitle"
-                    >
-                        <EnhancedTableHead
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
-                            headCells={headCells}
-                        />
-                        {themesIsLoading ? <IsLoading /> :
-                            <AdminTableBody
-                                rows={visibleRows}
-                                headCells={headCells}
-                                isSelected={isSelected}
-                                handleClick={handleClick}
-                            />
-                        }
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[12, 24, 50]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
-        )
+    function createData({ title, id }) {
+        const name = title;
+        const articles = id;
+        const tickets = 10 + id;
+
+        return {
+            name,
+            articles,
+            tickets,
+            id,
+        };
+    }
+    return (
+        <>
+            <AdministratorPanel
+                headCells={headCells}
+                modalOptions={modalOptions}
+                toolbarOptions={toolbarOptions}
+                menuItemsOption={menuItemsOption}
+                createData={createData}
+                functionFetchData={getThemes}
+            />
+        </>
+    )
 }

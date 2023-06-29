@@ -25,7 +25,6 @@ export default function EnhancedTableToolbar(props) {
         title,
         lableActionButton,
         menuItems,
-        getData,
         idSelected,
         modalOptions,
         deleteElement,
@@ -47,13 +46,6 @@ export default function EnhancedTableToolbar(props) {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
-    const handleClickMenuItem = () => {
-        handleClose();
-        if (getData) {
-            getData();
-        }
-    }
 
     const hundleClickOpenModal = () => {
         setOpenForm(true)
@@ -144,7 +136,6 @@ export default function EnhancedTableToolbar(props) {
                                     <MenuItem
                                         component={Link}
                                         to={item.to}
-                                        onClick={handleClickMenuItem}
                                         key={index}
                                     >
                                         {item.text}

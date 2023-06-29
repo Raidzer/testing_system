@@ -1,5 +1,15 @@
 import httpService from "./http.service"
 
+export const getThemes = async (id) => {
+    try {
+        const {data} = await httpService.get('themes');
+        return data;
+    } catch (error) {
+        console.log(error)
+        throw new Error();
+    }
+}
+
 export const getArticles = async (id) => {
     try {
         const { data } = await httpService.get(`/articles/theme/${id}`)
@@ -29,6 +39,7 @@ export const getDataQuestion = async ({ idQuestion, idTheme }) => {
         throw new Error();
     }
 }
+
 const dataService = {
     getArticles,
     getQuestions,
