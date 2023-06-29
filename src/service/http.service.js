@@ -42,6 +42,11 @@ http.interceptors.response.use(
         if (error && error.response && error.response.status === 404) {
             const data = await authService.refresh();
             localStorageService.setTokens(data);
+            window.location.href = '/login';
+        } else if (error && error.response && error.response.status === 401) {
+            const data = await authService.refresh();
+            localStorageService.setTokens(data);
+            window.location.href = '/login';
         }
         return Promise.reject(error);
     }
