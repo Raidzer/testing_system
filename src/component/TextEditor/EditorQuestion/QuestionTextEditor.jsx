@@ -60,7 +60,7 @@ function QuestionTextEditor(props) {
                     idTheme={idTheme}
                     description={description}
                     answers={answers}
-                    quest={description}
+                    question={description}
                     dataQuestion={dataQuestion}
                     comment={comment}
                 />

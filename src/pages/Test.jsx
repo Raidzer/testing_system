@@ -13,7 +13,7 @@ function Test() {
     const dispatch = useDispatch();
     const testIsComplited = useSelector(getQuestionIsOver());
     const dataTest = useSelector(getDataQuestion());
-    const { quest } = dataTest;
+    const { question } = dataTest;
     const { idTheme } = useParams();
 
     useEffect(() => {
@@ -80,7 +80,7 @@ function Test() {
                                     minHeight: 100,
                                     height: '100%',
                                 }}
-                                    dangerouslySetInnerHTML={{ __html: quest }
+                                    dangerouslySetInnerHTML={{ __html: question }
                                     }
                                 ></h4>
                                 <FormAnswers />

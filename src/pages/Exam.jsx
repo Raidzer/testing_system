@@ -13,7 +13,7 @@ import ButtonGoBack from "../component/Button/ButtonGoBack";
 function Exam() {
     const dispatch = useDispatch();
     const dataTest = useSelector(getDataQuestion());
-    const { quest } = dataTest;
+    const { question } = dataTest;
     const testIsComplited = useSelector(getQuestionIsOver());
 
     useEffect(() => {
@@ -69,7 +69,7 @@ function Exam() {
                                 <h4 style={{
                                     minHeight: 100,
                                     height: '100%',
-                                }}>{quest}</h4>
+                                }}>{question}</h4>
                                 <FormAnswers />
                             </>
                         }

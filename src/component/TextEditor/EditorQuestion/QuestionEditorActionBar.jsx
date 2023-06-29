@@ -25,7 +25,7 @@ export default function QuestionEditorActionBar(props) {
         description,
         disable,
         answers,
-        quest,
+        question,
         idQuestion,
         dataQuestion,
         comment,
@@ -37,12 +37,12 @@ export default function QuestionEditorActionBar(props) {
         setDataIsLoading(true);
         utilsArray.isMultiAnswers(answers)
         let newDataQuestion = dataQuestion;
-        newDataQuestion.quest = quest;
+        newDataQuestion.question = question;
         newDataQuestion.answers = answers;
         newDataQuestion.multi_answer = utilsArray.isMultiAnswers(answers);
         newDataQuestion.comment = comment;
 
-        if (!newDataQuestion.quest) {
+        if (!newDataQuestion.question) {
             alert('Введите текст вопроса!')
         } else if (utilsArray.isEmpty(newDataQuestion.answers)) {
             alert('Добавьте хотя бы один ответ!')

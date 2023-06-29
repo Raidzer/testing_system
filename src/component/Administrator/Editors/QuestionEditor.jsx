@@ -143,7 +143,7 @@ export default function QuestionEditor() {
                 <Box>
                     <QuestionTextEditor
                         answers={answers}
-                        initData={dataQuestion.quest}
+                        initData={dataQuestion.question}
                         dataQuestion={dataQuestion}
                         initComment={dataQuestion.comment}
                     />
