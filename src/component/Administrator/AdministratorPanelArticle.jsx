@@ -78,7 +78,7 @@ export default function AdministratorPanelArticle() {
     };
 
     const handleClick = (event, name, id) => {
-        if (isSelected(name)) {
+        if (isSelected(id)) {
             setSelected([])
             setIdSelected([])
         } else {
@@ -91,7 +91,7 @@ export default function AdministratorPanelArticle() {
         return rows.length !== articles.length;
     }
 
-    const isSelected = (name) => selected.indexOf(name) !== -1;
+    const isSelected = (id) => idSelected.indexOf(id) !== -1;
 
     const visibleRows = useMemo(
         () =>

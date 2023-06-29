@@ -23,7 +23,6 @@ export default function AdministratorPanelQuestion() {
     const [selected, setSelected] = useState([]);
     const { t } = useTranslation();
     const [idSelected, setIdSelected] = useState([]);
-    const [questions, setQuestions] = useState([]);
     const { pathname } = useLocation();
     const { idTheme } = useParams();
     const [order, setOrder] = useState('asc');
@@ -59,13 +58,8 @@ export default function AdministratorPanelQuestion() {
 
     const fetchData = async () => {
         const data = await getQuestions(idTheme);
-        setQuestions(data);
         const newRows = data.map((question, index) => createData(question, index))
         setRows(newRows)
-    }
-
-    const getDataSelectedArticle = () => {
-        console.log('data')
     }
 
     const handleRequestSort = (event, property) => {
@@ -84,7 +78,7 @@ export default function AdministratorPanelQuestion() {
     );
 
     const handleClick = (event, name, id) => {
-        if (isSelected(name)) {
+        if (isSelected(id)) {
             setSelected([])
             setIdSelected([])
         } else {
@@ -102,11 +96,7 @@ export default function AdministratorPanelQuestion() {
         setPage(0);
     };
 
-    const isSelected = (name) => selected.indexOf(name) !== -1;
-
-    const isLoading = () => {
-        return rows.length !== questions.length;
-    }
+    const isSelected = (id) => idSelected.indexOf(id) !== -1;
 
     return (
         <Paper
@@ -131,7 +121,6 @@ export default function AdministratorPanelQuestion() {
                 lableActionButton="Вопрос"
                 idSelected={idSelected}
                 menuItems={menuItems}
-                getData={getDataSelectedArticle}
                 modalOptions={modalOptions}
                 idTheme={idTheme}
                 deleteElement={deleteQuestion}

@@ -38,8 +38,8 @@ export default function AdministratorPanel() {
     const [rows, setRows] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(12);
     const [page, setPage] = useState(0);
-    const {t} = useTranslation();
-    
+    const { t } = useTranslation();
+
     const headCells = [
         {
             id: 'name',
@@ -92,17 +92,17 @@ export default function AdministratorPanel() {
         setPage(0);
     };
 
-    const handleClick = (event, theme, id) => {
-        if (isSelected(theme)) {
+    const handleClick = (event, name, id) => {
+        if (isSelected(id)) {
             setSelected([])
             setIdSelected([])
         } else {
-            setSelected([theme])
+            setSelected([name])
             setIdSelected([id])
         }
     }
 
-    const isSelected = (theme) => selected.indexOf(theme) !== -1;
+    const isSelected = (id) => idSelected.indexOf(id) !== -1;
     const isLoading = () => rows.length !== themes.length;
 
     const visibleRows = useMemo(

@@ -16,7 +16,7 @@ export default function AdminTableBody(props) {
             }}
         >
             {rows.map((row, index) => {
-                const isItemSelected = isSelected(row.name);
+                const isItemSelected = isSelected(row.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                     <TableRow
@@ -25,7 +25,7 @@ export default function AdminTableBody(props) {
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.name}
+                        key={row.id}
                         selected={isItemSelected}
                         sx={{ cursor: 'pointer' }}
                     >
