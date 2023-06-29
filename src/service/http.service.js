@@ -34,6 +34,19 @@ http.interceptors.request.use(
     }
 );
 
+http.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    async function (error) {
+        if (error && error.response && error.response.status === 404) {
+            const data = await authService.refresh();
+            localStorageService.setTokens(data);
+        }
+        return Promise.reject(error);
+    }
+)
+
 const httpService = {
     get: http.get,
     post: http.post,
