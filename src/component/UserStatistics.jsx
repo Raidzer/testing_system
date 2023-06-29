@@ -67,7 +67,9 @@ export default function UserStatistics() {
         const { data } = await httpService.get('statistics');
         const newRows = data.map((statistic, index) => createData(statistic, index))
         setUserStatistics(newRows);
-        setIsloadig(false);
+        setTimeout(() => {
+            setIsloadig(false);
+        }, 1000);
     }
 
     return (
