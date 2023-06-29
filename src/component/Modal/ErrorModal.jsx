@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogTitle, Slide } from "@mui/material";
 import { forwardRef } from "react";
+import pressButton from "../../utils/pressButton";
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -16,6 +17,12 @@ export default function ErrorModal(props) {
         hundleClickCloseErrorModal();
     }
 
+    const handleKeyPress = (event) => {
+        if (pressButton.pressESC(event)) {
+            closeModal();
+        }
+    };
+
     return (
         <div>
             <Dialog
@@ -25,6 +32,7 @@ export default function ErrorModal(props) {
                 onClose={closeModal}
                 aria-describedby="alert-dialog-slide-description"
                 maxWidth={'xl'}
+                onKeyDown={handleKeyPress}
             >
                 <DialogTitle style={{ textAlign: 'center' }}>
                     {titleText}
