@@ -3,12 +3,12 @@ import { Box, Checkbox, Grid, IconButton, Input, Typography } from "@mui/materia
 import QuestionTextEditor from "../../TextEditor/EditorQuestion/QuestionTextEditor";
 import { useEffect, useState } from "react";
 import utilsString from "../../../utils/utilsString";
-import { Add, Delete, Mode } from "@mui/icons-material";
+import { Add, Check, Close, Delete, Mode } from "@mui/icons-material";
 import DeleteModal from "../../Modal/DeleteModal";
 import { useParams } from "react-router";
 import { getDataQuestion } from "../../../service/data.service";
 import { IsLoading } from "../../IsLoading";
-import { presEnter } from "../../../utils/pressButton";
+import { presESC, presEnter } from "../../../utils/pressButton";
 
 export default function QuestionEditor() {
     const [answers, setAnswers] = useState([]);
@@ -18,6 +18,8 @@ export default function QuestionEditor() {
     const [dataQuestion, setDataQuestion] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [deleteIndex, setDeleteIndex] = useState(null);
+    const [changeIndex, setChangeIndex] = useState(null);
+    const [changeTextAnswer, setChangeTextAnswer] = useState('')
 
     useEffect(() => {
         fetchDataQuestion();
@@ -88,6 +90,37 @@ export default function QuestionEditor() {
         setDeleteIndex(null);
     }
 
+    const hundleClickChangeAnswer = (index, answer) => {
+        setChangeTextAnswer(answer);
+        setChangeIndex(index);
+    }
+
+    const hundleChangeAnswer = (event) => {
+        const value = event.target.value;
+        setChangeTextAnswer(value);
+    }
+
+    const hundleClickConfirmChangeAnswer = (index) => {
+        const updateAnswers = [...answers];
+        updateAnswers[index].answer = changeTextAnswer;
+        setAnswers(updateAnswers);
+        setChangeIndex(null);
+        setChangeIndex(null);
+    }
+
+    const hundleClickDiscardChangeAnswer = () => {
+        setChangeIndex(null);
+        setChangeIndex(null);
+    }
+
+    const hundleKeyDownConfirmChangeAnswer = (event, index) => {
+        if (presEnter(event)) {
+            hundleClickConfirmChangeAnswer(index)
+        } if (presESC(event)) {
+            hundleClickDiscardChangeAnswer();
+        }
+    }
+
     const arrayAnswers = () => {
         return (
             <Grid item xs={6}>
@@ -110,29 +143,67 @@ export default function QuestionEditor() {
                                     onClick={() => hundleCheckCorrectAnswer(index)}
                                     title="Верный ответ"
                                 />
-                                <Typography
-                                    variant="body1"
-                                >
-                                    {answer}
-                                </Typography>
+                                {changeIndex === index ?
+                                    <Input
+                                        autoFocus
+                                        value={changeTextAnswer}
+                                        onChange={hundleChangeAnswer}
+                                        onKeyDown={(event) => hundleKeyDownConfirmChangeAnswer(event, index)}
+                                        sx={{ width: '100%' }}
+                                    />
+                                    :
+                                    <Typography
+                                        variant="body1"
+                                    >
+                                        {answer}
+                                    </Typography>
+                                }
                                 <Box
                                     sx={{
                                         display: 'flex'
                                     }}
                                 >
-                                    <IconButton
-                                        title="Изменить"
-                                    >
-                                        <Mode />
-                                    </IconButton>
-                                    <IconButton
-                                        onClick={
-                                            (event) => hundleClickOpenDeleteModal(event, index)
-                                        }
-                                        title="Удалить"
-                                    >
-                                        <Delete />
-                                    </IconButton>
+                                    {changeIndex === index ?
+                                        <IconButton
+                                            title="Подтвердить"
+                                            onClick={
+                                                () => {
+                                                    hundleClickConfirmChangeAnswer(index);
+                                                }
+                                            }
+                                        >
+                                            <Check />
+                                        </IconButton>
+                                        :
+                                        <IconButton
+                                            title="Изменить"
+                                            onClick={
+                                                () => {
+                                                    hundleClickChangeAnswer(index, answer);
+                                                }
+                                            }
+                                        >
+                                            <Mode />
+                                        </IconButton>
+                                    }
+                                    {changeIndex === index ?
+                                        <IconButton
+                                            onClick={hundleClickDiscardChangeAnswer}
+                                            title="Отменить"
+                                        >
+                                            <Close />
+                                        </IconButton>
+                                        :
+                                        <IconButton
+                                            onClick={
+                                                (event) =>
+                                                    hundleClickOpenDeleteModal(event, index)
+                                            }
+                                            title="Удалить"
+                                        >
+                                            <Delete />
+                                        </IconButton>
+                                    }
                                 </Box>
                             </Box>
                         )
