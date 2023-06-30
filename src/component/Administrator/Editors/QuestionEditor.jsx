@@ -13,14 +13,14 @@ import utilsObject from "../../../utils/utilsObject";
 
 export default function QuestionEditor() {
     const [answers, setAnswers] = useState([]);
-    const [newAnswer, setNewAnswers] = useState(null);
+    const [newAnswer, setNewAnswers] = useState("");
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const { idQuestion } = useParams();
     const [dataQuestion, setDataQuestion] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [deleteIndex, setDeleteIndex] = useState(null);
     const [changeIndex, setChangeIndex] = useState(null);
-    const [changeTextAnswer, setChangeTextAnswer] = useState(null)
+    const [changeTextAnswer, setChangeTextAnswer] = useState("")
 
     useEffect(() => {
         fetchDataQuestion();
