@@ -43,10 +43,6 @@ export default function AdministratorPanelArticle() {
             to: "",
             text: t('administrator_panel.article.settings_article'),
         },
-        {
-            to: "",
-            text: t('administrator_panel.article.settings_article'),
-        },
     ]
 
     return (

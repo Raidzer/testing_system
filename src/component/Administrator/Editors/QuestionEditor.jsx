@@ -16,6 +16,7 @@ export default function QuestionEditor() {
     const { idQuestion } = useParams();
     const [dataQuestion, setDataQuestion] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [deleteIndex, setDeleteIndex] = useState(null);
 
     useEffect(() => {
         fetchDataQuestion();
@@ -46,8 +47,13 @@ export default function QuestionEditor() {
         }
     }
 
-    const deleteTextField = (deleteIndex) => {
-        const newAnswers = answers.filter(({ answer }, index) => index !== deleteIndex);
+    const deleteTextField = () => {
+        const newAnswers = answers.filter((answer, index) => {
+            if (index !== deleteIndex) {
+                return answer;
+            }
+            return null;
+        });
         setAnswers(newAnswers);
     }
 
@@ -68,12 +74,14 @@ export default function QuestionEditor() {
         setAnswers(updateAnswers);
     }
 
-    const hundleClickOpenDeleteModal = () => {
-        setOpenDeleteModal(true)
+    const hundleClickOpenDeleteModal = (index) => {
+        setOpenDeleteModal(true);
+        setDeleteIndex(index)
     }
 
     const hundleClickCloseDeleteModal = () => {
         setOpenDeleteModal(false);
+        setDeleteIndex(null);
     }
 
     const arrayAnswers = () => {
@@ -114,22 +122,22 @@ export default function QuestionEditor() {
                                         <Mode />
                                     </IconButton>
                                     <IconButton
-                                        onClick={() => hundleClickOpenDeleteModal()}
+                                        onClick={() => hundleClickOpenDeleteModal(index)}
                                         title="Удалить"
                                     >
                                         <Delete />
                                     </IconButton>
-                                    <DeleteModal
-                                        open={openDeleteModal}
-                                        hundleClickCloseDeleteModal={hundleClickCloseDeleteModal}
-                                        confirmDelete={() => deleteTextField(index)}
-                                        titleText='Вы уверены что хотите удалить выбранный ответ?'
-                                    />
                                 </Box>
                             </Box>
                         )
                     })
                 }
+                <DeleteModal
+                    open={openDeleteModal}
+                    hundleClickCloseDeleteModal={hundleClickCloseDeleteModal}
+                    confirmDelete={() => deleteTextField()}
+                    titleText='Вы уверены что хотите удалить выбранный ответ?'
+                />
             </Grid >
         )
     }
