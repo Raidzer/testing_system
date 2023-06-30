@@ -33,7 +33,7 @@ export default function EnhancedTableToolbar(props) {
     } = props;
 
     const [anchorEl, setAnchorEl] = useState(null);
-    const [openForm, setOpenForm] = useState(false);
+    const [openNameModal, setOpenNameModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
@@ -47,16 +47,17 @@ export default function EnhancedTableToolbar(props) {
         setAnchorEl(event.currentTarget);
     };
 
-    const hundleClickOpenModal = () => {
-        setOpenForm(true)
+    const hundleClickOpenNameModal = () => {
+        setOpenNameModal(true);
     }
 
-    const hundleClickCloseModal = () => {
-        setOpenForm(false);
+    const hundleClickCloseNameModal = () => {
+        setOpenNameModal(false);
     }
 
-    const hundleClickOpenDeleteModal = () => {
-        setOpenDeleteModal(true)
+    const hundleClickOpenDeleteModal = (event) => {
+        event.currentTarget.blur();
+        setOpenDeleteModal(true);
     }
 
     const hundleClickCloseDeleteModal = () => {
@@ -67,7 +68,7 @@ export default function EnhancedTableToolbar(props) {
         await Promise.all(idSelected.map(async (id) => {
             await deleteElement({ id, idTheme });
         }));
-        dispatch(loadingDataThemes())
+        dispatch(loadingDataThemes());
     }
 
     return (
@@ -103,7 +104,7 @@ export default function EnhancedTableToolbar(props) {
             {selected.length > 0 ? (
                 <>
                     <Tooltip title={t("rename")}>
-                        <IconButton onClick={hundleClickOpenModal}>
+                        <IconButton onClick={hundleClickOpenNameModal}>
                             <Mode />
                         </IconButton>
                     </Tooltip>
@@ -113,7 +114,7 @@ export default function EnhancedTableToolbar(props) {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={`${t('delete')} ${lableActionButton}`}>
-                        <IconButton onClick={hundleClickOpenDeleteModal}>
+                        <IconButton onClick={(event) => hundleClickOpenDeleteModal(event)}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
@@ -149,7 +150,7 @@ export default function EnhancedTableToolbar(props) {
                 <>
                     <ButtonGoBack />
                     <Tooltip title={`${t("add")} ${lableActionButton}`}>
-                        <IconButton onClick={hundleClickOpenModal}>
+                        <IconButton onClick={hundleClickOpenNameModal}>
                             <LibraryAdd />
                         </IconButton>
                     </Tooltip>
@@ -157,8 +158,8 @@ export default function EnhancedTableToolbar(props) {
             )}
             {modalOptions ?
                 <CreateModal
-                    openForm={openForm}
-                    hundleClickCloseModal={hundleClickCloseModal}
+                    openForm={openNameModal}
+                    hundleClickCloseModal={hundleClickCloseNameModal}
                     modalOptions={modalOptions}
                     selected={selected}
                     idSelected={idSelected}

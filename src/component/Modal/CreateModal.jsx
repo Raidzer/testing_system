@@ -6,6 +6,7 @@ import utilsString from "../../utils/utilsString";
 import { useTranslation } from "react-i18next";
 import AlertClose from "../Alert/AlertClose";
 import TextFieldWithError from "../TextField/TextFieldWithError";
+import { presESC, presEnter } from "../../utils/pressButton";
 
 export default function CreateModal(props) {
     const {
@@ -85,6 +86,15 @@ export default function CreateModal(props) {
         setTextFieldValue(value)
     }
 
+    const hundleClickKeydown = (event) => {
+        if (presESC(event)) {
+            closeModal();
+        } else if (presEnter(event)) {
+            idSelected[0] ?
+                hundleClickUpdate() : hundleClickCreate()
+        }
+    }
+
     const labelErrorText = () => {
         if (textFieldValueEmpty) {
             return t('modal_window.error.empty_text')
@@ -96,7 +106,10 @@ export default function CreateModal(props) {
     }
 
     return (
-        <Dialog open={openForm}>
+        <Dialog
+            open={openForm}
+            onKeyDown={(event) => hundleClickKeydown(event)}
+        >
             <DialogTitle>
                 {idSelected[0] ?
                     modalOptions.titleChange :
@@ -121,9 +134,11 @@ export default function CreateModal(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={closeModal}>{t("cancel")}</Button>
-                <Button onClick={
-                    idSelected[0] ? hundleClickUpdate : hundleClickCreate
-                }>
+                <Button
+                    onClick={
+                        idSelected[0] ? hundleClickUpdate : hundleClickCreate
+                    }
+                >
                     {idSelected[0] ? t('change') : t("save")}
                 </Button>
             </DialogActions>
