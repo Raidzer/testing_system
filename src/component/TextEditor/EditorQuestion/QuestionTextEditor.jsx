@@ -50,7 +50,7 @@ function QuestionTextEditor(props) {
             <Box
                 sx={{
                     width: '100%',
-                    minHeight: '500px',
+                    minHeight: '200px',
                     minWidth: '100%',
                     resize: 'none',
                 }}>
@@ -64,6 +64,7 @@ function QuestionTextEditor(props) {
                     dataQuestion={dataQuestion}
                     comment={comment}
                     reloadAnswer={reloadAnswer}
+                    disable={initData===description && initComment===comment}
                 />
                 <h1>Вопрос:</h1>
                 <CKEditor

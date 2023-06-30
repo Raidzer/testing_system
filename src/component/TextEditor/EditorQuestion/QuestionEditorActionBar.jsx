@@ -3,10 +3,10 @@ import { Save } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonGoBack from "../../Button/ButtonGoBack";
 import { useTranslation } from "react-i18next";
-import {  updateQuestion } from "../../../service/admin.service";
+import { updateQuestion } from "../../../service/admin.service";
 import utilsArray from "../../../utils/utilsArray";
 import ErrorModal from "../../Modal/ErrorModal";
 
@@ -30,7 +30,12 @@ export default function QuestionEditorActionBar(props) {
     const [dataIsLoading, setDataIsLoading] = useState(false);
     const [textError, setTextError] = useState('');
     const [loadDataError, setLoadDataError] = useState(false);
+    const [disableLoad, setDisableLoad] = useState(true);
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setDisableLoad(utilsArray.isEqual(answers, dataQuestion.answers))
+    }, [answers, dataQuestion])
 
     const resetUploadDataError = () => {
         setTextError('');
@@ -60,7 +65,9 @@ export default function QuestionEditorActionBar(props) {
             reloadAnswer();
             resetUploadDataError();
         }
-        setDataIsLoading(false);
+        setTimeout(() => {
+            setDataIsLoading(false);
+        }, 2000)
     }
 
     return (
@@ -71,15 +78,15 @@ export default function QuestionEditorActionBar(props) {
             <ButtonGoBack />
             <ColorButton
                 startIcon={<Save />}
-                disabled={dataIsLoading || disable}
+                disabled={dataIsLoading || (disable && disableLoad)}
                 onClick={handleClickSave}
             >
                 {t('save')}
             </ColorButton>
             <ErrorModal
-                    hundleClickCloseErrorModal={resetUploadDataError}
-                    titleText={textError}
-                    open={loadDataError}
+                hundleClickCloseErrorModal={resetUploadDataError}
+                titleText={textError}
+                open={loadDataError}
             />
         </Box>
     )

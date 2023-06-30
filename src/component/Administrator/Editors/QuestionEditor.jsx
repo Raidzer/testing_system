@@ -9,17 +9,18 @@ import { useParams } from "react-router";
 import { getDataQuestion } from "../../../service/data.service";
 import { IsLoading } from "../../IsLoading";
 import { presESC, presEnter } from "../../../utils/pressButton";
+import utilsObject from "../../../utils/utilsObject";
 
 export default function QuestionEditor() {
     const [answers, setAnswers] = useState([]);
-    const [newAnswer, setNewAnswers] = useState("");
+    const [newAnswer, setNewAnswers] = useState(null);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const { idQuestion } = useParams();
     const [dataQuestion, setDataQuestion] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [deleteIndex, setDeleteIndex] = useState(null);
     const [changeIndex, setChangeIndex] = useState(null);
-    const [changeTextAnswer, setChangeTextAnswer] = useState('')
+    const [changeTextAnswer, setChangeTextAnswer] = useState(null)
 
     useEffect(() => {
         fetchDataQuestion();
@@ -32,8 +33,8 @@ export default function QuestionEditor() {
     }, []);
 
     useEffect(() => {
-        const dataAnswers = dataQuestion.answers;
-        if (dataAnswers) {
+        if (dataQuestion.answers) {
+            const dataAnswers = utilsObject.deepClone(dataQuestion.answers)
             setAnswers(dataAnswers);
         }
     }, [dataQuestion])
@@ -51,8 +52,6 @@ export default function QuestionEditor() {
     }
 
     const deleteTextField = () => {
-        console.log("delete")
-        console.log(deleteIndex)
         const newAnswers = answers.filter((answer, index) => {
             if (index !== deleteIndex) {
                 return answer;
@@ -101,16 +100,19 @@ export default function QuestionEditor() {
     }
 
     const hundleClickConfirmChangeAnswer = (index) => {
+        if (utilsString.isEmptyString(changeTextAnswer)) {
+            return null;
+        }
         const updateAnswers = [...answers];
         updateAnswers[index].answer = changeTextAnswer;
         setAnswers(updateAnswers);
         setChangeIndex(null);
-        setChangeIndex(null);
+        setChangeTextAnswer(null);
     }
 
     const hundleClickDiscardChangeAnswer = () => {
         setChangeIndex(null);
-        setChangeIndex(null);
+        setChangeTextAnswer(null);
     }
 
     const hundleKeyDownConfirmChangeAnswer = (event, index) => {
