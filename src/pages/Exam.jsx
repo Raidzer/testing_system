@@ -69,7 +69,9 @@ function Exam() {
                                 <h4 style={{
                                     minHeight: 100,
                                     height: '100%',
-                                }}>{question}</h4>
+                                }}
+                                    dangerouslySetInnerHTML={{ __html: question }}
+                                ></h4>
                                 <FormAnswers />
                             </>
                         }
