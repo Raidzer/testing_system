@@ -27,6 +27,19 @@ export default function AdministratorPanelTheme() {
         },
     ]
 
+    function createData({ title, id, count_article, count_ticket }) {
+        const name = title;
+        const articles = count_article;
+        const tickets = count_ticket;
+
+        return {
+            name,
+            articles,
+            tickets,
+            id,
+        };
+    }
+
     const modalOptions = {
         "titleNew": t('administrator_panel.theme.button_new_theme'),
         "titleChange": t('administrator_panel.theme.change_theme'),
@@ -55,18 +68,6 @@ export default function AdministratorPanelTheme() {
         }
     ]
 
-    function createData({ title, id }) {
-        const name = title;
-        const articles = id;
-        const tickets = 10 + id;
-
-        return {
-            name,
-            articles,
-            tickets,
-            id,
-        };
-    }
     return (
         <>
             <AdministratorPanel
