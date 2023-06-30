@@ -6,6 +6,7 @@ import {
     Slide
 } from "@mui/material";
 import { forwardRef } from "react";
+import { presESC, presEnter } from "../../utils/pressButton";
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -20,13 +21,22 @@ export default function DeleteModal(props) {
     } = props;
 
     const closeModal = () => {
-        hundleClickCloseDeleteModal()
+        hundleClickCloseDeleteModal();
     }
 
     const hundleClickConfirmDelete = () => {
         confirmDelete();
         closeModal();
     }
+
+    const hundleKeyDown = (event) => {
+        if (presEnter(event)) {
+            hundleClickConfirmDelete();
+        } else if (presESC(event)) {
+            closeModal();
+        }
+    }
+
     return (
         <div>
             <Dialog
@@ -35,6 +45,7 @@ export default function DeleteModal(props) {
                 keepMounted
                 onClose={closeModal}
                 aria-describedby="alert-dialog-slide-description"
+                onKeyDown={hundleKeyDown}
             >
                 <DialogTitle>{titleText}</DialogTitle>
                 <DialogActions style={{ justifyContent: 'space-between' }}>

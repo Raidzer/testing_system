@@ -8,6 +8,7 @@ import DeleteModal from "../../Modal/DeleteModal";
 import { useParams } from "react-router";
 import { getDataQuestion } from "../../../service/data.service";
 import { IsLoading } from "../../IsLoading";
+import { presEnter } from "../../../utils/pressButton";
 
 export default function QuestionEditor() {
     const [answers, setAnswers] = useState([]);
@@ -48,6 +49,8 @@ export default function QuestionEditor() {
     }
 
     const deleteTextField = () => {
+        console.log("delete")
+        console.log(deleteIndex)
         const newAnswers = answers.filter((answer, index) => {
             if (index !== deleteIndex) {
                 return answer;
@@ -62,8 +65,8 @@ export default function QuestionEditor() {
         setNewAnswers(value);
     }
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
+    const handleKeyDown = (event) => {
+        if (presEnter(event)) {
             addTextField();
         }
     };
@@ -74,7 +77,8 @@ export default function QuestionEditor() {
         setAnswers(updateAnswers);
     }
 
-    const hundleClickOpenDeleteModal = (index) => {
+    const hundleClickOpenDeleteModal = (event, index) => {
+        event.currentTarget.blur();
         setOpenDeleteModal(true);
         setDeleteIndex(index)
     }
@@ -122,7 +126,9 @@ export default function QuestionEditor() {
                                         <Mode />
                                     </IconButton>
                                     <IconButton
-                                        onClick={() => hundleClickOpenDeleteModal(index)}
+                                        onClick={
+                                            (event) => hundleClickOpenDeleteModal(event, index)
+                                        }
                                         title="Удалить"
                                     >
                                         <Delete />
