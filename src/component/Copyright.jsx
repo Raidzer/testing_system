@@ -8,7 +8,7 @@ function Copyright(props) {
     const [versionBackend, setVersionBackend] = useState({ time_commit: "10:00", version: "какая-то" });
     const [isHovered, setIsHovered] = useState(false);
     const [sumClick, setSumClick] = useState(0);
-
+    
     useEffect(() => {
         fetchData();
     }, [])
@@ -26,7 +26,7 @@ function Copyright(props) {
     }
 
     const fetchData = async () => {
-        const {data} = await httpService.get('/version');
+        const { data } = await httpService.get('/version');
         setVersionBackend(data);
     }
     return (
@@ -41,8 +41,9 @@ function Copyright(props) {
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
+            <br />
             {isHovered &&
-                <Box>
+                <>
                     <span>Вот ты какой молодец
                         <br />
                         на тебе версию софта за это:
@@ -51,7 +52,8 @@ function Copyright(props) {
                     <span>
                         Версия бекенда:
                         <br />
-                        {`${versionBackend.time_commit}, ${versionBackend.version}`}
+                        {`Последнее изменение: ${versionBackend.time_commit},\n 
+                        Текущаяя ветка: ${versionBackend.version}`}
                         <br />
                     </span>
                     <span>
@@ -59,7 +61,7 @@ function Copyright(props) {
                         <br />
                         {configFile.VERSION}
                     </span>
-                </Box>
+                </>
             }
         </Typography>
     );
