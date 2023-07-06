@@ -5,16 +5,16 @@ import httpService from "../service/http.service";
 import configFile from "../config.json";
 
 function Copyright(props) {
-    const [versionBackend, setVersionBackend] = useState({ time_commit: "10:00", version: "какая-то" });
+    const [versionBackend, setVersionBackend] = useState({ time_commit: "вчера", version: "какая-то" });
     const [isHovered, setIsHovered] = useState(false);
     const [sumClick, setSumClick] = useState(0);
-    
+
     useEffect(() => {
         fetchData();
     }, [])
 
     useEffect(() => {
-        if (sumClick > 5) {
+        if (sumClick > 10) {
             setIsHovered(true)
         } else {
             setIsHovered(false)
@@ -52,15 +52,18 @@ function Copyright(props) {
                     <span>
                         Версия бекенда:
                         <br />
-                        {`Последнее изменение: ${versionBackend.time_commit},\n 
-                        Текущаяя ветка: ${versionBackend.version}`}
+                        {`Последнее изменение: ${versionBackend.time_commit}`}
+                        <br />
+                        {`Текущаяя ветка: ${versionBackend.version}`}
                         <br />
                     </span>
                     <span>
                         Версия фронтенда:
                         <br />
                         {configFile.VERSION}
+                        <br />
                     </span>
+                    <img src="/monkey-developer.gif" />
                 </>
             }
         </Typography>
