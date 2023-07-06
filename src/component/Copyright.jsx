@@ -5,7 +5,7 @@ import httpService from "../service/http.service";
 import configFile from "../config.json";
 
 function Copyright(props) {
-    const [versionBackend, setVersionBackend] = useState({ time: "10:00", version: "какая-то" });
+    const [versionBackend, setVersionBackend] = useState({ time_commit: "10:00", version: "какая-то" });
     const [isHovered, setIsHovered] = useState(false);
     const [sumClick, setSumClick] = useState(0);
 
@@ -14,7 +14,6 @@ function Copyright(props) {
     }, [])
 
     useEffect(() => {
-        console.log(sumClick)
         if (sumClick > 5) {
             setIsHovered(true)
         } else {
@@ -27,7 +26,7 @@ function Copyright(props) {
     }
 
     const fetchData = async () => {
-        const data = await httpService.get('/version');
+        const {data} = await httpService.get('/version');
         setVersionBackend(data);
     }
     return (
@@ -52,7 +51,7 @@ function Copyright(props) {
                     <span>
                         Версия бекенда:
                         <br />
-                        {`${versionBackend.time}, ${versionBackend.version}`}
+                        {`${versionBackend.time_commit}, ${versionBackend.version}`}
                         <br />
                     </span>
                     <span>

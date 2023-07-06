@@ -66,8 +66,8 @@ function QuestionTextEditor(props) {
                     comment={comment}
                     reloadAnswer={reloadAnswer}
                     disable={
-                        (initData === description && initComment === comment)
-                        || changeIndex}
+                        (initData === description && initComment === comment)}
+                    changeIndex={changeIndex}
                 />
                 <h1>Вопрос:</h1>
                 <CKEditor

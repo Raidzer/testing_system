@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { updateQuestion } from "../../../service/admin.service";
 import utilsArray from "../../../utils/utilsArray";
 import ErrorModal from "../../Modal/ErrorModal";
+import { useFetcher } from "react-router-dom";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(grey[500]),
@@ -26,6 +27,7 @@ export default function QuestionEditorActionBar(props) {
         dataQuestion,
         comment,
         reloadAnswer,
+        changeIndex,
     } = props;
     const [dataIsLoading, setDataIsLoading] = useState(false);
     const [textError, setTextError] = useState('');
@@ -36,6 +38,10 @@ export default function QuestionEditorActionBar(props) {
     useEffect(() => {
         setDisableLoad(utilsArray.isEqual(answers, dataQuestion.answers))
     }, [answers, dataQuestion])
+
+    useEffect(() => {
+        console.log(changeIndex)
+    }, [changeIndex])
 
     const resetUploadDataError = () => {
         setTextError('');
@@ -78,7 +84,7 @@ export default function QuestionEditorActionBar(props) {
             <ButtonGoBack />
             <ColorButton
                 startIcon={<Save />}
-                disabled={dataIsLoading || (disable && disableLoad)}
+                disabled={dataIsLoading || (disable && disableLoad) || changeIndex !== null}
                 onClick={handleClickSave}
             >
                 {t('save')}
