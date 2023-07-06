@@ -1,7 +1,7 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Box } from '@mui/material';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
-import {  useState } from 'react';
+import { useState } from 'react';
 import uploadFileAdapterCKEditor from './adapterQuestionUpload';
 import { useParams } from 'react-router';
 import "./style.css";
@@ -17,6 +17,7 @@ function QuestionTextEditor(props) {
         dataQuestion,
         initComment,
         reloadAnswer,
+        changeIndex,
     } = props;
     const { idArticle, idTheme, idQuestion } = useParams()
     const [description, setDescription] = useState(initData);
@@ -64,7 +65,9 @@ function QuestionTextEditor(props) {
                     dataQuestion={dataQuestion}
                     comment={comment}
                     reloadAnswer={reloadAnswer}
-                    disable={initData===description && initComment===comment}
+                    disable={
+                        (initData === description && initComment === comment)
+                        || changeIndex}
                 />
                 <h1>Вопрос:</h1>
                 <CKEditor
