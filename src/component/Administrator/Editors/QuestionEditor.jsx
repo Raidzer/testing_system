@@ -232,6 +232,7 @@ export default function QuestionEditor() {
                         initComment={dataQuestion.comment}
                         reloadAnswer={fetchDataQuestion}
                         changeIndex={changeIndex}
+                        title={dataQuestion.title}
                     />
                     <Box
                         sx={{

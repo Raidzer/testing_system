@@ -28,6 +28,7 @@ export default function QuestionEditorActionBar(props) {
         comment,
         reloadAnswer,
         changeIndex,
+        title,
     } = props;
     const [dataIsLoading, setDataIsLoading] = useState(false);
     const [textError, setTextError] = useState('');
@@ -79,7 +80,7 @@ export default function QuestionEditorActionBar(props) {
     return (
         <Box display="flex" alignItems="center" justifyContent="space-between">
             <h2 style={{ marginRight: 'auto' }}>
-                {t('administrator_panel.question.editor')}
+                {`${t('administrator_panel.question.editor')} ${title}`}
             </h2>
             <ButtonGoBack />
             <ColorButton
