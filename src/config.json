@@ -1,4 +1,4 @@
 {
-    "apiEndpoint": "http://192.168.35.131:8888",
+    "apiEndpoint": "http://localhost:8888",
     "VERSION": "1.0.0"
 }
