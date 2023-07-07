@@ -39,7 +39,7 @@ export default function EditorActionBar(props) {
     return (
         <Box display="flex" alignItems="center" justifyContent="space-between">
             <h2 style={{ marginRight: 'auto' }}>
-                {t('administrator_panel.article.editor_actions')}
+                {`${t('administrator_panel.article.editor_actions')} ${title}`}
             </h2>
             <ButtonGoBack />
             <ColorButton

@@ -4,11 +4,17 @@ import localStorageService from "./localStorage.service";
 import authService from "./auth.service";
 
 const { origin } = document.location;
-console.log(process.env.REACT_APP_TEST);
 
+/*
 const http = axios.create({
     baseURL: `${origin}:8888`
 })
+*/
+
+const http = axios.create({
+    baseURL: configFile.apiEndpoint
+})
+
 
 http.interceptors.request.use(
     async function (config) {
