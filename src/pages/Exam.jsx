@@ -48,7 +48,7 @@ function Exam() {
             }}>
                 <Box sx={{
                     width: 900,
-                    minHeight: 550,
+                    minHeight: 620,
                     height: '100%',
                     backgroundColor: 'silver',
                     paddingLeft: 3,
