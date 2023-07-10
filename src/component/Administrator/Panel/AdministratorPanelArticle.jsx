@@ -19,7 +19,7 @@ export default function AdministratorPanelArticle() {
         "contentText": t('administrator_panel.article.name_new_article'),
         "label": t('administrator_panel.article.label_new_article'),
         "createElement": createArticle,
-        "updateElement": updateTitleArticle,
+        "updateTitleElement": updateTitleArticle,
     }
 
     const toolbarOptions = {

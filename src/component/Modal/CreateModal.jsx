@@ -63,7 +63,7 @@ export default function CreateModal(props) {
         if (!utilsString.isEmptyString(textFieldValue)) {
             try {
                 await modalOptions
-                    .updateElement({
+                    .updateTitleElement({
                         title: textFieldValue,
                         id: idSelected[0],
                         idTheme,

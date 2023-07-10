@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { createQuestion, deleteQuestion, updateQuestion } from "../../../service/admin.service";
+import { createQuestion, deleteQuestion, updateQuestion, updateTitleQuestion } from "../../../service/admin.service";
 import AdministratorPanel from "../Table/AdministratorPanel";
 import { getQuestions } from "../../../service/data.service";
 
@@ -20,7 +20,7 @@ export default function AdministratorPanelQuestion() {
         "contentText": t('administrator_panel.question.create_name_question'),
         "label": t('administrator_panel.question.name_question'),
         "createElement": createQuestion,
-        "updateElement": updateQuestion,
+        "updateTitleElement": updateTitleQuestion,
     }
 
     const toolbarOptions = {

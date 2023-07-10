@@ -46,7 +46,7 @@ export default function AdministratorPanelTheme() {
         "contentText": t('administrator_panel.theme.name_new_theme'),
         "label": t('administrator_panel.theme.label_new_theme'),
         "createElement": createTheme,
-        "updateElement": updateTitleTheme,
+        "updateTitleElement": updateTitleTheme,
     }
 
     const toolbarOptions = {
