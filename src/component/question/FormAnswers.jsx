@@ -13,15 +13,24 @@ export default function FormAnswers() {
     const mutliAnswer = useSelector(getMultiAnswer());
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [disableSendForm, setDisableSendForm] = useState(true);
+    const [shuffledAnswers, setShuffledAnswers] = useState([]);
     const dispatch = useDispatch();
     const { idTheme } = useParams();
     const isMistake = useSelector(getStatusMistakeAnswer());
     const { t } = useTranslation();
+
     useEffect(() => {
         setDisableSendForm(selectedAnswers.length === 0);
     }, [selectedAnswers])
 
+    useEffect(() => {
+        let newAnswers = answers.map((answer) => ({ ...answer }));
+        newAnswers.sort(() => Math.random() - 0.5);
+        setShuffledAnswers(newAnswers)
+    }, [answers])
+
     const handleCheck = (id) => {
+        console.log(id)
         if (selectedAnswers.includes(id)) {
             setSelectedAnswers(
                 selectedAnswers.filter(
@@ -53,8 +62,7 @@ export default function FormAnswers() {
     }
 
     const answersForm = () => {
-        let shuffledAnswers = answers.map((answer) => ({ ...answer }));
-        shuffledAnswers.sort(() => Math.random() - 0.5);
+
         return (
             <>
                 {shuffledAnswers.map((answer) => (
