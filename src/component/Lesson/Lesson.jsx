@@ -28,7 +28,7 @@ export default function Lesson() {
                         className="lessonDiv"
                         dangerouslySetInnerHTML={{ __html: description }}
                     /> :
-                    <Welcome />
+                    <Box>Нет данных урока</Box>
             }
         </>
     )
