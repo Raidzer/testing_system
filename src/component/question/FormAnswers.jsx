@@ -16,7 +16,7 @@ export default function FormAnswers() {
     const dispatch = useDispatch();
     const { idTheme } = useParams();
     const isMistake = useSelector(getStatusMistakeAnswer());
-    const { t} = useTranslation();
+    const { t } = useTranslation();
     useEffect(() => {
         setDisableSendForm(selectedAnswers.length === 0);
     }, [selectedAnswers])
@@ -53,9 +53,11 @@ export default function FormAnswers() {
     }
 
     const answersForm = () => {
+        let shuffledAnswers = answers.map((answer) => ({ ...answer }));
+        shuffledAnswers.sort(() => Math.random() - 0.5);
         return (
             <>
-                {answers.map((answer) => (
+                {shuffledAnswers.map((answer) => (
                     <FormControlLabel
                         key={answer.id}
                         id={answer.id}
