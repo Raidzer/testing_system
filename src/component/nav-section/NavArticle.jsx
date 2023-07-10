@@ -4,13 +4,14 @@ import { List, ListItemButton, ListItemText, Skeleton, Typography } from "@mui/m
 import { LinkButton } from "../LinkButton";
 import { School } from "@mui/icons-material";
 import { getArticles } from "../../service/data.service";
-import { isEmpty } from "../../utils/utilsArray";
 import { useTranslation } from "react-i18next";
 
 export default function NavArticles({ id }) {
     const [articles, setArticles] = useState([]);
-    const [isLoadingArticles, setIsLoadingArticles] = useState(true)
+    const [isLoadingArticles, setIsLoadingArticles] = useState(true);
+    const [isSelectedArticles, setIsSelectedArticles] = useState(null);
     const { t } = useTranslation();
+
 
     const fetchData = async () => {
         setIsLoadingArticles(true);
@@ -31,6 +32,12 @@ export default function NavArticles({ id }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
+    const hundleClickListButton = (id) => {
+        setIsSelectedArticles(id)
+        console.log(id)
+    }
+
     return (
         <>
             {isLoadingArticles ?
@@ -39,11 +46,15 @@ export default function NavArticles({ id }) {
                     {
                         articles.map((article) => {
                             const { id, title } = article;
+                            const isSelected = id === isSelectedArticles;
+
                             return (
                                 <ListItemButton
                                     component={RouterLink}
                                     to={`/${id}`}
                                     key={id}
+                                    onClick={() => hundleClickListButton(id)}
+                                    sx={{ backgroundColor: isSelected ? 'lightgrey' : 'transparent' }}
                                 >
                                     <ListItemText disableTypography >
                                         <Typography variant="body3" style={{ paddingLeft: '10px' }}>
