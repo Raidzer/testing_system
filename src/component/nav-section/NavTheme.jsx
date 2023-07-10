@@ -1,20 +1,22 @@
 import { Collapse, List, ListItemButton, ListItemText, Typography } from '@mui/material';
-import { useState } from 'react';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import NavArticles from './NavArticle';
 
 
-export default function NavTheme({ theme }) {
+export default function NavTheme({ theme, handleClickSelectedTheme, isSelectedIdTheme }) {
     const { id, title } = theme;
-    const [open, setOpen] = useState(false);
 
-    const handleClick = () => {
-        setOpen(!open);
+    const handleClick = (id) => {
+        if (isSelectedIdTheme === id) {
+            handleClickSelectedTheme(null);
+        } else {
+            handleClickSelectedTheme(id);
+        }
     }
 
     return (
         <List>
-            <ListItemButton onClick={handleClick}>
+            <ListItemButton onClick={() => handleClick(id)}>
                 <ListItemText disableTypography sx={{
                     whiteSpace: 'wrap',
                     overflow: 'hidden',
@@ -25,9 +27,9 @@ export default function NavTheme({ theme }) {
                         {title}
                     </Typography>
                 </ListItemText>
-                {open ? <ExpandLess /> : <ExpandMore />}
+                {isSelectedIdTheme === id ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={open} timeout="auto" unmountOnExit>
+            <Collapse in={isSelectedIdTheme === id} timeout="auto" unmountOnExit>
                 <NavArticles id={id} />
             </Collapse>
         </List>
