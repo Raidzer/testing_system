@@ -3,10 +3,18 @@ import httpService from "./http.service";
 import axios from "axios";
 import configFile from "../config.json";
 
+const { origin } = document.location;
+
+
 const http = axios.create({
-    baseURL: configFile.apiEndpoint
+    baseURL: `${origin}:8888`
 })
 
+
+/* const http = axios.create({
+    baseURL: configFile.apiEndpoint
+})
+ */
 
 const authService = {
     login: async ({ username, password }) => {

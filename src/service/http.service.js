@@ -5,16 +5,16 @@ import authService from "./auth.service";
 
 const { origin } = document.location;
 
-/*
+
 const http = axios.create({
     baseURL: `${origin}:8888`
 })
-*/
 
-const http = axios.create({
+
+/* const http = axios.create({
     baseURL: configFile.apiEndpoint
 })
-
+ */
 
 http.interceptors.request.use(
     async function (config) {
