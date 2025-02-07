@@ -15,7 +15,7 @@ export default function NavTheme({ theme, handleClickSelectedTheme, isSelectedId
     }
 
     return (
-        <List>
+        <List >
             <ListItemButton onClick={() => handleClick(id)}>
                 <ListItemText disableTypography sx={{
                     whiteSpace: 'wrap',

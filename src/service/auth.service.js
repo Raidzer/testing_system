@@ -6,15 +6,15 @@ import configFile from "../config.json";
 const { origin } = document.location;
 
 
-const http = axios.create({
+ const http = axios.create({
     baseURL: `${origin}:8888`
 })
+ 
 
-
-/* const http = axios.create({
+/*  const http = axios.create({
     baseURL: configFile.apiEndpoint
-})
- */
+}) */
+ 
 
 const authService = {
     login: async ({ username, password }) => {

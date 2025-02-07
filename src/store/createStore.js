@@ -5,6 +5,7 @@ import userReduser from "./user"
 import lessonReducer from "./lesson";
 import themesReducer from "./themes";
 import questionReducer from "./question";
+import searchReducer from "./searchStore";
 
 const rootReducer = combineReducers({
     session: sessionReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     lesson: lessonReducer,
     themes: themesReducer,
     question: questionReducer,
+    search: searchReducer,
 });
 
 export function createStore() {
